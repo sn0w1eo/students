@@ -3,12 +3,12 @@
 #include "stdlib.h"
 void foursquare()
 {
-	double a,perimetr,area;
+	double side, perimetr, area;
 	printf_s("Пожалуйста,введите сторону вашего квадрата:");
-	scanf_s("%lf", &a);
-	perimetr = 4 * a;
+	scanf_s("%lf", &side);
+	perimetr = 4 * side;
 	printf_s("Периметр = %lf\n",perimetr);
-	area = pow(a, 2);
+	area = pow(side, 2);
 	printf_s("Площадь = %lf\n\n", area);
 }
 void righttriangle()
