@@ -1,16 +1,16 @@
-#include "stdio.h"
+﻿#include "stdio.h"
 
 	int main() 
 	{
-		SetConsoleCP(866);
+		SetConsoleCP(437);
+		SetConsoleOutputCP(437);
 		char sim;
 		int number1, number2, add, sub, mul,mod;
 		decor();
 		printf("\nPress any key... ");
 		sim = getch();
-		
+		system("chcp 437");
 		drawTableASCII(sim);
-		
 		printf("\nEnter 2 numbers...");
 		scanf_s("%d %d",&number1,&number2);
 		add = number1 + number2;
@@ -30,20 +30,19 @@
 	int drawTableASCII(char sim) 
 	{
 		
-		printf("\n\xc9\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcb\xcd\xcd\xcd\xcd\xcd\xcb\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcb\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbb");//�����(1 ������)(Up,First line)
-		printf("\n\xBA ASCII \xba DEC \xba  HEX  \xba    BIN   \xba");// 2 ������(Left border 2 line)
-		printf("\n\xcc\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xce\xcd\xcd\xcd\xcd\xcd\xce\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xce\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xB9 ");// 3 ������(3 line)
-		printf("\n\xba%7c\xba%5d\xba%7x\xba   EMPTY \xba", sim, sim, sim);//4 ������(4 line)
-		
-		printf("\n\xc8\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xca\xcd\xcd\xcd\xcd\xcd\xca\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xca\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbc");//5 ������(5 line)
+		printf("\n╔═══════╦═════╦═══════╦══════════╗");//Вверх(1 строка)(Up,First line)
+		printf("\n\xBA ASCII \xba DEC \xba  HEX  \xba    BIN   \xba");// 2 строка(Left border 2 line)
+		printf("\n╠═══════╬═════╬═══════╬══════════╣ ");// 3 строка(3 line)
+		printf("\n\xba%7c\xba%5d\xba%7x\xba   EMPTY  \xba", sim, sim, sim);//4 строка(4 line)
+		printf("\n╚═══════╩═════╩═══════╩══════════╝");//5 строка(5 line)
 	}
 	int drawTableMathActions(int add,int sub,int mul,double div,int mod) 
 	{
-		printf("\n\xc9\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcb\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcb\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcb\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcb\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbb");//�����(1 ������)(Up,First line)
-		printf("\n\xBA  ADD  \xba  SUB  \xba  MUL  \xba  DIV  \xba  MOD  \xba");//2 line
-		printf("\n\xcc\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xce\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xce\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xce\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xce\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xb9");
+		printf("\n╔═══════╦═══════╦═══════╦═══════╦═══════╗");//Вверх(1 строка)(Up,First line)
+		printf("\n\xBA  ADD  \xba  SUB  \xba  MUL  \xba  DIV   \xba  MOD  \xba");//2 line
+		printf("\n╠═══════╬═══════╬═══════╬═══════╬═══════╣");
 		printf("\n\xba%7d\xba%7d\xba%7d\xba%6.1f\xba%8d\xba", add, sub, mul,div,mod);
-		printf("\n\xc8\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xca\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xca\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xca\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xca\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xbc");//5 ������(5 line)
+		printf("\n╚═══════╩═══════╩═══════╩═══════╩═══════╝");//5 строка(5 line)
 	}
 	
 	
