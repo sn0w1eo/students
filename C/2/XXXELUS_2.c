@@ -6,6 +6,7 @@
 		SetConsoleOutputCP(866);
 		char sim;
 		int number1, number2, add, sub, mul,mod;
+		
 		decor();
 		printf("\nPress any key... ");
 		sim = getch();
@@ -39,9 +40,9 @@
 	int drawTableMathActions(int add,int sub,int mul,double div,int mod) 
 	{
 		printf("\n╔═══════╦═══════╦═══════╦═══════╦═══════╗");//Вверх(1 строка)(Up,First line)
-		printf("\n\xBA  ADD  \xba  SUB  \xba  MUL  \xba  DIV   \xba  MOD  \xba");//2 line
+		printf("\n\xBA  ADD  \xba  SUB  \xba  MUL  \xba  DIV  \xba  MOD  \xba");//2 line
 		printf("\n╠═══════╬═══════╬═══════╬═══════╬═══════╣");
-		printf("\n\xba%7d\xba%7d\xba%7d\xba%6.1f\xba%8d\xba", add, sub, mul,div,mod);
+		printf("\n\xba%7d\xba%7d\xba%7d\xba%7.1f\xba%7d\xba", add, sub, mul,div,mod);
 		printf("\n╚═══════╩═══════╩═══════╩═══════╩═══════╝");//5 строка(5 line)
 	}
 	
