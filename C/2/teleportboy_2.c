@@ -72,10 +72,10 @@ int main()
 
     printf_s("\nPlease, enter FIRST NUMBER:  ");
     scanf_s("%i", &frstNumber);
-    printf_s("\nPlease, enter SCOND NUMBER:  ");
+    printf_s("\nPlease, enter SECOND NUMBER:  ");
     scanf_s("%i", &scndNumber);
     //Calling the Math Table Function
     MathTable(frstNumber, scndNumber); 
 
-    printf_s("\n100%% Complete...");    
+    printf_s("\n100%% Complete...\n\n\n");    
 }
