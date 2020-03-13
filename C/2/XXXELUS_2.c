@@ -2,14 +2,14 @@
 
 	int main() 
 	{
-		SetConsoleCP(437);
-		SetConsoleOutputCP(437);
+		SetConsoleCP(866);
+		SetConsoleOutputCP(866);
 		char sim;
 		int number1, number2, add, sub, mul,mod;
 		decor();
 		printf("\nPress any key... ");
 		sim = getch();
-		system("chcp 437");
+		
 		drawTableASCII(sim);
 		printf("\nEnter 2 numbers...");
 		scanf_s("%d %d",&number1,&number2);
@@ -25,7 +25,7 @@
 	}
 	int decor ()
 	{
-		printf("\xb0\xb0\xb0\xb1\xb1\xb2\xb2XXXELUS\xb2\xb2\xb1\xb1\xb0\xb0\xb0\n");
+		printf(" ░░░▒▒▓▓XXXELUS▓▓▒▒░░░\n");
 	}
 	int drawTableASCII(char sim) 
 	{
