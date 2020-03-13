@@ -32,17 +32,17 @@
 	{
 		
 		printf("\n╔═══════╦═════╦═══════╦══════════╗");//Вверх(1 строка)(Up,First line)
-		printf("\n\xBA ASCII \xba DEC \xba  HEX  \xba    BIN   \xba");// 2 строка(Left border 2 line)
+		printf("\n║ ASCII ║ DEC ║  HEX  ║    BIN   ║");// 2 строка(Left border 2 line)
 		printf("\n╠═══════╬═════╬═══════╬══════════╣ ");// 3 строка(3 line)
-		printf("\n\xba%7c\xba%5d\xba%7x\xba   EMPTY  \xba", sim, sim, sim);//4 строка(4 line)
+		printf("\n║%7c║%5d║%7x║%10s║", sim, sim, sim, "EMPTY");//4 строка(4 line);//4 строка(4 line)
 		printf("\n╚═══════╩═════╩═══════╩══════════╝");//5 строка(5 line)
 	}
 	int drawTableMathActions(int add,int sub,int mul,double div,int mod) 
 	{
 		printf("\n╔═══════╦═══════╦═══════╦═══════╦═══════╗");//Вверх(1 строка)(Up,First line)
-		printf("\n\xBA  ADD  \xba  SUB  \xba  MUL  \xba  DIV  \xba  MOD  \xba");//2 line
+		printf("\n║  ADD  ║  SUB  ║  MUL  ║  DIV  ║  MOD  ║");//2 line
 		printf("\n╠═══════╬═══════╬═══════╬═══════╬═══════╣");
-		printf("\n\xba%7d\xba%7d\xba%7d\xba%7.1f\xba%7d\xba", add, sub, mul,div,mod);
+		printf("\n║%7d║%7d║%7d║%7.1f║%7d║", add, sub, mul,div,mod);
 		printf("\n╚═══════╩═══════╩═══════╩═══════╩═══════╝");//5 строка(5 line)
 	}
 	
