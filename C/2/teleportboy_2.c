@@ -69,11 +69,12 @@ int main()
     scanf_s("%c", &symbol);
    //Calling the SymbolTable function
     SymbolTable(symbol);
+    
+    getch();
 
-    printf_s("\nPlease, enter FIRST NUMBER:  ");
-    scanf_s("%i", &frstNumber);
-    printf_s("\nPlease, enter SECOND NUMBER:  ");
-    scanf_s("%i", &scndNumber);
+    printf_s("\nPlease, enter TWO NUMBERS:  ");
+    scanf_s("%i%i", &frstNumber, &scndNumber);
+   
     //Calling the Math Table Function
     MathTable(frstNumber, scndNumber); 
 
