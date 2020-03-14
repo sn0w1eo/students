@@ -1,5 +1,5 @@
 ﻿#include "stdio.h"
-int SymbolTable(char symbol)
+void SymbolTable(char symbol)
 {
 
     //╔═════════════╦══════════════╦══════════════╦══════════════╗
@@ -26,7 +26,7 @@ int SymbolTable(char symbol)
         "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCA"
         "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xBC");//BC => ' ╝ ';
 }
-int MathTable(int frstNumber, int scndNumber)
+void MathTable(int frstNumber, int scndNumber)
 {
   
     int add = frstNumber + scndNumber;
@@ -66,6 +66,7 @@ int MathTable(int frstNumber, int scndNumber)
 
 int main()
 {  
+    system("chcp 866");
     char symbol; int frstNumber, scndNumber;
     printf_s("\nHello!\nPlease, enter the SYMBOL:  ");    
     symbol = getch();
