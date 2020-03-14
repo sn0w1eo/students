@@ -1,6 +1,7 @@
 ﻿#include "stdio.h"
-void SymbolTable(char symbol)
+int SymbolTable(char symbol)
 {
+
     //╔═════════════╦══════════════╦══════════════╦══════════════╗
     printf_s("\n\xC9\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCB" //C9 => ' ╔ '; CD =>  ' ═ '; CB => ' ╦ '
         "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCB"
@@ -25,8 +26,9 @@ void SymbolTable(char symbol)
         "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCA"
         "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xBC");//BC => ' ╝ ';
 }
-void MathTable(int frstNumber, int scndNumber)
+int MathTable(int frstNumber, int scndNumber)
 {
+  
     int add = frstNumber + scndNumber;
     int sub = frstNumber - scndNumber;
     int mul = frstNumber * scndNumber;
@@ -51,7 +53,7 @@ void MathTable(int frstNumber, int scndNumber)
         "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xB9");//B9 => ' ╣ ' ; 
 
     //║                      ║                        ║                        ║                        ║                        ║
-    printf_s("\n\xBA %8i\xBA  %8i\xBA  %8i\xBA  %8.2lf\xBA  %8i\xBA", add, sub, mul, div, mod); //BA => ' ║ ';
+    printf_s("\n\xBA %8i\xBA  %8i\xBA%10i\xBA  %8.2lf\xBA  %8i\xBA", add, sub, mul, div, mod); //BA => ' ║ ';
 
     //╚═════════╩══════════╩══════════╩══════════╩══════════╝
     printf_s("\n\xC8\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCA" //C8 =>' ╚ '; CA =>' ╩ ';
@@ -63,7 +65,7 @@ void MathTable(int frstNumber, int scndNumber)
 
 
 int main()
-{
+{  
     char symbol; int frstNumber, scndNumber;
     printf_s("\nHello!\nPlease, enter the SYMBOL:  ");    
     symbol = getch();
