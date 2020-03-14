@@ -1,7 +1,6 @@
 ﻿#include "stdio.h"
 void SymbolTable(char symbol)
 {
-
     //╔═════════════╦══════════════╦══════════════╦══════════════╗
     printf_s("\n\xC9\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCB" //C9 => ' ╔ '; CD =>  ' ═ '; CB => ' ╦ '
         "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCB"
@@ -18,7 +17,10 @@ void SymbolTable(char symbol)
         "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xB9");//B9 => ' ╣ ' ; 
 
     //║                               ║                                   ║                                 ║                                 ║
-    printf_s("\n\xBA     %8c\xBA      %8d\xBA      %8X\xBA IN DEVELOPING\xBA", symbol, symbol, symbol); //BA => ' ║ ';
+    printf_s("\n\xBA     %8c\xBA      %8d\xBA      %8X\xBA      %d%d%d%d%d%d%d%d\xBA", 
+        symbol, symbol, symbol, symbol >> 7, (symbol >> 6) % 2,
+        (symbol >> 5) % 2, (symbol >> 4) % 2, (symbol >> 3) % 2,
+        (symbol >> 2) % 2, (symbol >> 1) % 2, symbol % 2); //BA => ' ║ ';
 
     //╚═════════════╩══════════════╩══════════════╩══════════════╝
     printf_s("\n\xC8\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCA" //C8 =>' ╚ '; CA =>' ╩ ';
@@ -40,7 +42,7 @@ void MathTable(int frstNumber, int scndNumber)
     printf_s("\n╔═════════╦══════════╦══════════╦══════════╦══════════╗");    
     printf_s("\n║      ADD║       SUB║       MUL║       DIV║       MOD║");      
     printf_s("\n╠═════════╬══════════╬══════════╬══════════╬══════════╣");    
-    printf_s("\n║ %8i║  %8i║%10i║  %8.2lf║  %8i║", add, sub, mul, div, mod);     
+    printf_s("\n║%9i║ %9i║ %9i║%10.2lf║ %9i║", add, sub, mul, div, mod);     
     printf_s("\n╚═════════╩══════════╩══════════╩══════════╩══════════╝"); 
     return;
 }
@@ -59,6 +61,6 @@ int main(void)
     //Calling the Math Table Function
     MathTable(frstNumber, scndNumber);
 
-    printf_s("\n100%% Complete...\n\n\n");
+    printf_s("\n\n100%% Complete...");
     return 0;
 }
