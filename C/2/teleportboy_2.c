@@ -1,36 +1,28 @@
-๏ปฟ#include "stdio.h"
+#include "stdio.h"
 void SymbolTable(unsigned char symbol)
 {
-    //ษอออออออออออออหออออออออออออออหออออออออออออออหออออออออออออออป
-    printf_s("\n\xC9\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCB" //C9 => ' ษ '; CD =>  ' อ '; CB => ' ห '
-        "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCB"
-        "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCB"
-        "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xBB");//BB => 'ป';
+    system("chcp 866>nul");
+   
+    printf_s("\nษออออออออออออออหอออออออออออออออหออออออออออออออหอออออออออออออป");
 
-    //บ                               บ                                   บ                                 บ                                 บ
-    printf_s("\n\xBA        ASCII\xBA           DEC\xBA           HEX\xBA        BINARY\xBA"); //BA => ' บ ';
+    
+    printf_s("\nบ         ASCIIบ            DECบ           HEXบ       BINARYบ"); 
 
-    //ฬอออออออออออออฮออออออออออออออฮออออออออออออออฮออออออออออออออน
-    printf_s("\n\xCC\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCE" // CC => ' ฬ '; CE => ' ฮ ';
-        "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCE"
-        "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCE"
-        "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xB9");//B9 => ' น ' ; 
-
-    //บ                               บ                                   บ                                 บ                                 บ
-    printf_s("\n\xBA     %8c\xBA      %8d\xBA      %8X\xBA      %d%d%d%d%d%d%d%d\xBA", 
+    
+    printf_s("\nฬออออออออออออออฮอออออออออออออออฮออออออออออออออฮอออออออออออออน");
+   
+    printf_s("\nบ      %8cบ       %8dบ      %8Xบ     %d%d%d%d%d%d%d%dบ", 
         symbol, symbol, symbol, symbol >> 7, (symbol >> 6) % 2,
         (symbol >> 5) % 2, (symbol >> 4) % 2, (symbol >> 3) % 2,
-        (symbol >> 2) % 2, (symbol >> 1) % 2, symbol % 2); //BA => ' บ ';
+        (symbol >> 2) % 2, (symbol >> 1) % 2, symbol % 2); 
 
-    //ศอออออออออออออสออออออออออออออสออออออออออออออสออออออออออออออผ
-    printf_s("\n\xC8\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCA" //C8 =>' ศ '; CA =>' ส ';
-        "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCA"
-        "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCA"
-        "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xBC");//BC => ' ผ ';
+    
+    printf_s("\nศออออออออออออออสอออออออออออออออสออออออออออออออสอออออออออออออผ");
     return;
 }
 void MathTable(int frstNumber, int scndNumber)
 {
+    system("chcp 866>nul");
   
     int add = frstNumber + scndNumber;
     int sub = frstNumber - scndNumber;
@@ -39,11 +31,11 @@ void MathTable(int frstNumber, int scndNumber)
     int mod = frstNumber % scndNumber;
 
     
-    printf("\nษอออออออออหออออออออออหออออออออออหออออออออออหออออออออออป");    
-    printf("\nบ      ADDบ       SUBบ       MULบ       DIVบ       MODบ");      
-    printf("\nฬอออออออออฮออออออออออฮออออออออออฮออออออออออฮออออออออออน");    
-    printf("\nบ%9iบ %9iบ %9iบ%10.2lfบ %9iบ", add, sub, mul, div, mod);     
-    printf("\nศอออออออออสออออออออออสออออออออออสออออออออออสออออออออออผ"); 
+    printf("\nษอออออออออหออออออออออหออออออออออหออออออออออหอออออออออออป");    
+    printf("\nบ      ADDบ       SUBบ       MULบ       DIVบ        MODบ");      
+    printf("\nฬอออออออออฮออออออออออฮออออออออออฮออออออออออฮอออออออออออน");    
+    printf("\nบ%9iบ %9iบ %9iบ%10.2lfบ  %9iบ", add, sub, mul, div, mod);     
+    printf("\nศอออออออออสออออออออออสออออออออออสออออออออออสอออออออออออผ"); 
     return;
 }
 int main(void)
