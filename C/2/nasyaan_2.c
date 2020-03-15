@@ -4,6 +4,7 @@ int main()
 
 	char key;
 	int digit1, digit2, add, sub, mul, mod;
+	system("chcp 866 > null");
 	printf("\n1) Press any key... ");
 	key = getch();
 	drawTableKod(key);
