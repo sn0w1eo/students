@@ -1,32 +1,32 @@
 ï»¿#include "stdio.h"
-void SymbolTable(char symbol)
+void SymbolTable(unsigned char symbol)
 {
-    //â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•¦â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•¦â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•¦â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—
-    printf_s("\n\xC9\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCB" //C9 => ' â•” '; CD =>  ' â• '; CB => ' â•¦ '
+    //ÉÍÍÍÍÍÍÍÍÍÍÍÍÍËÍÍÍÍÍÍÍÍÍÍÍÍÍÍËÍÍÍÍÍÍÍÍÍÍÍÍÍÍËÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
+    printf_s("\n\xC9\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCB" //C9 => ' É '; CD =>  ' Í '; CB => ' Ë '
         "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCB"
         "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCB"
-        "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xBB");//BB => 'â•—';
+        "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xBB");//BB => '»';
 
-    //â•‘                               â•‘                                   â•‘                                 â•‘                                 â•‘
-    printf_s("\n\xBA        ASCII\xBA           DEC\xBA           HEX\xBA        BINARY\xBA"); //BA => ' â•‘ ';
+    //º                               º                                   º                                 º                                 º
+    printf_s("\n\xBA        ASCII\xBA           DEC\xBA           HEX\xBA        BINARY\xBA"); //BA => ' º ';
 
-    //â• â•â•â•â•â•â•â•â•â•â•â•â•â•â•¬â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•¬â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•¬â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•£
-    printf_s("\n\xCC\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCE" // CC => ' â•  '; CE => ' â•¬ ';
+    //ÌÍÍÍÍÍÍÍÍÍÍÍÍÍÎÍÍÍÍÍÍÍÍÍÍÍÍÍÍÎÍÍÍÍÍÍÍÍÍÍÍÍÍÍÎÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¹
+    printf_s("\n\xCC\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCE" // CC => ' Ì '; CE => ' Î ';
         "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCE"
         "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCE"
-        "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xB9");//B9 => ' â•£ ' ; 
+        "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xB9");//B9 => ' ¹ ' ; 
 
-    //â•‘                               â•‘                                   â•‘                                 â•‘                                 â•‘
+    //º                               º                                   º                                 º                                 º
     printf_s("\n\xBA     %8c\xBA      %8d\xBA      %8X\xBA      %d%d%d%d%d%d%d%d\xBA", 
         symbol, symbol, symbol, symbol >> 7, (symbol >> 6) % 2,
         (symbol >> 5) % 2, (symbol >> 4) % 2, (symbol >> 3) % 2,
-        (symbol >> 2) % 2, (symbol >> 1) % 2, symbol % 2); //BA => ' â•‘ ';
+        (symbol >> 2) % 2, (symbol >> 1) % 2, symbol % 2); //BA => ' º ';
 
-    //â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•©â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•©â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•©â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-    printf_s("\n\xC8\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCA" //C8 =>' â•š '; CA =>' â•© ';
+    //ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÊÍÍÍÍÍÍÍÍÍÍÍÍÍÍÊÍÍÍÍÍÍÍÍÍÍÍÍÍÍÊÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼
+    printf_s("\n\xC8\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCA" //C8 =>' È '; CA =>' Ê ';
         "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCA"
         "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCA"
-        "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xBC");//BC => ' â• ';
+        "\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xBC");//BC => ' ¼ ';
     return;
 }
 void MathTable(int frstNumber, int scndNumber)
@@ -39,17 +39,17 @@ void MathTable(int frstNumber, int scndNumber)
     int mod = frstNumber % scndNumber;
 
     
-    printf_s("\nâ•”â•â•â•â•â•â•â•â•â•â•¦â•â•â•â•â•â•â•â•â•â•â•¦â•â•â•â•â•â•â•â•â•â•â•¦â•â•â•â•â•â•â•â•â•â•â•¦â•â•â•â•â•â•â•â•â•â•â•—");    
-    printf_s("\nâ•‘      ADDâ•‘       SUBâ•‘       MULâ•‘       DIVâ•‘       MODâ•‘");      
-    printf_s("\nâ• â•â•â•â•â•â•â•â•â•â•¬â•â•â•â•â•â•â•â•â•â•â•¬â•â•â•â•â•â•â•â•â•â•â•¬â•â•â•â•â•â•â•â•â•â•â•¬â•â•â•â•â•â•â•â•â•â•â•£");    
-    printf_s("\nâ•‘%9iâ•‘ %9iâ•‘ %9iâ•‘%10.2lfâ•‘ %9iâ•‘", add, sub, mul, div, mod);     
-    printf_s("\nâ•šâ•â•â•â•â•â•â•â•â•â•©â•â•â•â•â•â•â•â•â•â•â•©â•â•â•â•â•â•â•â•â•â•â•©â•â•â•â•â•â•â•â•â•â•â•©â•â•â•â•â•â•â•â•â•â•â•"); 
+    printf("\nÉÍÍÍÍÍÍÍÍÍËÍÍÍÍÍÍÍÍÍÍËÍÍÍÍÍÍÍÍÍÍËÍÍÍÍÍÍÍÍÍÍËÍÍÍÍÍÍÍÍÍÍ»");    
+    printf("\nº      ADDº       SUBº       MULº       DIVº       MODº");      
+    printf("\nÌÍÍÍÍÍÍÍÍÍÎÍÍÍÍÍÍÍÍÍÍÎÍÍÍÍÍÍÍÍÍÍÎÍÍÍÍÍÍÍÍÍÍÎÍÍÍÍÍÍÍÍÍÍ¹");    
+    printf("\nº%9iº %9iº %9iº%10.2lfº %9iº", add, sub, mul, div, mod);     
+    printf("\nÈÍÍÍÍÍÍÍÍÍÊÍÍÍÍÍÍÍÍÍÍÊÍÍÍÍÍÍÍÍÍÍÊÍÍÍÍÍÍÍÍÍÍÊÍÍÍÍÍÍÍÍÍÍ¼"); 
     return;
 }
 int main(void)
 {  
-    system("chcp 866");
-    char symbol; int frstNumber, scndNumber;
+    system("chcp 866>nul");
+   unsigned char symbol; int frstNumber, scndNumber;
 
     printf_s("\nHello!\nPlease, enter the SYMBOL:  ");    
     symbol = getch();
