@@ -2,7 +2,7 @@
 #include "conio.h"
 #include "stdlib.h"
 
-int main ()
+int main()
 {
     system("chcp 866 > nul");
     char symbol;
@@ -16,17 +16,17 @@ int main ()
     MathTable(a, b);
 }
 int SymbolTable(char symbol)
-{    
-    
-                     printf("\n┌───────────┬───────────┬───────────┬──────────┐");
-    printf("\n³%10s³ %10s³ %10s³ %10s³", "ASCII", "DEC", "HEX", "BINARY");
-                     printf("\n├───────────┼───────────┼───────────┼──────────┤");
-    printf("\n³%10c³ %10d³ %10x³ %10s³ ", symbol, symbol, symbol, "EMPTY");
-                     printf("\n└───────────┴───────────┴───────────┴──────────┘\n");
-}
-int MathTable(int a , int b)
 {
-    
+
+    printf("\nЪДДДДДДДДДВДДДДДДДДДДВДДДДДДДДДДВДДДДДДДДДДї");
+    printf("\nі%10s %10s %10s %10s", "ASCIIі", "DECі", "HEXі", "BINARYі");
+    printf("\nГДДДДДДДДДЕДДДДДДДДДДЕДДДДДДДДДДЕДДДДДДДДДДґ");
+    printf("\nі%9cі %9dі %9xі %9sі ", symbol, symbol, symbol, "EMPTY");
+    printf("\nАДДДДДДДДДБДДДДДДДДДДБДДДДДДДДДДБДДДДДДДДДДЩ\n");
+}
+int MathTable(int a, int b)
+{
+
     int  c, d, e, g;
     float f;
     c = a + b;
@@ -34,12 +34,11 @@ int MathTable(int a , int b)
     e = a * b;
     f = (float)a / (float)b;
     g = a % b;
-    printf("\n┌──────────────┬──────────────┬──────────────┬─────────────┐");
-    printf("\n³%10s³ %10s³ %10s³ %10s³ %10s³", "add", "sub", "mul", "div","mod");
-    printf("\n├──────────────┼──────────────┼──────────────┼─────────────┤");
-    printf("\n³%10d³ %10d³ %10d³ %10.2lf³ %10d³", c, d, e, f, g);
-    printf("\n└──────────────┴──────────────┴──────────────┴─────────────┘\n");
-    
+    printf("\nЪДДДДДДДДДДВДДДДДДДДДДДВДДДДДДДДДДДВДДДДДДДДДДДВДДДДДДДДДДДї");
+    printf("\nі%10sі %10sі %10sі %10sі %10sі", "add", "sub", "mul", "div", "mod");
+    printf("\nГДДДДДДДДДДЕДДДДДДДДДДДЕДДДДДДДДДДДЕДДДДДДДДДДДЕДДДДДДДДДДДґ");
+    printf("\nі%10dі %10dі %10dі %10.2lfі %10dі", c, d, e, f, g);
+    printf("\nАДДДДДДДДДДБДДДДДДДДДДДБДДДДДДДДДДДБДДДДДДДДДДДБДДДДДДДДДДДЩ\n");
+
     printf("\n100%% Complete...\n\n ");
 }
-
