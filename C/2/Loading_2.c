@@ -4,7 +4,7 @@
 
 int main ()
 {
-    system("chcp 866");
+    system("chcp 866 > nul");
     char symbol;
     printf("\n1) Press any symbol... ");
     symbol = _getch();;
