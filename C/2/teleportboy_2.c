@@ -1,62 +1,46 @@
-﻿#include "stdio.h"
-void SymbolTable(char symbol)
-{
-    //╔═════════════╦══════════════╦══════════════╦══════════════╗
-    printf_s("\n╔═════════════╦══════════════╦══════════════╦══════════════╗");//BB => '╗';
-
-    //║                               ║                                   ║                                 ║                                 ║
-    printf_s("\n\xBA        ASCII\xBA           DEC\xBA           HEX\xBA        BINARY\xBA"); //BA => ' ║ ';
-
-    //╠═════════════╬══════════════╬══════════════╬══════════════╣
-    printf_s("\n╠═════════════╬══════════════╬══════════════╬══════════════╣");//B9 => ' ╣ ' ; 
-
-    //║                               ║                                   ║                                 ║                                 ║
-    printf_s("\n\xBA     %8c\xBA      %8d\xBA      %8X\xBA IN DEVELOPING\xBA", symbol, symbol, symbol); //BA => ' ║ ';
-
-    //╚═════════════╩══════════════╩══════════════╩══════════════╝
-    printf_s("\n╚═════════════╩══════════════╩══════════════╩══════════════╝\n");//BC => ' ╝ ';
+#include "stdio.h"
+void SymbolTable(unsigned char symbol)
+{      
+    printf_s("\n�����������������������������������������������������������ͻ");    
+    printf_s("\n�         ASCII�            DEC�           HEX�       BINARY�");     
+    printf_s("\n�����������������������������������������������������������͹");   
+    printf_s("\n�      %8c�       %8d�      %8X�     %d%d%d%d%d%d%d%d�", 
+        symbol, symbol, symbol, symbol >> 7, (symbol >> 6) % 2,
+        (symbol >> 5) % 2, (symbol >> 4) % 2, (symbol >> 3) % 2,
+        (symbol >> 2) % 2, (symbol >> 1) % 2, symbol % 2);     
+    printf_s("\n�����������������������������������������������������������ͼ");
+    return;
 }
 void MathTable(int frstNumber, int scndNumber)
-{
+{      
     int add = frstNumber + scndNumber;
     int sub = frstNumber - scndNumber;
     int mul = frstNumber * scndNumber;
     double div = (double)frstNumber / scndNumber;
     int mod = frstNumber % scndNumber;
-
-    //╔═════════╦══════════╦══════════╦══════════╦══════════╗
-    printf_s("\n╔═════════╦══════════╦══════════╦══════════╦══════════╗");//BB => '╗';
-
-    //║                      ║                        ║                        ║                        ║                        ║
-    printf_s("\n\xBA      ADD\xBA       SUB\xBA       MUL\xBA       DIV\xBA       MOD\xBA");  //BA => ' ║ ';
     
-    //╠═════════╬══════════╬══════════╬══════════╬══════════╣
-    printf_s("\n╠═════════╬══════════╬══════════╬══════════╬══════════╣");//B9 => ' ╣ ' ; 
-    
-    //║                      ║                        ║                        ║                        ║                        ║
-    printf_s("\n\xBA %8i\xBA  %8i\xBA  %8i\xBA  %8.2lf\xBA  %8i\xBA",add,sub,mul,div,mod); //BA => ' ║ ';
-
-    //╚═════════╩══════════╩══════════╩══════════╩══════════╝
-    printf_s("\n╚═════════╩══════════╩══════════╩══════════╩══════════╝"); //BC => ' ╝ ';
+    printf_s("\n������������������������������������������������������ͻ");    
+    printf_s("\n�      ADD�       SUB�       MUL�       DIV�        MOD�");      
+    printf_s("\n������������������������������������������������������͹");    
+    printf_s("\n�%9i� %9i� %9i�%10.2lf�  %9i�", add, sub, mul, div, mod);     
+    printf_s("\n������������������������������������������������������ͼ"); 
+    return;
 }
+int main(void)
+{  
+    system("chcp 866>nul");
+    unsigned char symbol; int frstNumber, scndNumber;
 
+    printf_s("\nHello!\nPlease, enter the SYMBOL:  ");    
+    symbol = getch();
+    //Calling the SymbolTable function
+    SymbolTable(symbol);  
 
-int main()
-{
-    system("chcp 1251");
-    char symbol; int frstNumber, scndNumber;
-    printf_s("\nHello!\nPlease, enter the SYMBOL:  ");
-    scanf_s("%c", &symbol);
-   //Calling the SymbolTable function
-    SymbolTable(symbol);
-    
-    getch();
-    system("chcp 437");
     printf_s("\nPlease, enter TWO NUMBERS:  ");
     scanf_s("%i%i", &frstNumber, &scndNumber);
-   
     //Calling the Math Table Function
-    MathTable(frstNumber, scndNumber); 
+    MathTable(frstNumber, scndNumber);
 
-    printf_s("\n100%% Complete...\n\n\n");    
+    printf_s("\n\n100%% Complete...");
+    return 0;
 }
