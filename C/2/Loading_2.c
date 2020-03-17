@@ -29,6 +29,7 @@ int main()
                                                  (float)firstnum / (float)secondnum,
                                                   firstnum % secondnum);
     printf("\nАДДДДДДДДДДБДДДДДДДДДДДБДДДДДДДДДДДБДДДДДДДДДДДБДДДДДДДДДДДЩ\n");
+	printf("\n100%% Complete...\n\n ");
 }
 
 
