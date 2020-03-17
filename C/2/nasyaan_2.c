@@ -4,7 +4,7 @@ int main()
 
 	char key;
 	int digit1, digit2, add, sub, mul, mod;
-	system("chcp 866 > null");
+	system("chcp 866 > nul");
 	printf("\n1) Press any key... ");
 	key = getch();
 	drawTableKod(key);
@@ -18,6 +18,7 @@ int main()
 	mod = digit1 % digit2;
 	drawTableMath(add, sub, mul, div, mod);
 	printf("\n100%%Complete...\n");
+	getch();
 }
 int drawTableKod(char key)
 {
