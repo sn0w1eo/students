@@ -15,13 +15,16 @@ int main()
     scanf_s("%d %d", &a, &b);
     MathTable(a, b);
 }
-int SymbolTable(char symbol)
+int SymbolTable(unsigned char symbol)
 {
 
     printf("\nЪДДДДДДДДДВДДДДДДДДДДВДДДДДДДДДДВДДДДДДДДДДї");
     printf("\nі%10s %10s %10s %10s", "ASCIIі", "DECі", "HEXі", "BINARYі");
     printf("\nГДДДДДДДДДЕДДДДДДДДДДЕДДДДДДДДДДЕДДДДДДДДДДґ");
-    printf("\nі%9cі %9dі %9xі %9sі ", symbol, symbol, symbol, "EMPTY");
+    printf("\nі%9cі %9dі %9xі  %d%d%d%d%d%d%d%dі ", symbol, symbol, symbol, 
+        symbol >> 7, (symbol >> 6) % 2,
+        (symbol >> 5) % 2, (symbol >> 4) % 2, (symbol >> 3) % 2,
+        (symbol >> 2) % 2, (symbol >> 1) % 2, symbol % 2);
     printf("\nАДДДДДДДДДБДДДДДДДДДДБДДДДДДДДДДБДДДДДДДДДДЩ\n");
 }
 int MathTable(int a, int b)
@@ -42,3 +45,4 @@ int MathTable(int a, int b)
 
     printf("\n100%% Complete...\n\n ");
 }
+
