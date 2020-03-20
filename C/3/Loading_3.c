@@ -13,14 +13,14 @@ void Condition (key)
     Line("symbol");
 	printf("  EXP: ");
 }
-int BIN(int y)
+int BIN(int n)
 {
 	printf("  BIN: ");
 	for (int i = 31; i >= 0; i--)
 	{
-		int x = y >> i;
+		int k = n >> i;
 		if (i == 7 || i == 15 || i == 23)printf(" ");
-		if (x & 1)
+		if (k & 1)
 			printf("1");
 		else
 			printf("0");
@@ -96,10 +96,6 @@ int Operations(unsigned char ch3, int firstvalue, int secondvalue)
 		Line("symbol");
 		printf("  HEX: %.8X\n", result);
 		BIN(result);
-	}
-	else
-	{
-		printf("SOMETHING WRONG");
 	}
 	return 0;
 }
