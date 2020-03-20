@@ -1,25 +1,20 @@
-ï»¿#include "stdio.h"
-//Ñ„ÑƒÐ½Ñ†Ð¸Ñ Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚ Ð²Ð·Ð°Ð²Ð¸ÑÐ¸Ð¼Ð¾ÑÑ‚Ð¸ Ð¾Ñ‚ Ð¿ÐµÑ€ÐµÐ´Ð°Ð½Ð½Ð¾Ð³Ð¾ ÐµÐ¹ Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ð° 
-double DoOperation(unsigned char operatorSign,double firstNumber, double secondNumber)
+#include "stdio.h"
+//ôóíöèÿ âîçâðàùàåò ðåçóëüòàò âçàâèñèìîñòè îò ïåðåäàííîãî åé îïåðàòîðà 
+int DoOperation(unsigned char operatorSign, int firstNumber, int secondNumber)
 {	
-	switch (operatorSign)
-	{
-	case '+': return firstNumber + secondNumber; break;
-	case '-': return firstNumber - secondNumber; break;
-	case '*': return firstNumber * secondNumber; break;
-	case '/': return firstNumber / secondNumber; break;
-	case '%': return (int)firstNumber % (int)secondNumber; break;
-	case '^': return (int)firstNumber ^ (int)secondNumber; break;
-	case '|': return(int)firstNumber | (int)secondNumber; break;
-	case '&': return (int)firstNumber & (int)secondNumber; break;
-	default: break;
-	}	
+	if(operatorSign== '+') return firstNumber + secondNumber;
+	else if (operatorSign == '-') return firstNumber - secondNumber;
+	else if (operatorSign == '*') return firstNumber * secondNumber;
+	/*else if (operatorSign == '/') return (double)firstNumber / secondNumber;*/
+	else if (operatorSign == '%') return firstNumber % secondNumber;
+	else if (operatorSign == '^') return firstNumber ^ secondNumber;
+	else if (operatorSign == '|') return firstNumber | secondNumber;
+	else return firstNumber & secondNumber; 	
 	return 0;
 }
 int main()
-{		
-	unsigned char frstNumDigit, scndNumDigit, operatorSign;	
-	double firstNumber=0, secondNumber=0, operationResult;
+{
+	int frstNumDigit, scndNumDigit, operatorSign, firstNumber = 0, secondNumber = 0, operationResult;	
 	printf_s("Universal calculator...\n"
 		"Syntax: VALUE SIGN VALUE EQUAL\n"
 		"----------------------------------------\n"
@@ -28,71 +23,68 @@ int main()
 		"   EQUAL: =\n"
 		"----------------------------------------\n"
 		"     EXP: ");
-		//Ð·Ð°Ð¿Ð¸ÑÑŒ Ð¿ÐµÑ€Ð²Ð¾Ð³Ð¾ Ñ‡Ð¸ÑÐ»Ð°
-		do
+	//çàïèñü ïåðâîãî ÷èñëà
+	do
+	{
+		int count = 0;
+		frstNumDigit = getch();
+		if (frstNumDigit >= '0' && frstNumDigit <= '9')
 		{
-			frstNumDigit = getch();
-			if (frstNumDigit >= '0' && frstNumDigit <= '9')
-			{
-				putchar(frstNumDigit);
-				firstNumber = firstNumber * 10 + (frstNumDigit - 48);
-			}
-			if (firstNumber > 0 && (frstNumDigit == '-' || frstNumDigit == '+'
-				|| frstNumDigit == '/' || frstNumDigit == '%' || frstNumDigit == '*' 
-				|| frstNumDigit == '^' || frstNumDigit == '|' || frstNumDigit == '&'))
-			{
-				putchar(frstNumDigit);
-				//Ð·Ð°Ð¿Ð¸ÑÑŒ Ð·Ð½Ð°ÐºÐ° Ð¼Ð°Ñ‚. Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ð² Ð¿Ð°Ð¼ÑÑ‚ÑŒ
-				operatorSign = frstNumDigit;
-				break;
-			}
-		} while (1);
-		//Ð·Ð°Ð¿Ð¸ÑÑŒ Ð²Ñ‚Ð¾Ñ€Ð¾Ð³Ð¾ Ñ‡Ð¸ÑÐ»Ð°
-		do
-		{
-			scndNumDigit = getch();
-			if (scndNumDigit >= '0' && scndNumDigit <= '9')
-			{
-				putchar(scndNumDigit);
-				secondNumber = secondNumber * 10 + (scndNumDigit - 48);
-			}
-			if (secondNumber > 0 && scndNumDigit == '=')
-			{
-				putchar(scndNumDigit);
-				break;
-			}
-		} while (1);
-		//Ð²Ñ‹Ð·Ð¾Ð² Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¸ ÐºÐ°Ð»ÑŒÐºÑƒÐ»ÑÑ‚Ð¾Ñ€Ð°
-		operationResult = DoOperation(operatorSign, firstNumber, secondNumber);
-		//Ð²Ñ‹Ð²Ð¾Ð´ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ð° Ð¾Ð¿Ð¸Ñ€Ð°Ñ†Ð¸Ð¸ Ð² Ð·Ð°Ð²Ð¸ÑÐ¸Ð¼Ð¾ÑÑ‚Ð¸ Ð¾Ñ‚ Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ð°
-		if (operatorSign == '/')
-		{
-			printf_s("%.2lf", operationResult);
-			printf_s("\n----------------------------------------");
-			printf_s("\nNO HEX AND BINARY AVAILABLE YET FOR DIVISION OPERATIONS");
+			putchar(frstNumDigit);
+			firstNumber = firstNumber * 10 + (frstNumDigit - 48);
 		}
-		else
+		if (firstNumber > 0  && (frstNumDigit == '-' || frstNumDigit == '+'
+			|| frstNumDigit == '/' || frstNumDigit == '%' || frstNumDigit == '*'
+			|| frstNumDigit == '^' || frstNumDigit == '|' || frstNumDigit == '&'))
 		{
-			printf_s("%.lf", operationResult);
-			printf_s("\n----------------------------------------"
-			//Ð²Ñ‹Ð²Ð¾Ð´ Ð² HEX
-				"\nHEX: %.8X", (int)operationResult);
-			//Ð²Ñ‹Ð²Ð¾Ð´ Ð² BIN
-			printf_s("\nBIN: %d%d%d%d%d%d%d%d %d%d%d%d%d%d%d%d "
-				"%d%d%d%d%d%d%d%d %d%d%d%d%d%d%d%d",
-				(int)operationResult >> 31, ((int)operationResult >> 30) % 2,
-				((int)operationResult >> 29) % 2, ((int)operationResult >> 28) % 2, ((int)operationResult >> 27) % 2,
-				((int)operationResult >> 26) % 2, ((int)operationResult >> 25) % 2, ((int)operationResult >> 24) % 2,
-				((int)operationResult >> 23) % 2, ((int)operationResult >> 22) % 2,
-				((int)operationResult >> 21) % 2, ((int)operationResult >> 20) % 2, ((int)operationResult >> 19) % 2,
-				((int)operationResult >> 18) % 2, ((int)operationResult >> 17) % 2, ((int)operationResult >> 16) % 2,
-				((int)operationResult >> 15) % 2, ((int)operationResult >> 14) % 2,
-				((int)operationResult >> 13) % 2, ((int)operationResult >> 12) % 2, ((int)operationResult >> 11) % 2,
-				((int)operationResult >> 10) % 2, ((int)operationResult >> 9) % 2, ((int)operationResult >> 8) % 2,
-				((int)operationResult >> 7) % 2, ((int)operationResult >> 6) % 2,
-				((int)operationResult >> 5) % 2, ((int)operationResult >> 4) % 2, ((int)operationResult >> 3) % 2,
-				((int)operationResult >> 2) % 2, ((int)operationResult >> 1) % 2, (int)operationResult % 2);
-			printf_s("\n----------------------------------------");
+			putchar(frstNumDigit);
+			
+			//çàïèñü çíàêà ìàò. îïåðàöèè â ïàìÿòü
+			operatorSign = frstNumDigit;
+			break;
 		}
-		return 0;
+	} while (1);
+	//çàïèñü âòîðîãî ÷èñëà
+	do
+	{
+		scndNumDigit = getch();
+		if (scndNumDigit >= '0' && scndNumDigit <= '9')
+		{
+			putchar(scndNumDigit);
+			secondNumber = secondNumber * 10 + (scndNumDigit - 48);
+		}
+		if (secondNumber > 0 && scndNumDigit == '=')
+		{
+			putchar(scndNumDigit);
+			break;
+		}
+	} while (1);
+	//âûçîâ ôóíêöèè êàëüêóëÿòîðà
+	operationResult = DoOperation(operatorSign, firstNumber, secondNumber);
+	//âûâîä ðåçóëüòàòà îïèðàöèè â çàâèñèìîñòè îò îïåðàòîðà
+	if (operatorSign == '/')
+	{
+		printf_s("%.2lf", (double)firstNumber/secondNumber);
+		printf_s("\n----------------------------------------");
+		printf_s("\nNO HEX AND BINARY AVAILABLE YET FOR DIVISION OPERATIONS");
+	}
+	else
+	{
+		printf_s("%d", operationResult);
+		printf_s("\n----------------------------------------"
+			//âûâîä â HEX
+			"\nHEX: %.8X", operationResult);
+		//âûâîä â BIN
+		printf_s("\nBIN: ");
+		//ñ÷¸ò÷èê öèêëà
+		int count = 31;
+		while (count>=0)
+		{
+			if (operationResult >> count & 1) printf_s("1");			
+			else printf_s("0");
+			if (count == 24 || count == 16 || count == 8) printf_s(" ");
+			count--;
+		}		
+	}
+	return 0;
 }
