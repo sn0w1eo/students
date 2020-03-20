@@ -12,9 +12,7 @@ int decToBinary(int n)
 	
 	for (int i = 31; i >= 0; i--) {
 		int k = n >> i;
-		if (i == 7)printf(" ");
-		if (i == 15)printf(" ");
-		if (i == 23)printf(" ");
+		if (i == 7 || i == 15 || i == 23)printf(" ");
 		if (k & 1)
 			printf( "1");
 		else
