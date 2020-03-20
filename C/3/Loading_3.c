@@ -13,16 +13,17 @@ void Condition (key)
     Line("symbol");
 	printf("  EXP: ");
 }
-int BIN(int n)
+int BIN(int y)
 {
 	printf("  BIN: ");
 	for (int i = 31; i >= 0; i--)
 	{
-		int k = n >> i;
+		int x = y >> i;
 		if (i == 7)printf(" ");
 		if (i == 15)printf(" ");
 		if (i == 23)printf(" ");
-		if (k & 1)
+		if (i == 7 || i == 15 || i == 23)printf(" ");
+		if (x & 1)
 			printf("1");
 		else
 			printf("0");
@@ -107,7 +108,7 @@ int Operations(unsigned char ch3, int firstvalue, int secondvalue)
 }
 int main()
 {
-	unsigned char firstnumsign,result1;
+	unsigned char firstnumsign;
     Condition("key");
 	int secndnum = 0;
 	int firstnum = 0;
@@ -142,5 +143,5 @@ int main()
 			break;
 		}
 	} while (1);
-	result1 = Operations(firstnumsign, firstnum, secndnum);
+	 Operations(firstnumsign, firstnum, secndnum);
 }
