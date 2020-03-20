@@ -1,5 +1,5 @@
-#include "stdio.h"
-//ôóíöèÿ âîçâðàùàåò ðåçóëüòàò âçàâèñèìîñòè îò ïåðåäàííîãî åé îïåðàòîðà 
+ï»¿#include "stdio.h"
+//Ñ„ÑƒÐ½Ñ†Ð¸Ñ Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚ Ð²Ð·Ð°Ð²Ð¸ÑÐ¸Ð¼Ð¾ÑÑ‚Ð¸ Ð¾Ñ‚ Ð¿ÐµÑ€ÐµÐ´Ð°Ð½Ð½Ð¾Ð³Ð¾ ÐµÐ¹ Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ð° 
 int DoOperation(unsigned char operatorSign, int firstNumber, int secondNumber)
 {	
 	if(operatorSign== '+') return firstNumber + secondNumber;
@@ -23,7 +23,7 @@ int main()
 		"   EQUAL: =\n"
 		"----------------------------------------\n"
 		"     EXP: ");
-	//çàïèñü ïåðâîãî ÷èñëà
+	//Ð·Ð°Ð¿Ð¸ÑÑŒ Ð¿ÐµÑ€Ð²Ð¾Ð³Ð¾ Ñ‡Ð¸ÑÐ»Ð°
 	do
 	{
 		int count = 0;
@@ -39,12 +39,12 @@ int main()
 		{
 			putchar(frstNumDigit);
 			
-			//çàïèñü çíàêà ìàò. îïåðàöèè â ïàìÿòü
+			//Ð·Ð°Ð¿Ð¸ÑÑŒ Ð·Ð½Ð°ÐºÐ° Ð¼Ð°Ñ‚. Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ð² Ð¿Ð°Ð¼ÑÑ‚ÑŒ
 			operatorSign = frstNumDigit;
 			break;
 		}
 	} while (1);
-	//çàïèñü âòîðîãî ÷èñëà
+	//Ð·Ð°Ð¿Ð¸ÑÑŒ Ð²Ñ‚Ð¾Ñ€Ð¾Ð³Ð¾ Ñ‡Ð¸ÑÐ»Ð°
 	do
 	{
 		scndNumDigit = getch();
@@ -59,9 +59,9 @@ int main()
 			break;
 		}
 	} while (1);
-	//âûçîâ ôóíêöèè êàëüêóëÿòîðà
+	//Ð²Ñ‹Ð·Ð¾Ð² Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¸ ÐºÐ°Ð»ÑŒÐºÑƒÐ»ÑÑ‚Ð¾Ñ€Ð°
 	operationResult = DoOperation(operatorSign, firstNumber, secondNumber);
-	//âûâîä ðåçóëüòàòà îïèðàöèè â çàâèñèìîñòè îò îïåðàòîðà
+	//Ð²Ñ‹Ð²Ð¾Ð´ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ð° Ð¾Ð¿Ð¸Ñ€Ð°Ñ†Ð¸Ð¸ Ð² Ð·Ð°Ð²Ð¸ÑÐ¸Ð¼Ð¾ÑÑ‚Ð¸ Ð¾Ñ‚ Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ð°
 	if (operatorSign == '/')
 	{
 		printf_s("%.2lf", (double)firstNumber/secondNumber);
@@ -72,11 +72,11 @@ int main()
 	{
 		printf_s("%d", operationResult);
 		printf_s("\n----------------------------------------"
-			//âûâîä â HEX
+			//Ð²Ñ‹Ð²Ð¾Ð´ Ð² HEX
 			"\nHEX: %.8X", operationResult);
-		//âûâîä â BIN
+		//Ð²Ñ‹Ð²Ð¾Ð´ Ð² BIN
 		printf_s("\nBIN: ");
-		//ñ÷¸ò÷èê öèêëà
+		//ÑÑ‡Ñ‘Ñ‚Ñ‡Ð¸Ðº Ñ†Ð¸ÐºÐ»Ð°
 		int count = 31;
 		while (count>=0)
 		{
