@@ -14,10 +14,6 @@ double Calculate(unsigned char sign, int value1, int value2)
 	{
 		return value1 * value2;
 	}
-	/*else if (sign == '/')
-	{
-		return (double)value1 / (double)value2;
-	}*/
 	else if (sign == '%')
 	{
 		return value1 % value2;
@@ -89,7 +85,7 @@ int main()
 	result = Calculate(Sign, value1, value2);
 	if (Sign == '/')
 	{
-		printf_s("%.1lf", result);
+		printf_s("%.1lf", value1/value2);
 		printf_s("\n----------------------------------------");
 		printf_s("\nNO HEX AND BINARY AVAILABLE YET FOR DIVISION OPERATIONS");
 	}
