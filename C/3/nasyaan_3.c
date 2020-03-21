@@ -44,7 +44,7 @@ int main()
 	printf("\n  EQUAL: =");
 	printf("\n----------------------------------------");
 	printf("\nEXP:");
-	
+
 	unsigned char digitOfValue1, digitOfValue2, Sign;
 	double value1 = 0, value2 = 0, result;
 	int i, bin;
@@ -81,11 +81,11 @@ int main()
 			putchar(digitOfValue2);
 			break;
 		}
-	} while (1);  
+	} while (1);
 	result = Calculate(Sign, value1, value2);
 	if (Sign == '/')
 	{
-		printf_s("%.1lf", value1/value2);
+		printf_s("%.3lf", (double)value1 / (double)value2);
 		printf_s("\n----------------------------------------");
 		printf_s("\nNO HEX AND BINARY AVAILABLE YET FOR DIVISION OPERATIONS");
 	}
@@ -98,13 +98,13 @@ int main()
 		printf_s("\nBIN: ");
 		for (i = 31; i >= 0; i--)
 		{
-			bin=(int)result >> i;
-			if (i==7||i==15||i==23)
+			bin = (int)result >> i;
+			if (i == 7 || i == 15 || i == 23)
 			{
 				printf(" ");
 
 			}
-			if (bin&1)
+			if (bin & 1)
 			{
 				printf("1");
 			}
@@ -112,10 +112,10 @@ int main()
 			{
 				printf("0");
 			}
-			
+
 		}
 
-		
+
 	}
 	return 0; //vsem spasibo za prosmotr
 }
