@@ -1,4 +1,5 @@
 #include "stdio.h"
+//vse nashi operacii
 double Calculate(unsigned char sign, int value1, int value2)
 {
 	if (sign == '+')
@@ -13,10 +14,10 @@ double Calculate(unsigned char sign, int value1, int value2)
 	{
 		return value1 * value2;
 	}
-	else if (sign == '/')
+	/*else if (sign == '/')
 	{
 		return (double)value1 / (double)value2;
-	}
+	}*/
 	else if (sign == '%')
 	{
 		return value1 % value2;
@@ -29,14 +30,14 @@ double Calculate(unsigned char sign, int value1, int value2)
 	{
 		return value1 | value2;
 	}
-	else if (sign == '&')
+	else
 	{
 		return value1 & value2;
 	}
 
 	return 0;
 }
-//vse nashi operacii
+//vyvodim nachalnyi text
 int main()
 {
 	printf("Universal calculator...");
@@ -47,7 +48,7 @@ int main()
 	printf("\n  EQUAL: =");
 	printf("\n----------------------------------------");
 	printf("\nEXP:");
-	//vyveli nachalnyi text
+	
 	unsigned char digitOfValue1, digitOfValue2, Sign;
 	double value1 = 0, value2 = 0, result;
 	int i, bin;
@@ -65,12 +66,12 @@ int main()
 			|| digitOfValue1 == '^' || digitOfValue1 == '|' || digitOfValue1 == '&'))
 		{
 			putchar(digitOfValue1);
-
+			//zapisali sign
 			Sign = digitOfValue1;
 			break;
 		}
-	} while (1); //zapisali sign
-
+	} while (1);
+	//zapisali vtoroe chislo
 	do
 	{
 		digitOfValue2 = getch();
@@ -84,7 +85,7 @@ int main()
 			putchar(digitOfValue2);
 			break;
 		}
-	} while (1);  //zapisali vtoroe chislo
+	} while (1);  
 	result = Calculate(Sign, value1, value2);
 	if (Sign == '/')
 	{
@@ -97,6 +98,7 @@ int main()
 		printf("%.lf", result);
 		printf_s("\n----------------------------------------");
 		printf_s("\nHEX: %.8X", (int)result); //vyvod hex
+		//tsikl na bin
 		printf_s("\nBIN: ");
 		for (i = 31; i >= 0; i--)
 		{
@@ -114,10 +116,10 @@ int main()
 			{
 				printf("0");
 			}
-			//tsikl na bin
+			
 		}
 
-		return 0; //vsem spasibo za prosmotr
+		
 	}
-	
+	return 0; //vsem spasibo za prosmotr
 }
