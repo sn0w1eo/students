@@ -1,6 +1,6 @@
 ﻿#include "stdio.h"
 //фунция возвращает результат взависимости от переданного ей оператора 
-int DoOperation(unsigned char operatorSign, int firstNumber, int secondNumber)
+int DoOperation(int operatorSign, int firstNumber, int secondNumber)
 {	
 	if(operatorSign== '+') return firstNumber + secondNumber;
 	else if (operatorSign == '-') return firstNumber - secondNumber;
