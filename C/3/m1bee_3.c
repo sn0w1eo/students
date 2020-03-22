@@ -38,7 +38,7 @@ void operate(int num1, int num2, unsigned char sign)
 		float result;
 		result = (float)num1 / (float)num2;
 		printf_s("%.1f", result);
-		printf_s("NO HEX AND BINARY AVAILABLE YET FOR DIVISION OPERATIONS");
+		printf_s("\nNO HEX AND BINARY AVAILABLE YET FOR DIVISION OPERATIONS");
 	}
 	else if (sign == '*')
 	{
