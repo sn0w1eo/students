@@ -7,6 +7,7 @@ int Working(int begin, int num1, int num2)
 	else if (begin == '|')return num1 | num2;
 	else if (begin == '%')return num1 % num2;
 	else if (begin == '^')return num1 ^ num2;
+	else if (begin == '&')return num1 & num2;
 
 }
 int main()
