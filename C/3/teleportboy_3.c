@@ -1,20 +1,20 @@
 ﻿#include "stdio.h"
-//фунция возвращает результат взависимости от переданного ей оператора 
+//фунция возвращает результат в зависимости от переданного ей оператора 
 int DoOperation(int operatorSign, int firstNumber, int secondNumber)
-{	
-	if(operatorSign== '+') return firstNumber + secondNumber;
+{
+	if (operatorSign == '+') return firstNumber + secondNumber;
 	else if (operatorSign == '-') return firstNumber - secondNumber;
 	else if (operatorSign == '*') return firstNumber * secondNumber;
 	/*else if (operatorSign == '/') return (double)firstNumber / secondNumber;*/
 	else if (operatorSign == '%') return firstNumber % secondNumber;
 	else if (operatorSign == '^') return firstNumber ^ secondNumber;
 	else if (operatorSign == '|') return firstNumber | secondNumber;
-	else return firstNumber & secondNumber; 	
+	else return firstNumber & secondNumber;
 	return 0;
 }
 int main()
 {
-	int frstNumDigit, scndNumDigit, operatorSign, firstNumber = 0, secondNumber = 0, operationResult;	
+	int frstNumDigit, scndNumDigit, operatorSign, firstNumber = 0, secondNumber = 0, operationResult;
 	printf_s("Universal calculator...\n"
 		"Syntax: VALUE SIGN VALUE EQUAL\n"
 		"----------------------------------------\n"
@@ -33,12 +33,12 @@ int main()
 			putchar(frstNumDigit);
 			firstNumber = firstNumber * 10 + (frstNumDigit - 48);
 		}
-		if (firstNumber > 0  && (frstNumDigit == '-' || frstNumDigit == '+'
+		if (firstNumber > 0 && (frstNumDigit == '-' || frstNumDigit == '+'
 			|| frstNumDigit == '/' || frstNumDigit == '%' || frstNumDigit == '*'
 			|| frstNumDigit == '^' || frstNumDigit == '|' || frstNumDigit == '&'))
 		{
 			putchar(frstNumDigit);
-			
+
 			//запись знака мат. операции в память
 			operatorSign = frstNumDigit;
 			break;
@@ -64,7 +64,7 @@ int main()
 	//вывод результата опирации в зависимости от оператора
 	if (operatorSign == '/')
 	{
-		printf_s("%.2lf", (double)firstNumber/secondNumber);
+		printf_s("%.2lf", (double)firstNumber / secondNumber);
 		printf_s("\n----------------------------------------");
 		printf_s("\nNO HEX AND BINARY AVAILABLE YET FOR DIVISION OPERATIONS");
 	}
@@ -75,16 +75,15 @@ int main()
 			//вывод в HEX
 			"\nHEX: %.8X", operationResult);
 		//вывод в BIN
-		printf_s("\nBIN: ");
-		//счётчик цикла
-		int count = 31;
-		while (count>=0)
+		printf_s("\nBIN: ");		
+		for (int i = 31; i >= 0; i--)
 		{
-			if (operationResult >> count & 1) printf_s("1");			
-			else printf_s("0");
-			if (count == 24 || count == 16 || count == 8) printf_s(" ");
-			count--;
-		}		
+			int bin;
+			bin = (operationResult >> i) % 2;
+			if (bin == -1) printf("%d", -1 * bin);
+			else printf("%d", bin);
+			if (i % 8 == 0) printf("  ");
+		}
 	}
 	return 0;
 }
