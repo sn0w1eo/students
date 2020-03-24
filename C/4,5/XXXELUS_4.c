@@ -27,6 +27,9 @@ int main()
 	system("chcp 866>nul");
 	int x = 0, y = 0, xMax = 121,yMax=30;
 	int push;
+	GO(0, 29)
+		puts("Press ESC to exit...");
+	GO(x,y)
 	do {
 
 		push = getch();
@@ -54,9 +57,9 @@ int main()
 		
 		if (push == ESC) 
 		{
-			GO(0,30)
+			GO(0,29)
 				SET_COLOR(0x8)
-			printf("лллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллл");
+			printf("ллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллл");
 				
 				for (int i = 0; i <= 110;i++) 
 				{
@@ -64,7 +67,7 @@ int main()
 					while (dec <= 122) 
 					{
 						SET_COLOR(0xa)
-						GO(i, 30);
+						GO(i, 29);
 						printf("%c\b", dec);
 						dec++;
 						printf("\xDB\b");
@@ -75,5 +78,6 @@ int main()
 				
 		}
 	} while (push != ESC);
+	
 	return 0;
 }
