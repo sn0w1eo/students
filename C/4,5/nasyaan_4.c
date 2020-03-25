@@ -95,6 +95,10 @@ int main()
 			{
 				SET_COLOR(0xC)
 			}
+			else if (push == '0')
+			{
+				SET_COLOR(0xB)
+			}
 			if (push == ESC)
 			{
 				int sym = 58;//{:}
