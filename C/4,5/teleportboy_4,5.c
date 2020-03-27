@@ -68,7 +68,7 @@ int DisplayFrame()
 	//нарисовать верхнюю границу
 	cursorPosition.X = LEFTBORDER;
 	cursorPosition.Y = TOPLINE;
-	for (size_t i = 0; i <=RIGHTBORDER-LEFTBORDER; i++)
+	for (int i = 0; i <=RIGHTBORDER-LEFTBORDER; i++)
 	{
 		SetConsoleCursorPosition(console, cursorPosition);
 		printf_s("*");
@@ -77,7 +77,7 @@ int DisplayFrame()
 	//нарисовать левую границу
 	cursorPosition.X = LEFTBORDER;
 	cursorPosition.Y = TOPLINE;
-	for (size_t i = 0; i <= BOTTOMLINE - TOPLINE; i++)
+	for (int i = 0; i <= BOTTOMLINE - TOPLINE; i++)
 	{
 		SetConsoleCursorPosition(console, cursorPosition);
 		printf_s("*");
@@ -86,7 +86,7 @@ int DisplayFrame()
 	//нарисовать правую границу
 	cursorPosition.X =  RIGHTBORDER;
 	cursorPosition.Y = TOPLINE;
-	for (size_t i = 0; i <= BOTTOMLINE-TOPLINE; i++)
+	for (int i = 0; i <= BOTTOMLINE-TOPLINE; i++)
 	{
 		SetConsoleCursorPosition(console, cursorPosition);
 		printf_s("*");
@@ -95,7 +95,7 @@ int DisplayFrame()
 	//нарисовать нижнюю границу
 	cursorPosition.X = LEFTBORDER;
 	cursorPosition.Y = BOTTOMLINE;
-	for (size_t i = 0; i <= RIGHTBORDER - LEFTBORDER; i++)
+	for (int i = 0; i <= RIGHTBORDER - LEFTBORDER; i++)
 	{
 		SetConsoleCursorPosition(console, cursorPosition);
 		printf_s("*");
