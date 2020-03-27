@@ -60,7 +60,7 @@ int DisplayFrame()
 	if (TOPLINE > BOTTOMLINE || LEFTBORDER > RIGHTBORDER)
 	{
 		SetColor(60);
-		puts("INCORRECTLY SIZED BOUNDARY SIZES !!!");
+		puts("INCORRECTLY BOUNDARY SIZES !!!");
 		return 0;
 	}
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
