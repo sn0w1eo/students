@@ -112,8 +112,7 @@ int main()
 	cursorPosition.Y = TOPLINE;	
 	DisplayFrame();	
 	DisplayHotKey();
-	SetConsoleCursorPosition(console, cursorPosition);
-
+	SetConsoleCursorPosition(console, cursorPosition);	
 	while (key != ESC)
 	{		
 		key = getch();
