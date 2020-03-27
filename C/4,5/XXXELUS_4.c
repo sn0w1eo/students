@@ -1,8 +1,6 @@
-#include "windows.h"
+ï»¿#include "windows.h" 
 #include "stdio.h"
 #include "stdlib.h"
-
-
 #define setBlue case 0x31:SET_COLOR(0x1) break;
 #define setGreen case 0x32: SET_COLOR(0x2) break;
 #define setGoluboi case 0x33:SET_COLOR(0x3) break;
@@ -17,67 +15,66 @@
 #define UP 0x4800
 #define DOWN 0x5000
 #define ESC 0x1B
-#define GO(x,y){COORD coordinates={x,y}; SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coordinates);}
-#define SET_COLOR(color){SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),color);}
-
-
-
-int main() 
+#define GO(x, y) { COORD coordinates = { x,y }; SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coordinates); }
+#define SET_COLOR(color) { SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color); }
+                                                       
+int main()
 {
-	system("chcp 866>nul");
-	int x = 0, y = 0, xMax = 121,yMax=30;
-	int push;
-	GO(0, 29)
-		puts("Press ESC to exit...");
-	GO(x,y)
-	do {
+  system("chcp 866>nul");
+  int x = 0, y = 0, xMax = 121, yMax = 30;
+  int push;
+  GO(0, 29)
+      puts("Press ESC to exit...");
+  GO(x, y)
+        	do {
+                                          
 
-		push = getch();
-		if (push == 0 || push == 0xE0) 
-		{
-			push = getch()<<8;
-		}
-		if (push >= 'A' && push <= 'z') { printf("%c\b", push); }
-		switch (push)
-		{
-		case RIGHT: if(x!=xMax) x++; GO(x, y) break;
-		case LEFT: if(x!=0) x--; GO(x, y) break;
-		case UP: if(y!=0) y--; GO(x, y) break;
-		case DOWN: if(y!=yMax) y++; GO(x, y) break;
-		setRed
-		setGreen
-		setBlue
-		setLightBlue
-		setYellow
-		setWhite
-		setLilac
-		setLightLilac
-		setGoluboi
-		}
-		
-		if (push == ESC) 
-		{
-			GO(0,29)
-				SET_COLOR(0x8)
-			printf("ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ");
-				
-				for (int i = 0; i <= 110;i++) 
-				{
-					int dec = 58;
-					while (dec <= 122) 
-					{
-						SET_COLOR(0xa)
-						GO(i, 29);
-						printf("%c\b", dec);
-						dec++;
-						printf("\xDB\b");
-						
-					}
-					if (i == 110) { printf("\nComplete 100%%....\n\n"); }
-				}
-				
-		}
-	} while (push != ESC);
-	
-	return 0;
-}
+                	push = getch();
+                    if (push == 0 || push == 0xE0)
+                        {
+                           push = getch() << 8;
+                        }
+                    if (push >= 'A' && push <= 'z') { printf("%c\b", push); }
+                    switch (push)
+                      	{
+                           case RIGHT: if (x != xMax) x++; GO(x, y) break;
+                           case LEFT: if (x != 0) x--; GO(x, y) break;
+                           case UP: if (y != 0) y--; GO(x, y) break;
+                           case DOWN: if (y != yMax) y++; GO(x, y) break;
+                           setRed
+                           setGreen
+                           setBlue
+                           setLightBlue
+                           setYellow
+                           setWhite
+                           setLilac
+                           setLightLilac
+                           setGoluboi
+                   		}
+                                         
+                    if (push == ESC)
+                        {
+                           GO(0, 29)
+                           SET_COLOR(0x8)
+                           printf("Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°Å°");
+                           for (int i = 0; i <= 110; i++)
+                                 {
+                                    int dec = 58;
+                                    while (dec <= 122)
+                                            {
+                                              SET_COLOR(0xa)
+                                              GO(i, 29);
+                                              printf("%c\b", dec);
+                                              dec++;
+                                              printf("\xDB\b");
+                                                      
+                                                                        	}
+                   	if (i == 110) { printf("\nComplete 100%%....\n\n"); }
+                        }
+                                              
+                  	}
+                               
+            } while (push != ESC);
+                                          
+    return 0;
+}//Sorry my fail

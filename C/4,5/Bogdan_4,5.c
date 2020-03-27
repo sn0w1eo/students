@@ -19,12 +19,12 @@ void color(int ColorNumber) {
 
 int main() {
 	int vvod;
-	int x = 1, y = 1, xMax = 78, yMax = 22;
+	int x = 0, y = 0, xMax = 78, yMax = 22;
 
 	position(0, 23);
 	color(12);
 	printf("Press ESC to exit");
-	position(1, 1);
+	position(0, 0);
 	do 
 	{
 		
@@ -38,10 +38,10 @@ int main() {
 			
 			switch (vvod)
 			{
-			case LEFT: if (x != 1) { --x; position(x, y); break; }
-			case RIGHT: if (x != xMax) { ++x; position(x, y); break; }
-			case UP: if (y != 0) { --y; position(x, y); break; }
-			case DOWN: if (y != yMax){ ++y; position(x, y); break;}
+			case LEFT: if (x != 0)  --x; position(x, y); break; 
+			case RIGHT: if (x != xMax)  ++x; position(x, y); break; 
+			case UP: if (y != 0)  --y; position(x, y); break; 
+			case DOWN: if (y != yMax) ++y; position(x, y); break;
 				case '1': color (7); break;
 				case '2': color(8); break;
 				case '3': color(9); break;
