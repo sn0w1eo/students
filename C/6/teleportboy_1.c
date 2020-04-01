@@ -7,7 +7,7 @@ int main()
 {
 	puts("\nZ-d***A/*\\pO_oBaaa, cloooose .... programmu poka ne pozdno.");
 	getch();
-	long longNumber = 0;
+	long longNumber = 1;
 	double floatNumber = 0;
 	int integerNumber = 0;	
 
