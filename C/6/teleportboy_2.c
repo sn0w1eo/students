@@ -1,66 +1,67 @@
-#include "stdio.h"
+п»ї#include "stdio.h"
 #include "windows.h"
 #include "time.h"
 #include "math.h"
 #define UP				0xE048
 #define LEFT			0xE04B
-#define RIGHT			0xE04D
-#define DOWN            0xE050
-#define ESC				0x1B
+#define RIGHT		0xE04D
+#define DOWN       0xE050
+#define ESC			   	 0x1B
+
 void MakeGameField(unsigned char array[22][42], int blocks);
 int CheckBlock(unsigned char gameField[22][42], int row, int column, int key);
-int CheckVictory(unsigned char gameField[22][42], int row, int column);
+int CheckVictory(unsigned char gameField[22][42], int row, int column, int stepsCount, int stepsTotal);
 void DisplayGameField(unsigned char  array[22][42]);
 void DisplayPathway(unsigned char  array[22][42]);
 
 int main()
 {
-	int key = 0, row = 1, column = 1, stepsCount = 0, blocks = 0, winCheck, blockCheck;
+	int key = 0, row = 1, column = 1, stepsCount = 0, stepsTotal, blocks = 0, winCheck, blockCheck;
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 	COORD cursorPosition;
 	cursorPosition.X = 0;
 	cursorPosition.Y = 22;
 	unsigned char gameField[22][42], firstName[20], lastName[20], nickName[20];
 
-	//ввод имени
+	//РІРІРѕРґ РёРјРµРЅРё
 	printf_s("Name: ");
 	gets(firstName);
 
-	//ввод фамилия
+	//РІРІРѕРґ С„Р°РјРёР»РёСЏ
 	printf_s("lastName: ");
 	gets(lastName);
 
-	//ввод никнейма
+	//РІРІРѕРґ РЅРёРєРЅРµР№РјР°
 	printf_s("nickNme: ");
 
 	gets(nickName);
 	printf_s("Welcomeeee: %s \"%s\" %s\n", firstName, nickName, lastName);
 
-	//установка счетчика шагов	
+	//СѓСЃС‚Р°РЅРѕРІРєР° СЃС‡РµС‚С‡РёРєР° С€Р°РіРѕРІ	
 	printf_s("Steps: ");
 	scanf_s("%d", &stepsCount);
+	stepsTotal = stepsCount;
 
-	//установка препятствий	
+	//СѓСЃС‚Р°РЅРѕРІРєР° РїСЂРµРїВ¤С‚СЃС‚РІРёР№	
 	printf_s("Blocks: ");
 	scanf_s("%d", &blocks);
 
-	system("cls"); 	//отчистить экран перед игрой
+	system("cls"); 	//РѕС‚С‡РёСЃС‚РёС‚СЊ СЌРєСЂР°РЅ РїРµСЂРµРґ РёРіСЂРѕР№
 
-	//запуск игры . . .
-
+	//Р·Р°РїСѓСЃРє РёРіСЂС‹ . . .	
 	MakeGameField(gameField, blocks);
 	DisplayGameField(gameField);
 	DisplayPathway(gameField);
 
 	do
 	{
-		//спрятать каретку
+		//СЃРїСЂСЏС‚Р°С‚СЊ РєР°СЂРµС‚РєСѓ
 		CONSOLE_CURSOR_INFO info;
 		info.dwSize = 100;
 		info.bVisible = FALSE;
 		SetConsoleCursorInfo(console, &info);
 
-		// проверка на неверно введённое ко-во шагов; конец игры при 0 оставшихся шагов
+		// РїСЂРѕРІРµСЂРєР° РЅР° РЅРµРІРµСЂРЅРѕ РІРІРµРґРµРЅРЅРѕРµ РєРѕ-РІРѕ С€Р°РіРѕРІ; РєРѕРЅРµС† РёРіСЂС‹ РїСЂРё 0 РѕСЃС‚Р°РІС€РёС…СЃСЏ С€Р°РіРѕРІ
 		if (stepsCount < 1)
 		{
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
@@ -70,7 +71,7 @@ int main()
 			puts("You've failed. Try ur luck next time.");
 			return 0;
 		}
-		//ввод 
+		//РІРІРѕРґ 
 		key = getch();
 		if (key == 0xE0)
 		{
@@ -78,23 +79,23 @@ int main()
 			key = key | getch();
 		}
 
-		//система управления
+		//СЃРёСЃС‚РµРјР° СѓРїСЂР°РІР»РµРЅРёВ¤
 		switch (key)
 		{
-			//шаг вперЄд
+			//С€Р°Рі РІРїРµСЂРµРґ
 		case UP:
 			row--;
 			stepsCount--;
 			if (row < 1)
 			{
-				stepsCount++; /// не изменять счетчик при попытках выхода за границы/столкновениях с блоками
+				stepsCount++; /// РЅРµ РёР·РјРµРЅСЏС‚СЊ СЃС‡РµС‚С‡РёРє РїСЂРё РїРѕРїС‹С‚РєР°С… РІС‹С…РѕРґР° Р·Р° РіСЂР°РЅРёС†С‹/СЃС‚РѕР»РєРЅРѕРІРµРЅРёВ¤С… СЃ Р±Р»РѕРєР°РјРё
 				row = 1;
 			}
 
-			//условие победы при входе в ячейку с символом '@'
-			winCheck = CheckVictory(gameField, row, column);
+			//СѓСЃР»РѕРІРёРµ РїРѕР±РµРґС‹ РїСЂРё РІС…РѕРґРµ РІ СЏС‡РµР№РєСѓ СЃ СЃРёРјРІРѕР»РѕРј '@'
+			winCheck = CheckVictory(gameField, row, column,stepsCount,stepsTotal);
 			if (winCheck == 0) return 0;
-			//проверка на блоки
+			//РїСЂРѕРІРµСЂРєР° РЅР° Р±Р»РѕРєРё
 			blockCheck = CheckBlock(gameField, row, column, key);
 			if (blockCheck == 1)
 			{
@@ -103,7 +104,7 @@ int main()
 			}
 			break;
 
-			//шаг назад
+			//С€Р°Рі РЅР°Р·Р°Рґ
 		case DOWN:
 			row++;
 			stepsCount--;
@@ -113,7 +114,7 @@ int main()
 				row = 20;
 			}
 
-			winCheck = CheckVictory(gameField, row, column);
+			winCheck = CheckVictory(gameField, row, column, stepsCount, stepsTotal);
 			if (winCheck == 0) return 0;
 
 			blockCheck = CheckBlock(gameField, row, column, key);
@@ -124,7 +125,7 @@ int main()
 			}
 			break;
 
-			//шаг влево
+			//С€Р°Рі РІР»РµРІРѕ
 		case LEFT:
 			column--;
 			stepsCount--;
@@ -134,7 +135,7 @@ int main()
 				column = 1;
 			}
 
-			winCheck = CheckVictory(gameField, row, column);
+			winCheck = CheckVictory(gameField, row, column, stepsCount, stepsTotal);
 			if (winCheck == 0) return 0;
 
 			blockCheck = CheckBlock(gameField, row, column, key);
@@ -144,7 +145,7 @@ int main()
 				stepsCount++;
 			}
 			break;
-			//шаг вправо
+			//С€Р°Рі РІРїСЂР°РІРѕ
 		case RIGHT:
 			column++;
 			stepsCount--;
@@ -154,7 +155,7 @@ int main()
 				column = 40;
 			}
 
-			winCheck = CheckVictory(gameField, row, column);
+			winCheck = CheckVictory(gameField, row, column, stepsCount, stepsTotal);
 			if (winCheck == 0) return 0;
 
 			blockCheck = CheckBlock(gameField, row, column, key);
@@ -164,40 +165,40 @@ int main()
 				stepsCount++;
 			}
 			break;
-			//выйти из игры
+			//РІС‹Р№С‚Рё РёР· РёРіСЂС‹
 		case ESC:
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 			SetConsoleCursorPosition(console, cursorPosition);
 			puts("Ok buddy. Cya next time...");
 			return 0;
 		}
-		//вывод шагов
+		//РІС‹РІРѕРґ С€Р°РіРѕРІ
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 		SetConsoleCursorPosition(console, cursorPosition);
 		printf_s("Steps:%d     ", stepsCount);
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);
 	} while (!0); // :D
 }
-//инициализация игры
+//РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РёРіСЂС‹
 void MakeGameField(unsigned char array[22][42], int blocks)
 {
 	srand(time(NULL));
 	int row = 0, column = 0;
-	//заполнение препятствий
+	//Р·Р°РїРѕР»РЅРµРЅРёРµ РїСЂРµРїСЏС‚СЃС‚РІРёР№
 	for (int i = 0; i < blocks; i++)
 	{
 		row = 0 + rand() % 21;
 		column = 0 + rand() % 41;
 		array[row][column] = '#';
 	}
-	//цель 
+	//С„РёРЅРёС€
 	for (int i = 0; i < 1; i++)
 	{
-		row = 1 + rand() % 21;
-		column = 0 + rand() % 41;
+		row = 1 + rand() % 20;
+		column = 0 + rand() % 40;
 		array[row][column] = '@';
 	}
-	//заполнение пробелов
+	//Р·Р°РїРѕР»РЅРµРЅРёРµ РїСЂРѕР±РµР»РѕРІ
 	for (int i = 0; i < 21; i++)
 	{
 		for (int j = 0; j < 41; j++)
@@ -212,7 +213,7 @@ void MakeGameField(unsigned char array[22][42], int blocks)
 			}
 		}
 	}
-	//нарисовать рамку
+	//РЅР°СЂРёСЃРѕРІР°С‚СЊ СЂР°РјРєСѓ
 	for (int i = 1; i < 22; i++)
 	{
 		for (int j = 0; j < 42; j++)
@@ -231,17 +232,20 @@ void MakeGameField(unsigned char array[22][42], int blocks)
 }
 
 
-//проверка препятствия перед маркером и сердце игры
+//РїСЂРѕРІРµСЂРєР° РїСЂРµРїСЏС‚СЃС‚РІРёСЏ РїРµСЂРµРґ РјР°СЂРєРµСЂРѕРј 
 int CheckBlock(unsigned char gameField[22][42], int row, int column, int key)
 {
 	if (key == UP)
 	{
+		//РµСЃР»Рё РїРµСЂРµРґ РјР°СЂРєРµСЂРѕРј  - #  , РїСЂРѕС…РѕРґ РЅРµ РІРѕР·РјРѕР¶РµРЅ
+		//С„СѓРЅРєС†РёСЏ РІРѕР·РІСЂР°С‰Р°РµС‚ "РёСЃС‚РёРЅСѓ" РµСЃР»Рё РїРµСЂРµРґ РјР°СЂРєРµСЂРѕРј  #
 		if (gameField[row][column] == '#')
 		{
 			gameField[++row][column] = '*';
 			DisplayPathway(gameField);
 			return 1;
 		}
+		//РёРЅР°С‡Рµ РїСЂРѕС…РѕРґ РІРѕР·РјРѕР¶РµРЅ
 		else
 		{
 			gameField[row][column] = '*';
@@ -301,20 +305,22 @@ int CheckBlock(unsigned char gameField[22][42], int row, int column, int key)
 	}
 	return 0;
 }
-//проверка условия победы
-int CheckVictory(unsigned char gameField[22][42], int row, int column)
+//РїСЂРѕРІРµСЂРєР° СѓСЃР»РѕРІРёСЏ РїРѕР±РµРґС‹
+int CheckVictory(unsigned char gameField[22][42], int row, int column,int stepsCount, int stepsTotal)
 {
 	if (gameField[row][column] == '@')
 	{
 		gameField[row][column] = '*';
 		DisplayGameField(gameField);
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-		puts("Congratulations! You've won!");
+		printf_s("Congratulations! You've won!");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+		printf_s(" Steps: %d / %d", stepsCount, stepsTotal);
 		return 0;
 	}
 	else return 1;
 }
-//вывод  игрового поля 
+//РІС‹РІРѕРґ  РёРіСЂРѕРІРѕРіРѕ РїРѕР»СЏ
 void DisplayGameField(unsigned char  array[22][42])
 {
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -323,12 +329,12 @@ void DisplayGameField(unsigned char  array[22][42])
 	{
 		for (int j = 0; j < 42; j++)
 		{
-			//по координате X выводить столбцы, а по Y - строки
+			//РїРѕ РєРѕРѕСЂРґРёРЅР°С‚Рµ X РІС‹РІРѕРґРёС‚СЊ СЃС‚РѕР»Р±С†С‹, Р° РїРѕ Y - СЃС‚СЂРѕРєРё
 			cursorPosition.X = j;
 			cursorPosition.Y = i;
 			SetConsoleCursorPosition(console, cursorPosition);
 
-			//покраска и вывод элементов игрового пол¤
+			//РїРѕРєСЂР°СЃРєР° Рё РІС‹РІРѕРґ СЌР»РµРјРµРЅС‚РѕРІ РёРіСЂРѕРІРѕРіРѕ РїРѕР»СЏ
 			if (array[i][j] == '#')
 			{
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
@@ -346,7 +352,7 @@ void DisplayGameField(unsigned char  array[22][42])
 	}
 	printf_s("\n");
 }
-//отоброжать пройденный путь
+//РѕС‚РѕР±СЂРѕР¶Р°С‚СЊ РїСЂРѕР№РґРµРЅРЅС‹Р№ РїСѓС‚СЊ
 void DisplayPathway(unsigned char  array[22][42])
 {
 	for (int i = 0; i < 21; i++)
