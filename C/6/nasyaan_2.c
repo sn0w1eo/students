@@ -156,7 +156,6 @@ int main()
 	char fullName[STR_LEN * 3] = { 0x00 };
 	int Arr[21][41];
 	int gameBlocks, gameSteps;
-
 	/*меню ввода имени, блоков и шагов*/
 	printf("firstName: ");
 	scanf_s("%s", firstName, STR_LEN);
