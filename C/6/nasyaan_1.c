@@ -109,7 +109,7 @@ int main()
 	scanf("%s", str4);
 
 	// Сравниваем первые пять символов двух строк
-	if (strncmp(str3, str3, 5) == 0)
+	if (strncmp(str3, str4, 5) == 0)
 		printf("The first five symbols of the strings are equal\n");
 	else
 		printf("The first five symbols of the strings are different\n");
