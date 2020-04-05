@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+п»ї#define _CRT_SECURE_NO_WARNINGS
 
 #include "stdio.h"
 #include "windows.h"
@@ -21,7 +21,7 @@ void setPosition(int x, int y) {
 void setColor(int color) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
-/*прячем курсор*/
+/*РїСЂСЏС‡РµРј РєСѓСЂСЃРѕСЂ*/
 void hideCursor()
 {
 	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -30,7 +30,7 @@ void hideCursor()
 	info.bVisible = FALSE;
 	SetConsoleCursorInfo(consoleHandle, &info);
 }
-/*рисуем рамку*/
+/*СЂРёСЃСѓРµРј СЂР°РјРєСѓ*/
 void drawTable()
 {
 	setColor(MAGENTA);
@@ -91,7 +91,7 @@ void drawTable()
 	}
 	setColor(7);
 }
-/*выводим массив*/
+/*РІС‹РІРѕРґРёРј РјР°СЃСЃРёРІ*/
 void printArray(int Arr[][41])
 {
 	for (int i = 1; i < 21; i++)
@@ -117,7 +117,7 @@ void printArray(int Arr[][41])
 		}
 	}
 }
-/*находим рандомные координаты для # и @*/
+/*РЅР°С…РѕРґРёРј СЂР°РЅРґРѕРјРЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹ РґР»СЏ # Рё @*/
 void fillArray(int gameBlocks, int Arr[][41])
 {
 	for (int i = 0; i < gameBlocks; i++)
@@ -157,7 +157,7 @@ int main()
 	int Arr[21][41];
 	int gameBlocks, gameSteps;
 
-	/*меню ввода имени, блоков и шагов*/
+	/*РјРµРЅСЋ РІРІРѕРґР° РёРјРµРЅРё, Р±Р»РѕРєРѕРІ Рё С€Р°РіРѕРІ*/
 	printf("firstName: ");
 	scanf_s("%s", firstName, STR_LEN);
 
@@ -189,7 +189,7 @@ int main()
 	srand(time(NULL));
 	fillArray(gameBlocks, Arr);
 	Arr[1][1] = '*';
-	/*вызываем наши функции*/
+	/*РІС‹Р·С‹РІР°РµРј РЅР°С€Рё С„СѓРЅРєС†РёРё*/
 	drawTable();
 	printArray(Arr);
 
@@ -216,7 +216,7 @@ int main()
 			printf("\nYou`ve failed. Try ur luck next time.\n");
 			return 0;
 		}
-		/*при нажатии на клавишу "вправо" делаем шаг, ставим * и след в виде . */
+		/*РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° РєР»Р°РІРёС€Сѓ "РІРїСЂР°РІРѕ" РґРµР»Р°РµРј С€Р°Рі, СЃС‚Р°РІРёРј * Рё СЃР»РµРґ РІ РІРёРґРµ . */
 		if (ch == RIGHT_ARROW)
 		{
 			if (Arr[x][y + 1] == '@')
@@ -239,7 +239,7 @@ int main()
 
 
 		}
-		/*шаг влево*/
+		/*С€Р°Рі РІР»РµРІРѕ*/
 		if (ch == LEFT_ARROW)
 		{
 			if (Arr[x][y - 1] == '@')
@@ -261,7 +261,7 @@ int main()
 			}
 
 		}
-		/*шаг вниз*/
+		/*С€Р°Рі РІРЅРёР·*/
 		if (ch == DOWN_ARROW)
 		{
 			if (Arr[x + 1][y] == '@')
@@ -283,7 +283,7 @@ int main()
 			}
 
 		}
-		/*шаг вверх*/
+		/*С€Р°Рі РІРІРµСЂС…*/
 		if (ch == UP_ARROW)
 		{
 			if (Arr[x - 1][y] == '@')
@@ -304,7 +304,7 @@ int main()
 				printArray(Arr);
 			}
 		}
-		/*при нажатии на escape выход из программы*/
+		/*РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° escape РІС‹С…РѕРґ РёР· РїСЂРѕРіСЂР°РјРјС‹*/
 		if (ch == ESC_BTN)
 		{
 			setPosition(0, 22);
