@@ -18,19 +18,18 @@ void printBin(char text[], int binStep);
 int main() {
 
 	char text[SIZE];
-	int hexStep = 0;
-	int binStep = 0;
+	int Step = 0;				//сдвиг по массиву
 
 	color(0x0E);
 	printf("Enter text and the program will print them in BIN and HEX format\n\n");
 	color(0x07);
 	printf("Text: ");
-	scanf_s("%s",text, SIZE);    //заполнение массива
+	scanf_s("%s",text, SIZE);	//заполнение массива
 	printf("HEX : ");
-	printHex(text,hexStep);      //вывод по таблице ASCII в 16ричной системе
+	printHex(text,Step);		//вывод по таблице ASCII в 16ричной системе
 	color(0x07);
 	printf("\nBIN : ");
-	printBin(text, binStep);     //вывод по таблице ASCII в бинарной системе
+	printBin(text, Step);		//вывод по таблице ASCII в бинарной системе
 	_getch();
 }
 
@@ -55,25 +54,23 @@ void printHex(char text[], int hexStep) {
 
 
 //вывод по таблице ASCII в бинарной системе
-void printBin(char text[], int binStep) {
-	if (text[binStep] == '\0') {
+void printBin(char text[], int Step) {
+	if (text[Step] == '\0') {
 		return;
 	}
 
 	for (int i = 7; i >= 0; i--)
 	{ 
 		//проверка на получение цвета
-		if ((text[binStep] >> i) % 2 == 0) {
+		if ((text[Step] >> i) % 2 == 0)
 			color(WHITE);
-		}
-		else {
+		else
 			color(RED);
-		}
-		printf("%d", (text[binStep] >> i) % 2);  //цикл на бинарный вывод
+		printf("%d", (text[Step] >> i) % 2);  //цикл на бинарный вывод
 	}
 	printf(" ");
-	++binStep;
-	printBin(text, binStep);
+	++Step;
+	printBin(text, Step);
 }
 
 
