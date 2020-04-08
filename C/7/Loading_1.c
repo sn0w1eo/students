@@ -28,25 +28,21 @@ void setColor(int color)
 
 int inHex(unsigned char str[]) 
 {
-	int z=0;
 	setColor(11);
-	z=("%x ", str[z]);
-	if (z > 0)
+	if (str[0] != 0)
 	{
-		printf("%x ", z);
-		z = inHex(str+1);
+		printf("%x ", str[0]);
+		inHex(str+1);
 	}
 }
 
 int inBin(unsigned char str[])
 {
-	int value;
-	value =("%d ", str[0]);
-	if (value > 0)
+	if (str[0]!= 0)
 	{
 		for (int i = 7; i >= 0; i--)
 		{
-			int k = value >> i;
+			int k = str[0] >> i;
 			if (k & 1)
 			{
 				setColor(14);
@@ -59,7 +55,6 @@ int inBin(unsigned char str[])
 			}
 		}
 		printf(" ");
-		value = inBin(str + 1);
+		inBin(str + 1);
 	}
-	
 }
