@@ -1,16 +1,16 @@
-#include "stdio.h"
+п»ї#include "stdio.h"
 #include "windows.h"
 
-int increment = 0; //индекс для функции hex
-int binIncrement = 0; //индекс для функции binary
+int increment = 0; //РёРЅРґРµРєСЃ РґР»СЏ С„СѓРЅРєС†РёРё hex
+int binIncrement = 0; //РёРЅРґРµРєСЃ РґР»СЏ С„СѓРЅРєС†РёРё binary
 
-//цвет
+//С†РІРµС‚
 void color(color)
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
 
-//функция перевода строки в hex
+//С„СѓРЅРєС†РёСЏ РїРµСЂРµРІРѕРґР° СЃС‚СЂРѕРєРё РІ hex
 void makeHex(char string[100])
 {
 	color(11);
@@ -25,7 +25,7 @@ void makeHex(char string[100])
 
 }
 
-//функция перевода строки в binary
+//С„СѓРЅРєС†РёСЏ РїРµСЂРµРІРѕРґР° СЃС‚СЂРѕРєРё РІ binary
 void makeBinary(char string[100])
 {
 	if (string[binIncrement] == '\0')
