@@ -1,9 +1,7 @@
 ﻿#include "stdio.h"
 #include "windows.h"
 
-int increment = 0; //индекс для функции hex
-int binIncrement = 0; //индекс для функции binary
-
+ 
 //цвет
 void color(color)
 {
@@ -11,7 +9,7 @@ void color(color)
 }
 
 //функция перевода строки в hex
-void makeHex(char string[100])
+void makeHex(char string[], int increment)
 {
 	color(11);
 	if (string[increment] == '\0')
@@ -20,13 +18,13 @@ void makeHex(char string[100])
 	}
 	printf("%x ", string[increment]);
 	increment++;
-	makeHex(string);
+	makeHex(string, increment);
 	color(7);
 
 }
 
 //функция перевода строки в binary
-void makeBinary(char string[100])
+void makeBinary(char string[], int binIncrement)
 {
 	if (string[binIncrement] == '\0')
 	{
@@ -52,7 +50,7 @@ void makeBinary(char string[100])
 	color(8);
 	printf(" ");
 	binIncrement++;
-	makeBinary(string);
+	makeBinary(string, binIncrement);
 }
 
 int main()
@@ -61,7 +59,7 @@ int main()
 	printf("String: ");
 	scanf_s("%s", string, 100);
 	printf("HEX: ");
-	makeHex(string);
+	makeHex(string, 0);
 	printf("\nBIN: ");
-	makeBinary(string);
+	makeBinary(string, 0);
 }
