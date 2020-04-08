@@ -1,3 +1,15 @@
+/*  ***********************************************
+    **              By.XXXELUS                   **
+	**                                           **
+	**              WHO SPIZDIL                  **
+	**               TOT PUSSY                   **
+	**                                           **
+	**                                           **
+	**       p.s: aza ya sleju za toboi!         **
+	***********************************************
+  */
+
+
 #include "stdio.h"
 #include "windows.h"
 
@@ -15,8 +27,10 @@ int main()
 	 
 	printf("Enter string:");
 	gets(inputString);
+
 	printf("\nHEX: ");
 	stringToHex(inputString);
+
 	printf("\nBINARY: ");
 	stringToBin(inputString);
 
@@ -44,9 +58,6 @@ void stringToBin(char array[])
 		globalIndexBin++;
 		printf(" ");
 		stringToBin(array);
-	
-	
-	
 }
 
 void stringToHex(char array[]) 
