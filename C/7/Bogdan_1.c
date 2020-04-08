@@ -1,39 +1,44 @@
-#include"stdio.h"
+ï»¿#include"stdio.h"
 #include "windows.h"
 
-//öâåòà ïî æåëàíèþ ìîæíî èçìåíèòü
+//Ñ†Ð²ÐµÑ‚Ð° Ð¿Ð¾ Ð¶ÐµÐ»Ð°Ð½Ð¸ÑŽ Ð¼Ð¾Ð¶Ð½Ð¾ Ð¸Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ
 #define GREEN 0x0A
 #define RED   0x0C
 #define WHITE 0x07
 
 #define SIZE 100
 
+int stepHex = 0;				//ÑÐ´Ð²Ð¸Ð³ Ð¿Ð¾ Ð¼Ð°ÑÑÐ¸Ð²Ñƒ    /Ð¿Ð¾Ð´ÑÐ¼Ð¾Ñ‚Ñ€ÐµÐ» Ð²Ñ‹Ð½Ð¾Ñ Ñƒ Ñ€ÐµÐ±ÑÑ‚ Ð¾Ð½Ð¸ Ð·Ð° Ð¼Ð½Ð¾Ð¹ ÑÐ»ÐµÐ´Ð¸Ð»Ð¸ azazaza
+int stepBin = 0;
 
 void color(int color);
-void printHex(char text[], int hexStep);
-void printBin(char text[], int binStep);
+void printHex(char text[]);
+void printBin(char text[]);
 
 
 		
 int main() {
 
 	char text[SIZE];
-	int Step = 0;				//ñäâèã ïî ìàññèâó
+	
 
 	color(0x0E);
 	printf("Enter text and the program will print them in BIN and HEX format\n\n");
+
 	color(0x07);
 	printf("Text: ");
-	scanf_s("%s",text, SIZE);	//çàïîëíåíèå ìàññèâà
+	scanf_s("%s",text, SIZE);	//Ð·Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ðµ Ð¼Ð°ÑÑÐ¸Ð²Ð°
+
 	printf("HEX : ");
-	printHex(text,Step);		//âûâîä ïî òàáëèöå ASCII â 16ðè÷íîé ñèñòåìå
+	printHex(text);		        //Ð²Ñ‹Ð²Ð¾Ð´ Ð¿Ð¾ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ðµ ASCII Ð² 16Ñ€Ð¸Ñ‡Ð½Ð¾Ð¹ ÑÐ¸ÑÑ‚ÐµÐ¼Ðµ
+
 	color(0x07);
 	printf("\nBIN : ");
-	printBin(text, Step);		//âûâîä ïî òàáëèöå ASCII â áèíàðíîé ñèñòåìå
+	printBin(text);		        //Ð²Ñ‹Ð²Ð¾Ð´ Ð¿Ð¾ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ðµ ASCII Ð² Ð±Ð¸Ð½Ð°Ñ€Ð½Ð¾Ð¹ ÑÐ¸ÑÑ‚ÐµÐ¼Ðµ
 	_getch();
 }
 
-//ñìåíà öâåòà
+//ÑÐ¼ÐµÐ½Ð° Ñ†Ð²ÐµÑ‚Ð°
 void color(int color)
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
@@ -41,36 +46,36 @@ void color(int color)
 }
 
 
-//âûâîä ïî òàáëèöå ASCII â 16ðè÷íîé ñèñòåìå
-void printHex(char text[], int hexStep) {
+//Ð²Ñ‹Ð²Ð¾Ð´ Ð¿Ð¾ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ðµ ASCII Ð² 16Ñ€Ð¸Ñ‡Ð½Ð¾Ð¹ ÑÐ¸ÑÑ‚ÐµÐ¼Ðµ
+void printHex(char text[]) {
 	color(GREEN);
-	if (text[hexStep] == '\0') {
+	if (text[stepHex] == '\0') {
 		return;
 	}
-	printf("%X ", text[hexStep]);
-	++hexStep;
-	printHex(text, hexStep);
+	printf("%X ", text[stepHex]);
+	++stepHex;
+	printHex(text);
 }
 
 
-//âûâîä ïî òàáëèöå ASCII â áèíàðíîé ñèñòåìå
-void printBin(char text[], int Step) {
-	if (text[Step] == '\0') {
+//Ð²Ñ‹Ð²Ð¾Ð´ Ð¿Ð¾ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ðµ ASCII Ð² Ð±Ð¸Ð½Ð°Ñ€Ð½Ð¾Ð¹ ÑÐ¸ÑÑ‚ÐµÐ¼Ðµ
+void printBin(char text[]) {
+	if (text[stepBin] == '\0') {
 		return;
 	}
 
 	for (int i = 7; i >= 0; i--)
 	{ 
-		//ïðîâåðêà íà ïîëó÷åíèå öâåòà
-		if ((text[Step] >> i) % 2 == 0)
+		//Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ð° Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ Ñ†Ð²ÐµÑ‚Ð°
+		if ((text[stepBin] >> i) % 2 == 0)
 			color(WHITE);
 		else
 			color(RED);
-		printf("%d", (text[Step] >> i) % 2);  //öèêë íà áèíàðíûé âûâîä
+		printf("%d", (text[stepBin] >> i) % 2);  //Ñ†Ð¸ÐºÐ» Ð½Ð° Ð±Ð¸Ð½Ð°Ñ€Ð½Ñ‹Ð¹ Ð²Ñ‹Ð²Ð¾Ð´
 	}
 	printf(" ");
-	++Step;
-	printBin(text, Step);
+	++stepBin;
+	printBin(text);
 }
 
 
