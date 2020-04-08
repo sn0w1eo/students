@@ -1,11 +1,12 @@
+п»ї//AZAв—†MIв—†SLEDIMв—†ZAв—†TOBOI  
 #include "stdio.h"
 #include "stdlib.h"
 #include"windows.h"
 
 #define checkBit 0x01
 
-int binCount = 0; //счётчик итераций для функции PrintBinary
-int hexCount = 0; //счётчик итераций для функции PrintHexadecimal
+int binCount = 0; //СЃС‡С‘С‚С‡РёРє РёС‚РµСЂР°С†РёР№ РґР»СЏ С„СѓРЅРєС†РёРё PrintBinary
+int hexCount = 0; //СЃС‡С‘С‚С‡РёРє РёС‚РµСЂР°С†РёР№ РґР»СЏ С„СѓРЅРєС†РёРё PrintHexadecimal
 
 void SetColor(int color);
 void PrintHexadecimal(char text[]);
@@ -33,7 +34,7 @@ void SetColor(int color)
 void PrintBinary(char text[])
 {
 	int bin;
-	//итерировать пока не встретил \0 
+	//РёС‚РµСЂРёСЂРѕРІР°С‚СЊ РїРѕРєР° РЅРµ РІСЃС‚СЂРµС‚РёР» \0 
 	if (text[binCount] == '\0')
 	{
 		return;
@@ -61,7 +62,7 @@ void PrintBinary(char text[])
 void PrintHexadecimal(char text[])
 {
 	SetColor(11);
-	//итерировать пока не встретил \0 
+	//РёС‚РµСЂРёСЂРѕРІР°С‚СЊ РїРѕРєР° РЅРµ РІСЃС‚СЂРµС‚РёР» \0 
 	if (text[hexCount] == '\0')
 	{
 		return;
