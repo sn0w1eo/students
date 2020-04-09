@@ -372,6 +372,7 @@ void shop(int key)
                         diploma++;
                         system("cls");
                         drawWin();
+                        
                     }
 
                     else
@@ -612,6 +613,7 @@ void shopber(int key)
                         diploma++;
                         system("cls");
                         drawWin();
+                        
                     }
                     else
                     {
@@ -657,6 +659,7 @@ void startGame(int key)
             {
                 system("cls");
                 drawEnd();
+                
             }
 
             key = readKey();
@@ -697,6 +700,7 @@ void startGame(int key)
             {
                 system("cls");
                 drawEnd();
+                
             }
             key = readKey();
             Sleep(150);
@@ -1249,6 +1253,7 @@ void drawEnd()
         "| | | | | | | |   |  _  | | |  `--. | |   |  __|| . ` | | . ` |  _  |  _  | | | | | |  \n"
         "\\ \\_/ / | | | \\__/| | | |_| |_/\\__/ | |___| |___| |\\  | | |\\  | | | | | | | |_| |_| |_ \n"
         " \\___/  \\_/  \____\\_| |_/\\___/\\____/\_____\\____/\\_| \\_/ \\_| \\_\\_| |_\\_| |_/\\___/ \\___/ \n P.S: éíóàëãÖç çÄïìâ");
+    Sleep(5000);
     exit(0);
 }
 
@@ -1269,5 +1274,6 @@ void drawWin()
         "| '--------------' || '--------------' || '--------------' |\n"
         "'----------------'  '----------------'  '----------------' \n");
     Color(GREY);
+    Sleep(5000);
     exit(0);
 }
