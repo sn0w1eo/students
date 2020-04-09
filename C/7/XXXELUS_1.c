@@ -17,9 +17,6 @@ void stringToBin(char array[]);
 void stringToHex(char array[]);
 void color();
 
-int globalIndexHex = 0;
-int globalIndexBin = 0;
-
 int main() 
 {
 	char inputString[255];
@@ -38,12 +35,12 @@ int main()
 
 void stringToBin(char array[]) 
 {
-	if (array[globalIndexBin ] == '\0') {
+	if (array[0] == '\0') {
 		color(7);
 		return 0;
 	}
 		for (int i = 7; i >= 0; i--) {
-			int k = array[globalIndexBin] >> i;
+			int k = array[0] >> i;
 			if (k & 1) 
 			{
 				color(15);
@@ -55,18 +52,17 @@ void stringToBin(char array[])
 				printf("0");
 			}
 		}
-		globalIndexBin++;
 		printf(" ");
-		stringToBin(array);
+		stringToBin(array+1);
 }
 
 void stringToHex(char array[]) 
 {
 	color(13);
-	if (array[globalIndexHex] != 0x00) {
-		printf("%x ", array[globalIndexHex]);
-		globalIndexHex++;
-		stringToHex(array);
+	if (array[0] != 0x00) {
+		printf("%x ", array[0]);
+		
+		stringToHex(array+1);
 	}
 	color(7);
 	return 0;
