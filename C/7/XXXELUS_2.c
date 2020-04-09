@@ -621,12 +621,13 @@ void shopber(int key)
                     }
 
                 }
-                if (key == ESC)
-                {
-                    mainMenu();
-                }
+                break;
             }
-            break;
+            if (key == ESC)
+            {
+                mainMenu();
+            }
+           
         }
     }
 }
