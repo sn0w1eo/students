@@ -2,7 +2,7 @@
 #include "windows.h"
 #include "time.h"
 
-void setColor(int color);
+void setColor(int color);    // functions that was used
 void printGoods();
 void car();
 void laghman();
@@ -12,18 +12,18 @@ void iceCream();
 void zachet();
 void bonus();
 
-void setColor(int color)
+void setColor(int color)     // #1
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
 
-int main()
+int main()       // #2    ouput on display
 {
 	int number;
 	printf_s("Welcome to shop. This is list of Goods\n\n");
 	printGoods();
 	printf_s("\nChoose the number of Goods you want\n");
-	do
+	do                       // cycle for functions
 	{
 		scanf_s("%d", &number);
 		if (number == 1)
@@ -53,24 +53,24 @@ int main()
 	} while (1);
 }
 
-void printGoods()
+void printGoods()           // #3      list of Goods
 {
-	setColor(11);
+	setColor(11);     // cyan
 	printf_s("1. BMW M8 Gran Coupe\n");
 	printf_s("2. Laghman from Faiza\n");
 	printf_s("3. The ticket to USA\n");
 	printf_s("4. The technical ability of Dima\n");
 	printf_s("5. Ice cream\n");
 	printf_s("6. Zachet po vsem predmetam\n");
-	setColor(7);
+	setColor(7);       // white
 }
 
-void car()
+void car()                  // #4
 {
 	unsigned long int a;
 	printf_s("U chose BMW M8 Gran Coupe. It costs 140000$. How much money do u have in $ ?\n");
 	scanf_s("%d", &a);
-	if (a < 140000)
+	if (a < 140000)           // money check
 	{
 		printf_s("U don't have enough money. Come here when u will make a lot of money or choose another Goods\n");
 
@@ -83,12 +83,12 @@ void car()
 	}
 }
 
-void laghman()
+void laghman()                  // #5
 {
 	unsigned long int a;
 	printf_s("U chose Laghman from Faiza. It costs 4$. How much money do u have in $ ?\n");
 	scanf_s("%d", &a);
-	if (a < 4)
+	if (a < 4)                 //money check
 	{
 		printf_s("U don't have enough money. Come here when u will make a lot of money or choose another Goods\n");
 
@@ -101,11 +101,11 @@ void laghman()
 	}
 }
 
-void ticket()
+void ticket()                            // #6
 {
 	unsigned long int a;
 	printf_s("U chose the ticket to USA. It costs 550$. How much money do u have in $ ?\n");
-	scanf_s("%d", &a);
+	scanf_s("%d", &a);   // money check
 	if (a < 550)
 	{
 		printf_s("U don't have enough money. Come here when u will make a lot of money or choose another Goods\n");
@@ -119,21 +119,21 @@ void ticket()
 	}
 }
 
-void brain()
+void brain()                               // #7
 {
 	printf_s("U r not in a fairy tale. Go study\n");
-	setColor(12);
+	setColor(12);        // red
 	printf_s("\nBUT\n");
-	setColor(7);
+	setColor(7);    // white
 	bonus();
 }
 
-void iceCream()
+void iceCream()                       // #8
 {
 	unsigned long int a;
 	printf_s("U chose an ice cream. It costs 1$. How much money do u have in $ ?\n");
 	scanf_s("%d", &a);
-	if (a < 1)
+	if (a < 1)    // money check
 	{
 		printf_s("U don't have enough money. Come here when u will make a lot of money or choose another Goods\n");
 
@@ -146,51 +146,51 @@ void iceCream()
 	}
 }
 
-void zachet()
+void zachet()                            // #9
 {
 	printf_s("It was a joke. Go study\n");
-	setColor(12);
+	setColor(12);   // red
 	printf_s("\nBUT\n");
-	setColor(7);
+	setColor(7);    // white
 	bonus();
 }
 
-void bonus()
+void bonus()                // #10
 {
 	printf_s("\nU have a present from us\n");
-	srand(time(NULL));
+	srand(time(NULL));     // random for bonus
 	int a = 1 + rand() % 6;
 		switch(a)
 		{
 		case 1:
-			setColor(10);
+			setColor(10);      // green
 			printf_s("U won an ice cream. Congrats\n");
-			setColor(7);
+			setColor(7);    // white
 			break;
 		case 2:
-			setColor(10);
+			setColor(10);   // green
 			printf_s("U won a face mask. Congrats\n");
-			setColor(7);
+			setColor(7);    // white
 			break;
 		case 3:
-			setColor(10);
+			setColor(10);    // green 
 			printf_s("U won an antiseptic. Congrats\n");
-			setColor(7);
+			setColor(7);     // white
 			break;
 		case 4:
-			setColor(10);
+			setColor(10);     // green 
 			printf_s("U won 10 packs of chips. Congrats\n");
-			setColor(7);
+			setColor(7);      // white
 			break;
 		case 5:
-			setColor(10);
+			setColor(10);     // green 
 			printf_s("U won 100 $. Congrats\n");
-			setColor(7);
+			setColor(7);      // white
 			break;
 		case 6:
-			setColor(10);
+			setColor(10);      // green 
 			printf_s("U won zachet po ekologii. Congrats\n");
-			setColor(7);
+			setColor(7);      // white
 			break;
 		}
 }
