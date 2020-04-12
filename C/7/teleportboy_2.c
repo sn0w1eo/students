@@ -55,7 +55,7 @@ int main()
 	//запуск игры		
 	MakeGameField(krissKross);
 	HideCursor();
-	DisplayGameField(krissKross, playerMark, computerMark);
+	DisplayGameField(krissKross);
 	DisplayFrame();
 	ShowHotkeys();
 
@@ -64,11 +64,11 @@ int main()
 	{
 
 		key = getch();
-		
+
 		switch (key)
 		{
 		case 'q':
-			checkMove = CheckMove(krissKross, playerMark, computerMark, 0, 0);			
+			checkMove = CheckMove(krissKross, playerMark, computerMark, 0, 0);
 			if (checkMove == 1)
 			{
 				continue;
@@ -77,7 +77,7 @@ int main()
 			break;
 
 		case 'w':
-			checkMove = CheckMove(krissKross, playerMark, computerMark, 0, 1);			
+			checkMove = CheckMove(krissKross, playerMark, computerMark, 0, 1);
 			if (checkMove == 1)
 			{
 				SoundWrongMove();
@@ -87,7 +87,7 @@ int main()
 			break;
 
 		case 'e':
-			checkMove = CheckMove(krissKross, playerMark, computerMark, 0, 2);			
+			checkMove = CheckMove(krissKross, playerMark, computerMark, 0, 2);
 			if (checkMove == 1)
 			{
 				SoundWrongMove();
@@ -97,7 +97,7 @@ int main()
 			break;
 
 		case 'a':
-			checkMove = CheckMove(krissKross, playerMark, computerMark, 1, 0);			
+			checkMove = CheckMove(krissKross, playerMark, computerMark, 1, 0);
 			if (checkMove == 1)
 			{
 				SoundWrongMove();
@@ -108,7 +108,7 @@ int main()
 
 		case 's':
 			checkMove = CheckMove(krissKross, playerMark, computerMark, 1, 1);
-			
+
 			if (checkMove == 1)
 			{
 				SoundWrongMove();
@@ -166,11 +166,11 @@ int main()
 			SetColor(11);
 			printf_s("Ok, buddy. Cya next time...");
 			SoundESC();
-			return 0;	
+			return 0;
 			//если нажата неверная клавиша, сообщить об этом пользователю
 		default:
 			SetConsoleCursor(15, 24);
-			SetColor(14);			
+			SetColor(14);
 			printf_s("It seems you enter the wrong keys... hm ... try to chang the layout");
 			SoundWrongKey();
 			Sleep(1000);
@@ -182,7 +182,7 @@ int main()
 		if (key == 'q' || key == 'w' || key == 'e' || key == 'a' || key == 's' || key == 'd' || key == 'z' || key == 'x' || key == 'c')
 		{
 			//проверка на победу игрока
-			DisplayGameField(krissKross, playerMark, computerMark);
+			DisplayGameField(krissKross);
 			checkVictory = ItsVictory(krissKross, playerMark, computerMark);
 			//счётчик ходов
 			countMove++;
@@ -192,7 +192,7 @@ int main()
 			}
 			//ход компьютера и проверка на его победу
 			ComputerMove(krissKross, computerMark, playerMark);
-			checkVictory =  ItsVictory(krissKross, playerMark, computerMark);
+			checkVictory = ItsVictory(krissKross, playerMark, computerMark);
 			if (checkVictory == 2)
 			{
 				return 0;
@@ -209,32 +209,7 @@ int main()
 		}
 	}
 }
-//проверка на победу
-int ItsVictory(unsigned char krissKross[3][3], unsigned char playerMark, unsigned char computerMark)
-{
-	//вызвать функцию на проверку всех линий
-	unsigned char checkVictory = CheckThreeMark(krissKross);
-	//если функция вернула маркер игрока(X) то победил игрок
-	if (checkVictory == playerMark)
-	{
-		SetConsoleCursor(10, 23);
-		SetColor(13);
-		printf_s("You won! Congratulations!");
-		SoundWin();
-		return 1;
-	}
-	//если функция вернула маркер компьютера(O) то победил компьютер
-	else if (checkVictory == computerMark)
-	{
-		SetConsoleCursor(10, 23);
-		SetColor(12);
-		printf_s("You lose! Try next time! ");
-		SoundLose();
-		return 2;
-	}
-	//иначе функия вернёт 0, что говорит о том что игра ещё не окончена
-	return 0;
-}
+//————————————————Движок игры :D ————————————————
 //проверка на одинаковое содержимое по всем линиям
 //функция возврщает O , X или *
 //если какой то ряд заполнен O,возращает O, если какой то ряд заполнен X то X, иначе возвращает *
@@ -275,6 +250,34 @@ unsigned char CheckThreeMark(unsigned char krissKross[3][3])
 	}
 	return '*';
 }
+//проверка на победу
+int ItsVictory(unsigned char krissKross[3][3], unsigned char playerMark, unsigned char computerMark)
+{
+	//вызвать функцию на проверку всех линий
+	unsigned char checkVictory = CheckThreeMark(krissKross);
+	//если функция CheckThreeMark вернула маркер игрока(X) то победил игрок
+	if (checkVictory == playerMark)
+	{
+		SetConsoleCursor(10, 23);
+		SetColor(13);
+		printf_s("You won! Congratulations!");
+		SoundWin();
+		return 1;
+	}
+	//если функция CheckThreeMark  вернула маркер компьютера(O) то победил компьютер
+	else if (checkVictory == computerMark)
+	{
+		SetConsoleCursor(10, 23);
+		SetColor(12);
+		printf_s("You lose! Try next time! ");
+		SoundLose();
+		return 2;
+	}
+	//иначе функия  вернёт 0, что говорит о том что игра ещё не окончена
+	return 0;
+}
+
+
 // создать игровое поле
 void MakeGameField(unsigned char krissKross[3][3])
 {
@@ -299,7 +302,7 @@ int  CheckMove(unsigned char krissKross[3][3], unsigned char playerMark, unsigne
 	}
 	return 0;
 }
-//непобедимый алгоритм методом Минимакс в разработке... :D
+//непобедимый алгоритм методом минимакс в разработке... :D
 void ComputerMove(unsigned char krissKross[3][3], unsigned char aiMark, unsigned char playerMark)
 {
 	Sleep(250);// компьютер думает)))		
@@ -311,15 +314,21 @@ void ComputerMove(unsigned char krissKross[3][3], unsigned char aiMark, unsigned
 		{
 			if (krissKross[i][j] != playerMark && krissKross[i][j] != aiMark)
 			{
-				krissKross[i][j] = aiMark;				
-				DisplayGameField(krissKross, aiMark, playerMark);
+				krissKross[i][j] = aiMark;
+				DisplayGameField(krissKross);
 				SoundComputerMove();
 				return;
 			}
 		}
 	}
 }
-
+//установить курсор
+void SetConsoleCursor(int x, int y)
+{
+	COORD cursorPosition = { x, y };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
+}
+//————————————————Визуализация ————————————————
 //отобразить игровое поле
 void DisplayGameField(unsigned char krissKross[3][3])
 {
@@ -347,7 +356,7 @@ void DrawKriss(int x, int y)
 	{
 		Sleep(25);
 		for (int j = 0; j < 3; j++)
-		{			
+		{
 			SetConsoleCursor(j + x, i + y);
 			if (i == 0 && j == 1)
 			{
@@ -409,36 +418,36 @@ void DisplayFrame()
 	//вертикальная линия 1
 	for (int i = 0; i < 21; i++)
 	{
-		SetConsoleCursor( 21 , i + 2);
-		printf_s("%c", '\xB3'); // │
+		SetConsoleCursor(21, i + 2);
+		printf_s("%c", '\xB3');
 	}
 	//вертикальная линия 2
 	for (int i = 0; i < 21; i++)
 	{
 		SetConsoleCursor(31, i + 2);
-		printf_s("%c", '\xB3'); // │
+		printf_s("%c", '\xB3');
 	}
 
 	//горизонтальная линия 1	
 	for (int i = 0; i < 33; i++)
 	{
 		SetConsoleCursor(i + 10, 9);
-		printf_s("%c", '\xC4'); // ─
+		printf_s("%c", '\xC4');
 		if (i == 11 || i == 21)
 		{
 			SetConsoleCursor(i + 10, 9);
-			printf_s("%c", '\xC5'); // ┼
+			printf_s("%c", '\xC5');
 		}
 	}
 	//горизонтальная линия 2
 	for (int i = 0; i < 33; i++)
 	{
 		SetConsoleCursor(i + 10, 15);
-		printf_s("%c", '\xC4'); // ─
+		printf_s("%c", '\xC4');
 		if (i == 11 || i == 21)
 		{
 			SetConsoleCursor(i + 10, 15);
-			printf_s("%c", '\xC5'); // ┼
+			printf_s("%c", '\xC5');
 		}
 	}
 }
@@ -447,8 +456,8 @@ void ShowHotkeys()
 	SetColor(13);
 	SetConsoleCursor(50, 2);
 	printf_s("Hotkeys for setting marker:");
-	
-	
+
+
 	SetColor(0XEF);
 	for (int i = 0; i < 19; i++)
 	{
@@ -459,7 +468,7 @@ void ShowHotkeys()
 				continue;
 			}
 			SetConsoleCursor(i + 51, j + 5);
-			puts(" ");			
+			puts(" ");
 		}
 	}
 
@@ -469,7 +478,7 @@ void ShowHotkeys()
 	SetConsoleCursor(59, 6);
 	printf_s("W");
 	SetConsoleCursor(66, 6);
-	printf_s("E");	
+	printf_s("E");
 
 	SetColor(0XAF);
 	for (int i = 0; i < 19; i++)
@@ -492,7 +501,7 @@ void ShowHotkeys()
 	printf_s("S");
 	SetConsoleCursor(70, 10);
 	printf_s("D");
-	
+
 	SetColor(0XBF);
 	for (int i = 0; i < 19; i++)
 	{
@@ -516,21 +525,16 @@ void ShowHotkeys()
 	printf_s("C");
 
 }
-//установить курсор
-void SetConsoleCursor(int x, int y)
-{
-	COORD cursorPosition = { x, y };
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
-}
 //установить цвет
 void SetColor(int color)
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
+//————————————————Звуки ————————————————
 //звук хода игрока
 void SoundPlayerMove()
 {
-	Beep(450, 350);	
+	Beep(450, 350);
 }
 //звук хода компьютера
 void SoundComputerMove()
@@ -546,7 +550,7 @@ void SoundWrongMove()
 void SoundWrongKey()
 {
 	Beep(1050, 750);
-	Beep(550, 750);	
+	Beep(550, 750);
 }
 //звук лива из игры
 void SoundESC()
@@ -560,8 +564,8 @@ void SoundESC()
 void SoundWin()
 {
 
-	for (int x = 300; x < 750; x = x +50)
-	Beep(x, 200);
+	for (int x = 300; x < 750; x = x + 50)
+		Beep(x, 200);
 }
 //звук поражения
 void SoundLose()
@@ -589,12 +593,12 @@ void SoundDeadHeat()
 	Beep(300, 500);
 	Sleep(50);
 }
-//спрятать курсор
+//————————————————Прочее ————————————————
 void HideCursor()
-{	
-		HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-		CONSOLE_CURSOR_INFO info;
-		info.dwSize = 100;
-		info.bVisible = FALSE;
-		SetConsoleCursorInfo(consoleHandle, &info);	
+{
+	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO info;
+	info.dwSize = 100;
+	info.bVisible = FALSE;
+	SetConsoleCursorInfo(consoleHandle, &info);
 }
