@@ -1,13 +1,8 @@
-﻿//AZA◆MI◆SLEDIM◆ZA◆TOBOI  
-
-#include "stdio.h"
+﻿#include "stdio.h"
 #include "stdlib.h"
-#include"windows.h"
+#include "windows.h"
 
 #define checkBit 0x01
-
-int binCount = 0; //счётчик итераций для функции PrintBinary
-int hexCount = 0; //счётчик итераций для функции PrintHexadecimal
 
 void SetColor(int color);
 void PrintHexadecimal(char text[]);
@@ -36,14 +31,14 @@ void PrintBinary(char text[])
 {
 	int bin;
 	//итерировать пока не встретил \0 
-	if (text[binCount] == '\0')
+	if (text[0] == '\0')
 	{
 		return;
 	}
 
 	for (int i = 7; i >= 0; i--)
 	{
-		bin = !!(checkBit & ((text[binCount] >> i)));
+		bin = !!(checkBit & ((text[0] >> i)));
 		if (bin == 1)
 		{
 			SetColor(10);
@@ -57,19 +52,18 @@ void PrintBinary(char text[])
 	}
 	printf_s("  ");
 
-	binCount++;
-	PrintBinary(text);
+
+	PrintBinary(text + 1);
 }
 void PrintHexadecimal(char text[])
 {
 	SetColor(11);
 	//итерировать пока не встретил \0 
-	if (text[hexCount] == '\0')
+	if (text[0] == '\0')
 	{
 		return;
 	}
-	printf_s("%x ", text[hexCount]);
-
-	hexCount++;
-	PrintHexadecimal(text);
+	printf_s("%x ", text[0]);
+	
+	PrintHexadecimal(text + 1);
 }
