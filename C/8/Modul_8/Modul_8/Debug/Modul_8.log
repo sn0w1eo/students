@@ -1,8 +1,0 @@
-﻿  mydll.c
-C:\Users\User\source\repos\Modul_8\Modul_8\mydll.c(246,14): warning C4013: getch: нет определения; предполагается "extern" с возвратом типа "int"
-C:\Users\User\source\repos\Modul_8\Modul_8\mydll.c(317,13): warning C4098: f3: функция типа "void", возвращающая значение
-C:\Users\User\source\repos\Modul_8\Modul_8\mydll.c(356,13): warning C4098: f3: функция типа "void", возвращающая значение
-C:\Users\User\source\repos\Modul_8\Modul_8\mydll.c(397,13): warning C4098: f3: функция типа "void", возвращающая значение
-C:\Users\User\source\repos\Modul_8\Modul_8\mydll.c(470,14): warning C4098: f3: функция типа "void", возвращающая значение
-C:\Users\User\source\repos\Modul_8\Modul_8\mydll.c(547,12): warning C4098: f3: функция типа "void", возвращающая значение
-  Modul_8.vcxproj -> C:\Users\User\source\repos\Modul_8\Debug\Modul_8.exe
