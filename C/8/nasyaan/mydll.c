@@ -9,6 +9,7 @@
 #define WHITE		0x07 //белый цвет
 #define LIGHTBLUE	0x0B //голубой цвет
 
+
 //отрисовка рамки
 __declspec(dllexport) void f1()
 {
