@@ -1,0 +1,6 @@
+﻿  mydll.c
+D:\Кодинг\mydll\mydll.c(63,18): warning C4244: функция: преобразование "time_t" в "unsigned int", возможна потеря данных
+D:\Кодинг\mydll\mydll.c(68,15): warning C4013: getch: нет определения; предполагается "extern" с возвратом типа "int"
+D:\Кодинг\mydll\mydll.c(108,13): warning C4098: f2: функция типа "void", возвращающая значение
+     Создается библиотека D:\Кодинг\mydll\x64\Debug\mydll.lib и объект D:\Кодинг\mydll\x64\Debug\mydll.exp
+  mydll.vcxproj -> D:\Кодинг\mydll\x64\Debug\mydll.dll
