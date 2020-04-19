@@ -1,2 +1,0 @@
-D:\Кодинг\mydll\x64\Debug\mydll.dll
-D:\Кодинг\mydll\x64\Debug\mydll.pdb
