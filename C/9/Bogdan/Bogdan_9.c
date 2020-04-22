@@ -99,6 +99,7 @@ void printInstruction() {
 			printLine();
 			printHexBin(rezult);
 			break;
+
 		case '-':
 			rezult = perv - vtor;
 			printf("%d\n", rezult);
@@ -106,6 +107,7 @@ void printInstruction() {
 			printLine();
 			printHexBin(rezult);
 			break;
+
 		case '*':
 			rezult = perv * vtor;
 			printf("%d\n", rezult);
@@ -113,13 +115,34 @@ void printInstruction() {
 			printLine();
 			printHexBin(rezult);
 			break;
+
 		case '/':
 			rezult1 = (double)perv / (double)vtor;
 			printf("%g\n", rezult1);
 
 			printLine();
-			printHexBin1(rezult1);
+
+			//в зависимости целое или дробное
+			if (rezult1 - (int)rezult1 != 0) {
+				printHexBin1(rezult1);
+			}
+			else {
+
+				//выводит в HEX
+				printf("\nHEX: %08X\n",(int) rezult1);
+
+				//цикл на бинарный вывод
+				printf("\nBIN: ");
+				for (int i = 31; i >= 0; i--) {
+					printf("%d", ((int)rezult1 >> i) % 2);
+
+					if (i % 8 == 0) {
+						printf("  ");
+					}
+				}
+			}
 			break;
+
 		case '%':
 			rezult = perv % vtor;
 			printf("%d\n", rezult);
@@ -127,6 +150,7 @@ void printInstruction() {
 			printLine();
 			printHexBin(rezult);
 			break;
+
 		case '&':
 			rezult = perv & vtor;
 			printf("%d\n", rezult);
@@ -134,6 +158,7 @@ void printInstruction() {
 			printLine();
 			printHexBin(rezult);
 			break;
+
 		case '|':
 			rezult = perv | vtor;
 			printf("%d\n", rezult);
@@ -141,6 +166,7 @@ void printInstruction() {
 			printLine();
 			printHexBin(rezult);
 			break;
+
 		case '^':
 			rezult = perv ^ vtor;
 			printf("%d\n", rezult);
@@ -149,10 +175,9 @@ void printInstruction() {
 			printHexBin(rezult);
 			break;
 		}
-	
-		}
+	}
 
-	void printHexBin(double rezult) {
+	void printHexBin(int rezult) {
 		 //выводит в HEX
 		printf("\nHEX: %08X\n", rezult);    
 
@@ -162,9 +187,8 @@ void printInstruction() {
 			printf("%d", ((unsigned int)rezult >> i) % 2);
 
 			if (i % 8 == 0) {
-				printf("  "); }
-
-
+				printf("  "); 
+			}
 		}
 	}
 
