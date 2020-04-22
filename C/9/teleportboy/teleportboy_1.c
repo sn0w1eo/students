@@ -127,7 +127,7 @@ void DoMode(double result)
 	printf_s("\n     HEX: ");
 	for (int i = 7; i >= 0; i--)
 	{
-		printf_s("%.2X ", (unsigned char)hex[i]);
+		printf_s("%.2X ", hex[i]);
 	}
 
 	//вывод результата в бинарном виде
