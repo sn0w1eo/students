@@ -60,7 +60,7 @@ int main()
 	//если деление , то вызвать функцию DoMode предназначенную только для деления
 	if (operatorSign == '/')
 	{		
-		DoMode((double)firstNumber / secondNumber);		
+		DoMode((double)firstNumber /(double)secondNumber);		
 	}
 	
 	//иначе  вызвать функцию DoOperation
@@ -114,10 +114,12 @@ void DoOperation(int operatorSign, int* operatorResult, int firstNumber, int sec
 //выполнить деление
 void DoMode(double result)
 {
+	int bin;
 	//адресс результата деления
 	unsigned char* hex = &result;
-
-	long long int ptrBin = *(long long int*) & result;
+	//запись числа с плавающей запятой, как целое десятичное
+	long long int ptrBin = *(long long int*)&result;
+	printf("%lld\n", ptrBin);
 	//вывод результата деления
 	printf_s("%.3lf", result);
 
@@ -131,11 +133,10 @@ void DoMode(double result)
 	//вывод результата в бинарном виде
 	printf_s("\n     BIN: ");
 	for (int i = 63; i >= 0; i--)
-	{
-		int bin;
+	{		
 		bin = ((ptrBin) >> i) % 2;
-		if (bin == -1) printf("%d", -1 * bin);
-		else printf("%d", bin);
+		/*if (bin == -1) printf("%d", -1 * bin);*/
+		/*else*/ printf("%d", bin);
 		if (i % 8 == 0) printf("  ");
 	}
 }
