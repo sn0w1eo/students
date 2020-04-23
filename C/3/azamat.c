@@ -1,4 +1,5 @@
 #include "stdio.h"
+
 int Working(int begin, int num1, int num2)
 {
 	if (begin == '-')return num1 - num2;
