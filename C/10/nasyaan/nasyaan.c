@@ -258,9 +258,9 @@ int main()
 		}
 	}
 		while (ch);
-		return 0;
-
+	
 	free(storage);
 	storage = NULL;
+	return 0;
 
 }
