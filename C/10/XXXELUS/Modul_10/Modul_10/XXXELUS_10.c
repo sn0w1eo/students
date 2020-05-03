@@ -67,6 +67,16 @@ int main()
 			showLegend();
 			break;
 		case ESC:
+			setPosition(0, 28);
+			for (int i = 0; i < CONTACTS; i++) {
+				if (contacts[i] != NULL) {
+					contacts[i] = NULL;
+					free(contacts[i]);
+					contacts[i] == NULL;
+
+				}
+			}
+			
 			return 0;
 		}
 	} while (1);
