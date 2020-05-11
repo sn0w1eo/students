@@ -30,8 +30,14 @@ void AddName(phonebook* phoneBook, int* contactIndex)
 	nameLength = strlen(buffer) + 1;   //Сохранить длину имени.
 
 	//Выделить память под имя и сохранить в ней.
-	phoneBook[*(contactIndex)].name = (uchar*)calloc(nameLength, sizeof(uchar));
-	strcpy_s(phoneBook[*(contactIndex)].name, nameLength * sizeof(uchar), buffer);
+	phoneBook[*contactIndex].name = (uchar*)calloc(nameLength, sizeof(uchar));
+	if (!phoneBook[*contactIndex].name)
+	{
+		printf("Memory allocation failed!\n");
+		return;
+	}
+
+	strcpy_s(phoneBook[*contactIndex].name, nameLength * sizeof(uchar), buffer);
 }
 
 void AddPhoneNumber(phonebook* phoneBook, int* contactIndex)
@@ -45,8 +51,14 @@ void AddPhoneNumber(phonebook* phoneBook, int* contactIndex)
 	numberLength = strlen(buffer) + 1;   //Сохранить длину номера телефона.
 
 	//Выделить память под номер телефона и сохранить в ней.
-	phoneBook[*(contactIndex)].phoneNumber = (uchar*)calloc(numberLength, sizeof(uchar));
-	strcpy_s(phoneBook[*(contactIndex)].phoneNumber, numberLength * sizeof(uchar), buffer);
+	phoneBook[*contactIndex].phoneNumber = (uchar*)calloc(numberLength, sizeof(uchar));
+	if (!phoneBook[*contactIndex].phoneNumber)
+	{
+		printf("Memory allocation failed!\n");
+		return;
+	}
+
+	strcpy_s(phoneBook[*contactIndex].phoneNumber, numberLength * sizeof(uchar), buffer);
 }
 
 void AddEmail(phonebook* phoneBook, int* contactIndex)
@@ -60,8 +72,14 @@ void AddEmail(phonebook* phoneBook, int* contactIndex)
 	emailLength = strlen(buffer) + 1;   //Сохранить длину email.
 
 	//Выделить память под email и сохранить в ней.
-	phoneBook[*(contactIndex)].email = (uchar*)calloc(emailLength, sizeof(uchar));
-	strcpy_s(phoneBook[*(contactIndex)].email, emailLength * sizeof(uchar), buffer);
+	phoneBook[*contactIndex].email = (uchar*)calloc(emailLength, sizeof(uchar));
+	if (!phoneBook[*contactIndex].email)
+	{
+		printf("Memory allocation failed!\n");
+		return;
+	}
+
+	strcpy_s(phoneBook[*contactIndex].email, emailLength * sizeof(uchar), buffer);
 }
 
 void AddZipCode(phonebook* phoneBook, int* contactIndex)
@@ -71,7 +89,7 @@ void AddZipCode(phonebook* phoneBook, int* contactIndex)
 	printf("enter zipcode: ");
 	scanf_s("%lld", &zipCode);                      //Ввод зипкода.
 
-	phoneBook[*(contactIndex)].zipCode = zipCode;   //Сохранить зипкод.
+	phoneBook[*contactIndex].zipCode = zipCode;   //Сохранить зипкод.
 }
 
 phonebook* AddContact(phonebook* phoneBook, int* contactIndex)

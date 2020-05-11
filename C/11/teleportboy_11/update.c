@@ -32,17 +32,18 @@ void UpdateName(phonebook* phoneBook, int contactIndex)
 	nameLength = strlen(buffer) + 1;   //Записать длину имени.
 
 	//Перераспределить память под новое имя и сохранить его в ней.
-	phoneBook[contactIndex].name = (uchar*)realloc(phoneBook->name, nameLength);
+	phoneBook[contactIndex].name = (uchar*)realloc(phoneBook[contactIndex].name, nameLength * sizeof(uchar));
 	if (!phoneBook[contactIndex].name)
 	{
 		printf("Memory realloc failed!");
 		return;
 	}
+
 	strcpy_s(phoneBook[contactIndex].name, nameLength, buffer);
 }
 
 //Изменить номер телефона.
-void UpdatePhoneNumber(phonebook* phoneBook, int contactIndex)
+void* UpdatePhoneNumber(phonebook* phoneBook, int contactIndex)
 {
 	uchar buffer[50];
 	int numberLength;                    //Длина номера телефона.
@@ -53,12 +54,13 @@ void UpdatePhoneNumber(phonebook* phoneBook, int contactIndex)
 	numberLength = strlen(buffer) + 1;   //Ввод номера телефона.
 
 	//Перераспределить память под новый номер и сохранить его в ней.
-	phoneBook[contactIndex].phoneNumber = (uchar*)realloc(phoneBook->phoneNumber, numberLength);
+	phoneBook[contactIndex].phoneNumber = (uchar*)realloc(phoneBook[contactIndex].phoneNumber, numberLength * sizeof(uchar));
 	if (!phoneBook[contactIndex].phoneNumber)
 	{
 		printf("Memory realloc failed!");
 		return;
 	}
+
 	strcpy_s(phoneBook[contactIndex].phoneNumber, numberLength, buffer);
 }
 
@@ -74,12 +76,13 @@ void UpdateEmail(phonebook* phoneBook, int contactIndex)
 	emailLength = strlen(buffer) + 1;   //Ввод номера emai.
 
 	//Перераспределить память под новый email и сохранить его в ней.
-	phoneBook[contactIndex].email = (uchar*)realloc(phoneBook->email, emailLength);
+	phoneBook[contactIndex].email = (uchar*)realloc(phoneBook[contactIndex].email, emailLength * sizeof(uchar));
 	if (!phoneBook[contactIndex].email)
 	{
 		printf("Memory realloc failed!");
 		return;
 	}
+
 	strcpy_s(phoneBook[contactIndex].email, emailLength, buffer);
 }
 

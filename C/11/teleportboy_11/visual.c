@@ -12,7 +12,7 @@ void DisplayHotKeys()
 	SetConsoleCursor(85, 2);
 	printf("Press U to update an contact.");
 	SetConsoleCursor(85, 4);
-	printf("Press U to delete an contact.");
+	printf("Press D to delete an contact.");
 	SetConsoleCursor(85, 6);
 	printf("Press S to search.");
 	SetConsoleCursor(85, 7);

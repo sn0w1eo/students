@@ -24,4 +24,10 @@ enum Search
 	BY_EMAIL,
 	BY_ZIPCODE,
 };
+
+enum bool
+{
+	FALSE = 0,
+	TRUE,
+};
 #endif // !PHONEBOOK_H

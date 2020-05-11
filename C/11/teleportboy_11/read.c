@@ -27,7 +27,11 @@ void DisplayName(phonebook* phoneBook, int contactIndex)
 {
 	if (phoneBook[contactIndex].name != NULL)
 	{
-		printf("%s ", phoneBook[contactIndex].name);
+		printf("%d-th contact: %s ", contactIndex + 1, phoneBook[contactIndex].name);
+	}
+	else
+	{
+		printf("%d-th contact: deleted ", contactIndex + 1);
 	}
 }
 
@@ -38,6 +42,10 @@ void DisplayPhoneNumber(phonebook* phoneBook, int contactIndex)
 	{
 		printf("%s ", phoneBook[contactIndex].phoneNumber);
 	}
+	else
+	{
+		printf("deleted ");
+	}
 }
 
 //Отобразить email.
@@ -47,6 +55,10 @@ void DisplayEmail(phonebook* phoneBook, int contactIndex)
 	{
 		printf("%s ", phoneBook[contactIndex].email);
 	}
+	else
+	{
+		printf("deleted ");
+	}
 }
 
 //Отобразить ZipCodeб.
@@ -55,6 +67,11 @@ void DisplayZipCode(phonebook* phoneBook, int contactIndex)
 	if (phoneBook[contactIndex].zipCode != 0)
 	{
 		printf("%lld ", phoneBook[contactIndex].zipCode);
+		printf("\n====================================================================================\n");
+	}
+	else
+	{
+		printf("deleted ");
 		printf("\n====================================================================================\n");
 	}
 }

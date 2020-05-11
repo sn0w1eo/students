@@ -21,7 +21,7 @@ int main()
 	phonebook* phoneBook = NULL;
 	int size = 0, ch;
 	DisplayHotKeys();
-
+	
 	while (ch = getch())
 	{
 		DisplayHotKeys();
