@@ -110,6 +110,10 @@ int findName(person* book) {
 	printf("Name: ");
 	scanf_s("%s", findName, 20);
 
+	if (book == NULL) {
+		return -1;
+	}
+
 	for (size_t i = 0; i < size; i++) {
 		if (book[i].name == NULL) {
 			continue;
@@ -126,6 +130,10 @@ int findNumber(person* book) {
 
 	printf("Number: ");
 	scanf_s("%s", findNumber, 20);
+
+	if (book == NULL) {
+		return -1;
+	}
 
 	for (size_t i = 0; i < size; i++) {
 		if (book[i].number == NULL) {

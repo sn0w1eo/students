@@ -94,6 +94,8 @@ int main() {
 		case 'd':
 		case 'D':
 			deleteContact(book, findName(book));
+			getch();
+			system("cls");
 			break;
 
 			//выход
