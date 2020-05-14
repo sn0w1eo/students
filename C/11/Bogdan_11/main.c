@@ -36,6 +36,11 @@ int main() {
 			
 			//выделение памяти и добавление туда данных
 			book = initStorage(book);
+			if (book == NULL) {
+				printf("eror xyi sosi");
+				getch();
+				return 0;
+			}
 			addNumber(book, inputName, inputNumber, inputEmail, inputZip);
 			system("cls");
 			break;
