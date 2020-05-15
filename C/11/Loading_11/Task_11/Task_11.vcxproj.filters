@@ -18,5 +18,13 @@
     <ClCompile Include="Source.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="operations.c">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="operations.h">
+      <Filter>Файлы ресурсов</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
