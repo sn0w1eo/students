@@ -1,21 +1,21 @@
 ﻿#ifndef PHONEBOOK_H
 #define PHONEBOOK_H
 
-//Синоним к unsigned char
+//Синоним unsigned char
 typedef unsigned char uchar;
 
-//Синоним к unsigned long long int
-typedef unsigned long long int ulong;
+//Синоним к указатель на unsigned char
+typedef unsigned char* string;
 
-typedef struct
+typedef struct phonebook
 {
-	int size;             //Размер выделенных "ячеек" памяти под массив типа phonebook.
-	uchar* name;          //Указатель на строку предназначенной для имени.
-	uchar* email;         //Указатель на строку предназначенной для email.
-	uchar* phoneNumber;   //Указатель на строку предназначенной для номера телефона.
-	ulong zipCode;
+	int size;            //Размер массива типа phonebook
+	string zip;
+	string name;
+	string email;
+	string phoneNumber;
 	
-}phonebook;
+}PHONEBOOK;
 
 enum Search
 {
@@ -25,9 +25,54 @@ enum Search
 	BY_ZIPCODE,
 };
 
-enum bool
+enum Boolean
 {
 	FALSE = 0,
 	TRUE,
 };
+
+//Добавить контакт.
+PHONEBOOK* AddContact(PHONEBOOK*, const string, const string, const string, const string);
+
+//Изменить контакт.
+void UpdateContact(PHONEBOOK*, const string, const string, const string, const string, int);
+
+//Удалить контакт.
+void DeleteContacts(PHONEBOOK*, int, ...);
+
+//Вывод содержимого полей структуры в stdout.
+void PrintSeachResults(PHONEBOOK**, int);
+void PrintContacts(PHONEBOOK*);
+
+//Сетеры
+void SetName(PHONEBOOK*, const string);
+void SetPhoneNumber(PHONEBOOK*, const string);
+void SetEmail(PHONEBOOK*, const string);
+void SetZipCode(PHONEBOOK*, const string);
+void SetSize(PHONEBOOK*, const int);
+
+//Гетеры
+string GetName(const PHONEBOOK);
+string GetPhoneNumber(const PHONEBOOK);
+string GetEmail(const PHONEBOOK);
+string GetZipCode(const PHONEBOOK);
+int GetSize(const PHONEBOOK);
+PHONEBOOK* GetFreeSpace(PHONEBOOK*);
+
+
+//Поиск
+PHONEBOOK** DoSearch(PHONEBOOK*, PHONEBOOK**, string, PHONEBOOK** (*callback)(PHONEBOOK*, PHONEBOOK**, string));
+PHONEBOOK** FindByName(PHONEBOOK*, PHONEBOOK**, string);
+PHONEBOOK** FindByPhoneNumber(PHONEBOOK*, PHONEBOOK**, string);
+PHONEBOOK** FindByEmail(PHONEBOOK*, PHONEBOOK**, string);
+PHONEBOOK** FindByZipCode(PHONEBOOK*, PHONEBOOK**, string);
+
+//Чекеры :D
+int CheckArguments(PHONEBOOK*, const string, const string, const string);
+int IsFreeSpace(PHONEBOOK*);
+
+
+
+
+
 #endif // !PHONEBOOK_H

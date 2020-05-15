@@ -4,9 +4,12 @@
 #include "phonebook.h"
 
 //Выделить/перераспределить память.
-phonebook* GetMemory(phonebook* phoneBook);
+PHONEBOOK* GetMemory(int);
+
+//Перераспределить память.
+PHONEBOOK* ReallocMemory(PHONEBOOK*);
 
 //Осовободить память.
-void FreeMemory(phonebook* phoneBook);
+void FreeMemory(PHONEBOOK*);
 
 #endif // !MEMORY_H

@@ -1,39 +1,62 @@
-﻿
-#include "stdio.h"
+﻿#include "stdio.h"
 #include "stdlib.h"
+#include "string.h"
 
 #include "phonebook.h"
 
-//Выделить или перераспределить память.
-phonebook* GetMemory(phonebook* phoneBook)
+//Выделить память.
+PHONEBOOK* GetMemory(int size)
 {
-	//Выделить память при первом запуске.
+	PHONEBOOK* phoneBook = NULL;
+	
+	//Защита от формошлёпов.
+	if (size <= 0)
+	{
+		size = 5;
+	}
+	
+	//Выделить память. 
 	if (phoneBook == NULL)
 	{
-		phoneBook = (phonebook*)calloc(1, sizeof(phonebook));
+		phoneBook = (PHONEBOOK*)calloc(size, sizeof(PHONEBOOK));
 		if (phoneBook == NULL)
 		{
 			return NULL;
 		}
-		phoneBook->size = 1;     //Сохранить текущей размер блока памяти.
+		SetSize(phoneBook, size);     //Сохранить текущей размер блока памяти.
 	}
 
-	else
+	return phoneBook;
+}
+
+//Перераспределить память, увеличив её размер вдвое. 
+PHONEBOOK* ReallocMemory(PHONEBOOK* phoneBook)
+{
+	int size = GetSize(*phoneBook) * 2;
+	SetSize(phoneBook, size);        //Сохранить текущей размер блока памяти.
+	//Перераспределить память.
+	phoneBook = realloc(phoneBook, size * sizeof(PHONEBOOK));
+	
+	//Костыль что бы в будущем было проще работать над этими полями.
+	for (int i = size / 2; i < size; i++)
 	{
-		phoneBook->size++;       //Сохранить текущей размер блока памяти.
-		phoneBook = (phonebook*)realloc(phoneBook, phoneBook->size * sizeof(phonebook));
+		SetName(&phoneBook[i], NULL);
+		SetPhoneNumber(&phoneBook[i], NULL);
+		SetEmail(&phoneBook[i], NULL);
+		SetZipCode(&phoneBook[i], NULL);
 	}
 
 	return phoneBook;
 }
 
 //Освободить память.
-void FreeMemory(phonebook* phoneBook)
+void FreeMemory(PHONEBOOK* phoneBook)
 {
-	for (int i = 0; i < phoneBook->size; i++)
+	int size = GetSize(*phoneBook);
+	for (int i = 0; i < size; i++)
 	{
 		//Очистить имя.
-		if (phoneBook[i].name  != NULL)
+		if (phoneBook[i].name != NULL)
 		{
 			free(phoneBook[i].name);
 			phoneBook[i].name = NULL;
@@ -52,6 +75,13 @@ void FreeMemory(phonebook* phoneBook)
 			free(phoneBook[i].email);
 			phoneBook[i].email = NULL;
 		}
+
+		//Очситить zip.
+		if (phoneBook[i].zip != NULL)
+		{
+			free(phoneBook[i].zip);
+			phoneBook[i].zip = NULL;
+		}
 	}
 
 	//Очистить основной блок памяти.
@@ -61,5 +91,5 @@ void FreeMemory(phonebook* phoneBook)
 		phoneBook = NULL;
 	}
 
-	printf("\nMemory freed!");
+	printf("\n\tMemory freed!");
 }
