@@ -1,94 +1,97 @@
-#include "stdio.h"
+п»ї#include "stdio.h"
 #include "string.h"
 
 #include "hero.h"
 
-//Установить имя1.
+//Р•СЃР»Рё Р·РЅР°С‡РµРЅРёРµ 1, С‚Рѕ СЃРѕСЂС‚РёСЂСѓРµС‚ РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ, РёРЅР°С‡Рµ РїРѕ СѓР±С‹РІР°РЅРёСЋ.
+#define ASCENDING 1 
+
+//РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РёРјСЏ РїРѕ Р»РѕСЂСѓ.
 void SetLorName(Hero* hero, string const name)
 {
 	hero->heroName.lorName = _strdup(name);
 }
 
-//Установить имя2.
+//РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РёРіСЂРѕРІРѕРµ РёРјСЏ.
 void SetDota2Name(Hero* hero, string const name)
 {
 	hero->heroName.dota2Name = _strdup(name);
 }
 
-//Установить ко-во hp.
+//РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РєРѕ-РІРѕ hp.
 void SetHitPoints(Hero* hero, const double hitPoints)
 {
-	hero->heroСharacteristics.hitPoints = hitPoints;
+	hero->heroРЎharacteristics.hitPoints = hitPoints;
 }
 
-//Установить ко-во mp.
+//РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РєРѕ-РІРѕ mp.
 void SetManaPool(Hero* hero, const double manaPool)
 {
-	hero->heroСharacteristics.manaPool = manaPool;
+	hero->heroРЎharacteristics.manaPool = manaPool;
 }
 
-//Установить ко-во ловкости.
+//РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РєРѕ-РІРѕ Р»РѕРІРєРѕСЃС‚Рё.
 void SetAgility(Hero* hero, const short agility)
 {
 	hero->heroAttributes.agility = agility;
 }
 
-//Установить ко-во силы.
+//РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РєРѕ-РІРѕ СЃРёР»С‹.
 void SetStrength(Hero* hero, const short strength)
 {
 	hero->heroAttributes.strength = strength;
 }
 
-//Установить ко-во интеллекта.
+//РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РєРѕ-РІРѕ РёРЅС‚РµР»Р»РµРєС‚Р°.
 void SetIntelligence(Hero* hero, const short intelligence)
 {
 	hero->heroAttributes.intelligence = intelligence;
 }
 
-//Получить имя1.
-string GetLorName(const Hero hero)
+//РџРѕР»СѓС‡РёС‚СЊ РёРјСЏ РїРѕ Р»РѕСЂСѓ.
+string GetLorName(Hero const hero)
 {
 	return hero.heroName.lorName;
 }
 
-//Получить имя2.
-string GetDota2Name(const Hero hero)
+//РџРѕР»СѓС‡РёС‚СЊ РёРіСЂРѕРІРѕРµ РёРјСЏ.
+string GetDota2Name(Hero const hero)
 {
 	return hero.heroName.dota2Name;
 }
 
-//Получить hp.
-double GetHitPoints(const Hero hero)
+//РџРѕР»СѓС‡РёС‚СЊ hp.
+double GetHitPoints(Hero const hero)
 {
-	return hero.heroСharacteristics.hitPoints;
+	return hero.heroРЎharacteristics.hitPoints;
 }
 
-//Получить mp.
-double GetManaPool(const Hero hero)
+//РџРѕР»СѓС‡РёС‚СЊ mp.
+double GetManaPool(Hero const hero)
 {
-	return hero.heroСharacteristics.manaPool;
+	return hero.heroРЎharacteristics.manaPool;
 }
 
-//Получить ловкость
-short GetAgility(const Hero hero)
+//РџРѕР»СѓС‡РёС‚СЊ Р»РѕРІРєРѕСЃС‚СЊ
+short GetAgility(Hero const hero)
 {
 	return hero.heroAttributes.agility;
 }
 
-//Получить силу.
-short GetStrength(const Hero hero)
+//РџРѕР»СѓС‡РёС‚СЊ СЃРёР»Сѓ.
+short GetStrength(Hero const hero)
 {
 	return hero.heroAttributes.strength;
 }
 
-//Получить интеллект.
-short GetIntelligence(const Hero hero)
+//РџРѕР»СѓС‡РёС‚СЊ РёРЅС‚РµР»Р»РµРєС‚.
+short GetIntelligence(Hero const hero)
 {
 	return hero.heroAttributes.intelligence;
 }
 
-//Записать данные героя.
-void SetHero(Hero* dotaHero, string const lorName, string const dota2Name, double const hitPoints, const double manaPool, short const agi, short const str, short const intl)
+//Р—Р°РїРёСЃР°С‚СЊ РґР°РЅРЅС‹Рµ РіРµСЂРѕСЏ.
+void SetHero(Hero* const dotaHero, string const lorName, string const dota2Name, double const hitPoints, double const manaPool, short const agi, short const str, short const intl)
 {
 	SetLorName(dotaHero, lorName);
 	SetDota2Name(dotaHero, dota2Name);
@@ -99,8 +102,8 @@ void SetHero(Hero* dotaHero, string const lorName, string const dota2Name, doubl
 	SetIntelligence(dotaHero, intl);
 }
 
-//Отобразить всех героев.
-void DisplayAllHeroes(const Hero* dotaHeroes, const int heroesCount)
+//РћС‚РѕР±СЂР°Р·РёС‚СЊ РІСЃРµС… РіРµСЂРѕРµРІ.
+void DisplayAllHeroes(const Hero* dotaHeroes, int const heroesCount)
 {
 	for (int i = 0; i < heroesCount; i++)
 	{
@@ -111,58 +114,115 @@ void DisplayAllHeroes(const Hero* dotaHeroes, const int heroesCount)
 	}
 }
 
-//Сравнить по ловкости.
+//РЎСЂР°РІРЅРёС‚СЊ РїРѕ Р»РѕРІРєРѕСЃС‚Рё.
 int CompareByAgility(const void* a, const void* b)
 {
 	const Hero* ptrHero1 = a;
 	const Hero* ptrHero2 = b;
+
+#if ASCENDING == 1
 	return ptrHero1->heroAttributes.agility - ptrHero2->heroAttributes.agility;
+#else
+	return ptrHero2->heroAttributes.agility - ptrHero1->heroAttributes.agility;
+#endif
 }
 
-//Сравнить по силе.
+//РЎСЂР°РІРЅРёС‚СЊ РїРѕ СЃРёР»Рµ.
 int CompareByStrength(const void* a, const void* b)
 {
 	const Hero* ptrHero1 = a;
 	const Hero* ptrHero2 = b;
+
+#if ASCENDING == 1
 	return ptrHero1->heroAttributes.strength - ptrHero2->heroAttributes.strength;
+#else
+	return ptrHero2->heroAttributes.strength - ptrHero1->heroAttributes.strength;
+#endif
 }
 
-//Сравнить по интеллекту.
+//РЎСЂР°РІРЅРёС‚СЊ РїРѕ РёРЅС‚РµР»Р»РµРєС‚Сѓ.
 int CompareByIntelligence(const void* a, const void* b)
 {
 	const Hero* ptrHero1 = a;
 	const Hero* ptrHero2 = b;
+
+#if ASCENDING == 1
 	return ptrHero1->heroAttributes.intelligence - ptrHero2->heroAttributes.intelligence;
+#else
+	return ptrHero2->heroAttributes.intelligence - ptrHero1->heroAttributes.intelligence;
+#endif
 }
 
-//Сравнить по запасу хп.
+//РЎСЂР°РІРЅРёС‚СЊ РїРѕ Р·Р°РїР°СЃСѓ С…Рї.
 int CompareByHitPoints(const void* a, const void* b)
 {
 	const Hero* ptrHero1 = a;
 	const Hero* ptrHero2 = b;
-	return ptrHero1->heroСharacteristics.hitPoints - ptrHero2->heroСharacteristics.hitPoints;
+	double result;
+
+#if ASCENDING == 1
+	result = ptrHero1->heroРЎharacteristics.hitPoints - ptrHero2->heroРЎharacteristics.hitPoints;
+	if (result < 0)
+	{
+		return -1;
+	}
+	return 1;
+#else
+	result = ptrHero2->heroРЎharacteristics.hitPoints - ptrHero1->heroРЎharacteristics.hitPoints;
+	if (result < 0)
+	{
+		return -1;
+	}
+	return 1;
+#endif
 }
 
-//Сравнить по запасу мп.
+//РЎСЂР°РІРЅРёС‚СЊ РїРѕ Р·Р°РїР°СЃСѓ РјРї.
 int CompareByManaPool(const void* a, const void* b)
 {
 	const Hero* ptrHero1 = a;
 	const Hero* ptrHero2 = b;
-	return ptrHero1->heroСharacteristics.manaPool - ptrHero2->heroСharacteristics.manaPool;
+	double result;
+
+#if ASCENDING == 1
+	result = ptrHero1->heroРЎharacteristics.manaPool - ptrHero2->heroРЎharacteristics.manaPool;
+	if (result < 0)
+	{
+		return -1;
+	}
+	return 1;
+#else
+	result = ptrHero2->heroРЎharacteristics.manaPool - ptrHero1->heroРЎharacteristics.manaPool;
+	if (result < 0)
+	{
+		return -1;
+	}
+	return 1;
+#endif
 }
 
-//Сравнить по имени с лора.
+//РЎСЂР°РІРЅРёС‚СЊ РїРѕ РёРјРµРЅРё СЃ Р»РѕСЂР°.
 int CompareByLorName(const void* a, const void* b)
 {
 	const Hero* ptrHero1 = a;
 	const Hero* ptrHero2 = b;
+
+#if ASCENDING == 1
 	return strcmp(ptrHero1->heroName.lorName, ptrHero2->heroName.lorName);
+#else
+	return strcmp(ptrHero2->heroName.lorName, ptrHero1->heroName.lorName);
+#endif
 }
 
-//Сравнить по имени с игры.
+//РЎСЂР°РІРЅРёС‚СЊ РїРѕ РёРјРµРЅРё СЃ РёРіСЂС‹.
 int CompareByDota2Name(const void* a, const void* b)
 {
 	const Hero* ptrHero1 = a;
 	const Hero* ptrHero2 = b;
+
+#if ASCENDING == 1
 	return strcmp(ptrHero1->heroName.dota2Name, ptrHero2->heroName.dota2Name);
+#else
+	return strcmp(ptrHero2->heroName.dota2Name, ptrHero1->heroName.dota2Name);
+#endif
 }
