@@ -12,6 +12,7 @@ enum value
 {
 	first = 1, second, third, ESC = 0x27
 };
+
 enum sort
 {
 	asc = 1, desc

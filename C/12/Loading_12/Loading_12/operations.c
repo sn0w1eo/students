@@ -11,24 +11,18 @@ void strcopy(char* dest, const char* source)
 
 void add(MyStruct *temp, char name[100],int number, double number1)
 {
+	size_t len = strlen(name);
+	temp->name = malloc(len + 1);
+	if (temp->name == NULL)
 	{
-		size_t len = strlen(name);
-		temp->name = malloc(len + 1);
-		if (temp->name == NULL)
-		{
-			printf("Not mamory");
-		}
-		else
-		{
-			strcopy(temp->name, name);
-		}
+		printf("Not mamory");
 	}
+	else
 	{
-		temp->integer = number;
+		strcopy(temp->name, name);
 	}
-	{
-		temp->double1 = number1;
-	}
+	temp->integer = number;
+	temp->double1 = number1;
 }
 // ASC
 int compareName(const void* a,const void* b) 
