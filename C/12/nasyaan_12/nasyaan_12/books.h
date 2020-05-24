@@ -29,11 +29,30 @@ typedef struct book {
 	Price bookPrice; //цена
 } Book;
 
-int titlecmpAsc(const void* a, const void* b);
-int titlecmpDesc(const void* a, const void* b);
-int pagescmpAsc(const void* a, const void* b);
-int pagescmpDesc(const void* a, const void* b);
-int dollarscmpAsc(const void* a, const void* b);
-int somscmpDesc(const void* a, const void* b);
+void SetBookTitle(Book*, string const);
+void SetBookAuthor(Book*, string const author);
+void SetVolumes(Book* book, int volumes);
+void SetPages(Book*, int);
+void SetBookPriceInUsd(Book*, const double);
+void SetBookPriceInKgs(Book*, const double);
+
+string GetBookTitle(Book const);
+string GetBookAuthor(Book const);
+int GetBookVolumes(Book const);
+int GetBookPages(Book const);
+double GetBookPriceInUsd(Book const);
+double GetBookPriceInKgs(Book const);
+
+void SetBook(Book* const, const string, const string, int, int, const double, const double);
+
+void PrintBooks(const Book*, int const);
+void GetInt(int*, int, int);
+
+int TitleCmpAsc(const void* a, const void* b);
+int TitleCmpDesc(const void* a, const void* b);
+int PagesCmpAsc(const void* a, const void* b);
+int PagesCmpDesc(const void* a, const void* b);
+int DollarsCmpAsc(const void* a, const void* b);
+int SomsCmpDesc(const void* a, const void* b);
 
 #endif // !BOOKS_H

@@ -31,38 +31,38 @@ int main() {
 		printf("\n5.Сортировка по цене в долларах по возрастанию\n");
 		printf("\n6.Сортировка по цене в сомах по убыванию\n");
 
-		getInt(&ch, 0, 6);
+		GetInt(&ch, 0, 6);
 		if (ch == 1) {
 			printf("\nСортировка по названию книги в алфавитном порядке\n\n");
-			qsort(books, booksAmount, sizeof(Book), titlecmpAsc);
+			qsort(books, booksAmount, sizeof(Book), TitleCmpAsc);
 			PrintBooks(books, booksAmount);
 		}
 		else if (ch == 2) {
 			printf("\nСортировка по названию книги в обратном порядке\n\n");
-			qsort(books, booksAmount, sizeof(Book), titlecmpDesc);
+			qsort(books, booksAmount, sizeof(Book), TitleCmpDesc);
 			PrintBooks(books, booksAmount);
 		}
 		else if (ch == 3) {
 			printf("\nСортировка по количеству страниц по возрастанию\n");
-			qsort(books, booksAmount, sizeof(Book), pagescmpAsc);
+			qsort(books, booksAmount, sizeof(Book), PagesCmpAsc);
 			PrintBooks(books, booksAmount);
 		}
 
 		else if (ch == 4) {
 			printf("\nСортировка по количеству страниц по убыванию\n\n");
-			qsort(books, booksAmount, sizeof(Book), pagescmpDesc);
+			qsort(books, booksAmount, sizeof(Book), PagesCmpDesc);
 			PrintBooks(books, booksAmount);
 		}
 
 		else if (ch == 5) {
 			printf("\nСортировка по цене в долларах по возрастанию\n\n");
-			qsort(books, booksAmount, sizeof(Book), dollarscmpAsc);
+			qsort(books, booksAmount, sizeof(Book), DollarsCmpAsc);
 			PrintBooks(books, booksAmount);
 		}
 
 		else if (ch == 6) {
 			printf("\nСортировка по цене в самах по убыванию\n\n");
-			qsort(books, booksAmount, sizeof(Book), somscmpDesc);
+			qsort(books, booksAmount, sizeof(Book), SomsCmpDesc);
 			PrintBooks(books, booksAmount);
 		}
 	}	while (ch);

@@ -2,11 +2,11 @@
 
 //сеттеры
 
-void SetBookTitle(Book* book, string const title) {
+void SetBookTitle(Book* book, const string title) {
 	book->bookName.title = _strdup(title);
 }
 
-void SetBookAuthor(Book* book, string const author) {
+void SetBookAuthor(Book* book, const string author) {
 	book->bookName.author = _strdup(author);
 }
 
@@ -52,7 +52,7 @@ double GetBookPriceInKgs(Book const book) {
 }
 
 //сеттер для всей структуры Book
-void SetBook(Book* const book, string const title, string const author, int volumes, int pages, double const dollars, double const soms) {
+void SetBook(Book* const book, const string title, const string author, int volumes, int pages, double const dollars, double const soms) {
 	SetBookTitle(book, title);
 	SetBookAuthor(book, author);
 	SetVolumes(book, volumes);
@@ -73,7 +73,7 @@ void PrintBooks(const Book* books, int const booksAmount) {
 }
 
 //функция чтения клавиши 0-9
-void getInt(int* x, int min, int max) {
+void GetInt(int* x, int min, int max) {
 	*x = 0;
 	char ch = ' ';
 	int skip, st = 0;
@@ -95,37 +95,37 @@ void getInt(int* x, int min, int max) {
 
 //функции сортировки
 
-int titlecmpAsc(const void* a, const void* b) {
+int TitleCmpAsc(const void* a, const void* b) {
 	Book* pa = a;
 	Book* pb = b;
 	return strcmp(pa->bookName.title, pb->bookName.title);
 }
 
-int titlecmpDesc(const void* a, const void* b) {
+int TitleCmpDesc(const void* a, const void* b) {
 	Book* pa = a;
 	Book* pb = b;
 	return strcmp(pb->bookName.title, pa->bookName.title);
 }
 
-int pagescmpAsc(const void* a, const void* b) {
+int PagesCmpAsc(const void* a, const void* b) {
 	Book* pa = a;
 	Book* pb = b;
 	return pa->bookDimensions.pages - pb->bookDimensions.pages;
 }
 
-int pagescmpDesc(const void* a, const void* b) {
+int PagesCmpDesc(const void* a, const void* b) {
 	Book* pa = a;
 	Book* pb = b;
 	return pb->bookDimensions.pages - pa->bookDimensions.pages;
 }
 
-int dollarscmpAsc(const void* a, const void* b) {
+int DollarsCmpAsc(const void* a, const void* b) {
 	Book* pa = a;
 	Book* pb = b;
 	return pa->bookPrice.dollars - pb->bookPrice.dollars;
 }
 
-int somscmpDesc(const void* a, const void* b) {
+int SomsCmpDesc(const void* a, const void* b) {
 	Book* pa = a;
 	Book* pb = b;
 	return pb->bookPrice.soms - pa->bookPrice.soms;
