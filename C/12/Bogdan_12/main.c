@@ -15,7 +15,7 @@ int main() {
 	addPerson(&db, "Kirill", 5, 14.123);
 
 
-	sort(&db, byEarnings, ascending);         // byName, byAge, byEarnings //ascending ,descending 
+	sort(&db, byName, descending);         // byName, byAge, byEarnings //ascending ,descending 
 	
 	printStorage(&db);
 	freeStorage(&db);

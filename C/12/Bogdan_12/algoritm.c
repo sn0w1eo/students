@@ -81,12 +81,12 @@ void freeStorage(data* db) {
 int compByNameDescending(const void* a, const void* b) {
 	const person* per = a;
 	const person* vtor = b;
-	return strcmp(per->name, vtor->name);
+	return -strcmp(per->name, vtor->name);
 }
 int compByNameAscending(const void* a, const void* b) {
 	const person* per = a;
 	const person* vtor = b;
-	return -strcmp(per->name, vtor->name);
+	return strcmp(per->name, vtor->name);
 }
 
 int compByAgeDescending(const void* a, const void* b) {
