@@ -8,16 +8,6 @@ typedef struct
 	double double1;
 }MyStruct;
 
-enum value
-{
-	first = 1, second, third, ESC = 0x27
-};
-
-enum sort
-{
-	asc = 1, desc
-};
-
 void add(MyStruct*, char name[100], int, double);
 void compare(MyStruct*);
 void strcopy(char*, const char*);
