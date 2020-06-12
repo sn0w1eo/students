@@ -32,10 +32,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="memory.h">
+    <ClInclude Include="phonebook.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="phonebook.h">
+    <ClInclude Include="memory.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="search.h">
