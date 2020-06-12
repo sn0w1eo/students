@@ -1,0 +1,14 @@
+name: Dima, phone: 705770013, email: snowleo@gmail.com, zipCode: 720075
+
+name: Nurik, phone: 709233778, email: loading@gmail.com, zipCode: 720037
+
+name: Kirill, phone: 555661796, email: teleportboy@gmail.com, zipCode: 720037
+
+name: Kostya, phone: 553233717, email: xxxelus@gmail.com, zipCode: 722200
+
+name: Nastya, phone: 700436842, email: nasyaan@gmail.com, zipCode: 720005
+
+name: Bermet, phone: 777777777, email: m1bee@gmail.com, zipCode: 720052
+
+name: Safi, phone: 77777777, email: safi@gmail.com, zipCode: 720001
+
