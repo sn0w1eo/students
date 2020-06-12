@@ -2,18 +2,18 @@
 #include "string.h"
 #include "stdio.h"
 #include "stdlib.h"
-#include "Data.h"
+#include "data.h"
 
 int main() {
 
 	int p = 5;
 	phoneBook* allList = (phoneBook*)calloc(p, sizeof(phoneBook));
 	printf("\nPhoneBook\n");
-	SetPhoneBook(&allList[0], "Safii", 5002333023, 19);
-	SetPhoneBook(&allList[1], "Dima", 705770013, 25);
-	SetPhoneBook(&allList[2], "Nurik", 500500500, 21);
-	SetPhoneBook(&allList[3], "Nastya", 700700700, 23);
-	SetPhoneBook(&allList[4], "Kostya", 555555555, 20);
+	SetPhoneBook(&allList[0], "Safii", 324.57, 500233302);
+	SetPhoneBook(&allList[1], "Dima", 4674.345, 705770013);
+	SetPhoneBook(&allList[2], "Nurik", 21.5, 500500500);
+	SetPhoneBook(&allList[3], "Nastya", 123.456, 700700700);
+	SetPhoneBook(&allList[4], "Kostya", 25467.678, 555555555);
 	PrintPhoneBooks(allList, p);
 
 	//asc
@@ -23,8 +23,8 @@ int main() {
 	PrintPhoneBooks(allList, p);
 
 	printf("\n------------------------------------\n");
-	printf("\nAge to ASC\n");
-	qsort(allList, p, sizeof(phoneBook), sortAgeToAsc);
+	printf("\nDouble to ASC\n");
+	qsort(allList, p, sizeof(phoneBook), sortDoubleToAsc);
 	PrintPhoneBooks(allList, p);
 
 	printf("\n------------------------------------\n");
@@ -40,8 +40,8 @@ int main() {
 	PrintPhoneBooks(allList, p);
 
 	printf("\n------------------------------------\n");
-	printf("\nAge to DESC\n");
-	qsort(allList, p, sizeof(phoneBook), sortAgeToDesc);
+	printf("\nDouble to DESC\n");
+	qsort(allList, p, sizeof(phoneBook), sortDoubleToDesc);
 	PrintPhoneBooks(allList, p);
 
 	printf("\n------------------------------------\n");
