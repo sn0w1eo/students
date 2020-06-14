@@ -10,8 +10,8 @@ int main()
 		return -1;
 	}
 
-	FILE* streamBin = fopen("phone1.dat", "w+");
-	if (stream == NULL) {
+	FILE* streamBin = fopen("phone1.dat", "wb+");
+	if (streamBin == NULL) {
 		printf("ooops open file failed\n");
 		return -1;
 	}
@@ -26,18 +26,19 @@ int main()
 	printf("Ordinary list\n");
 	fprintf(stream, "Ordinary list\n");
 
-	fprintf(streamBin, "Ordinary list\n");
-	writeFile(streamBin, contact);
+	//fprintf(streamBin, "Ordinary list\n");
+	//writeFile(streamBin, contact);
 
 	writeFile(stream, contact);
 
-	writeFile(streamBin, contact);
+	//writeFile(streamBin, contact);
 
 	read(contact);
 	
 	compare(stream,contact);
-	compare(streamBin, contact);
+	//compare(streamBin, contact);
 	compareConsole(contact);
+	fwrite(stream, sizeof(FILE*), 385, streamBin);
 	fclose(stream);
 	fclose(streamBin);
 }

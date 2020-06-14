@@ -15,7 +15,7 @@ void add(MyStruct* contact , char name[50], int age, char number[50])
 		contact->name = malloc(len + 1);
 		if (contact->name == NULL)
 		{
-			printf("Not mamory");
+			printf("Not memory");
 		}
 		else
 		{
@@ -32,7 +32,7 @@ void add(MyStruct* contact , char name[50], int age, char number[50])
 		contact->number = malloc(len + 1);
 		if (contact->number == NULL)
 		{
-			printf("Not mamory");
+			printf("Not memory");
 		}
 		else
 		{

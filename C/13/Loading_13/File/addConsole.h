@@ -27,6 +27,9 @@ int compareNumber1(const void*, const void*);
 // Show
 void read(MyStruct*);
 
+void compareConsole(MyStruct* temp);
+void compare(FILE* stream, MyStruct* temp);
+
 
 #endif // !PHONE_H
 
