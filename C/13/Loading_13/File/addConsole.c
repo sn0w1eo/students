@@ -6,7 +6,6 @@ void strcopy(char* dest, const char* source)
 	while (*dest++ = *source++);
 }
 
-
 void add(MyStruct* contact , char name[50], int age, char number[50])
 {
 	// add name
