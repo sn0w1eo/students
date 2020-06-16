@@ -30,7 +30,7 @@ int main() {
 	srhNumber(users, "+76658522154");
 
 	printf("READING OR WRITING\n");
-	//save(st, users, Binary);   // Text or Binary
+	save(st, users, Binary);   // Text or Binary
 	read(st, users, Text);      // Text  of Binary
 	freeMemory(users);
 	return 0;

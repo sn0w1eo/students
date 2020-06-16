@@ -14,7 +14,7 @@ void readBinary(contact* stream, FILE* strg) {
 	int lines = 0;
 	char ch;
 	strg = freeMemory(strg);
-	stream = fopen("Report.dat", "r");
+	stream = fopen("Report.dat", "rd");
 	if (stream == NULL) {
 		printf("ERROR");
 		return -1;
@@ -33,11 +33,10 @@ void readBinary(contact* stream, FILE* strg) {
 	overwriteFromFile(stream, strg);
 }
 
-void ReadText(FILE* stream, contact* strg) {
+int readTextFile(FILE* stream, contact* strg) {
 
 	int lines = 0;
 	char ch;
-	strg = freeMemory(strg);
 	stream = fopen("Report.txt", "r");
 	if (stream == NULL) {
 		printf("ERROR");
@@ -60,7 +59,7 @@ void ReadText(FILE* stream, contact* strg) {
 void read(FILE* stream, contact* strg, int param) {
 	switch (param)
 	{
-	case Text: ReadText(stream, strg);
+	case Text: readTextFile(stream, strg);
 		break;
 	case Binary: readBinary(stream, strg);
 		break;
@@ -74,7 +73,7 @@ void read(FILE* stream, contact* strg, int param) {
 //Write
 void saveToBin(contact* strg, FILE* stream) {
 	int size = getSize(*strg);
-	stream = fopen("Report.dat", "w");
+	stream = fopen("Report.dat", "wb");
 	if (stream == NULL) {
 		printf("ERROR");
 		return -1;
@@ -84,6 +83,7 @@ void saveToBin(contact* strg, FILE* stream) {
 			fprintf(stream, "> %s  %s  %s  %s\n", strg[i].name, strg[i].number, strg[i].email, strg[i].zipCode);
 		}
 	}
+	fclose(stream);
 	
 }
 
@@ -391,6 +391,7 @@ void srhZip(contact* strg, str zip) {
 void sortShow(contact* strg) {
 	int size = getSize(*strg);
 	sortByName(strg, asc);
+	printf("\n written from file...\n");
 	for (size_t i = 0; i < size; i++)
 	{
 		if (strg[i].name != NULL) {

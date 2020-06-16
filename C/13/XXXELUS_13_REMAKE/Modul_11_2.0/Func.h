@@ -67,7 +67,7 @@ contact* delete(contact* strg, int index);
 
 void saveToText(contact* strg, FILE* stream);
 void saveToBin(contact* strg, FILE* stream);
-void ReadText(FILE* stream, contact* strg);
+int readTextFile(FILE* stream, contact* strg);
 void readBinary(contact* stream, FILE* strg);
 void overwriteFromFile(FILE* st, contact* strg);
 void save(FILE* stream, contact* strg, int param);
