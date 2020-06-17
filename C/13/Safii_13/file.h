@@ -1,53 +1,47 @@
 #ifndef FILE_H
 #define FILE_H
-
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
 
 typedef unsigned char* string;
+
 typedef struct {
 	string name;
-}Name;
-
-typedef struct {
 	int phone;
 	int age;
-}phoneNum;
+}phoneBook;
 
-typedef struct {
-	Name personName;
-	phoneNum personNum;
-} phoneBook, phoneBookFile;
-
-//file
-
-void wFile(FILE* fin, phoneBookFile* p);
+// open file
+void writeDataInFileTxt(FILE* stream, const phoneBook* contact);
 
 
 
-
-void PrintPhoneBooks(const phoneBook* allList, int const p);
-
+//setters
 void setName(phoneBook* phonebook, const string name);
 void setPhone(phoneBook* phonebook, int phone);
 void setAge(phoneBook* phonebook, int age);
 
+//getters
 string getName(phoneBook const phonebook);
 int getAge(phoneBook const phonebook);
 int getPhone(phoneBook const phonebook);
 
+//hz.... set person
+void addPerson(phoneBook* const phonebook, const string name, int const phone, int const age);
 
-void SetPhoneBook(phoneBook* const phonebook, const string name, int const phone, int const age);
+//asc
+int sortNameAsc(const void* firstValue, const void* secondValue);
+int sortAgeAsc(const void* firstValue, const void* secondValue);
+int sortPhoneAsc(const void* firstValue, const void* secondValue);
 
-int sortNameToAsc(const void* a, const void* b);
-int sortAgeToAsc(const void* a, const void* b);
-int sortPhoneToAsc(const void* a, const void* b);
+//desc
+int sortNameDesc(const void* firstValue, const void* secondValue);
+int sortAgeDesc(const void* firstValue, const void* secondValue);
+int sortPhoneDesc(const void* firstValue, const void* secondValue);
 
-
-int sortNameToDesc(const void* a, const void* b);
-int sortAgeToDesc(const void* a, const void* b);
-int sortPhoneToDesc(const void* a, const void* b);
+//print all persons
+void PrintPhoneBook(const phoneBook* contact, int const p);
 
 
 #endif

@@ -1,98 +1,91 @@
 #include "file.h"
+#include "stdlib.h"
 
-//files
-void wFile(FILE* fin, phoneBookFile* p) {
-	for (int i = 0; i < 5; i++) {
-		fprintf(fin, "%d. %s"
-			"    %d"
-			"    %s", p[i].personName.name, p[i].personNum.age, p[i].personNum.phone);
+//----------------------------------------------write date in file .txt--------------------------------------
+void writeDataInFileTxt(FILE* stream, const phoneBook* contact) {
+	for (int i = 0; i < 6; i++)
+	{
+		fprintf(stream, "%d. %s	 %d	 %d\n", i, contact[i].name, contact[i].age, contact[i].phone);
 	}
-
 };
 
 
-
-
-void PrintPhoneBooks(const phoneBook* allList, int const p) {
-	for (int i = 0; i < p; i++)
-	{
-		printf("%d.  Name: %s  \n"
-			"      Age: %d  \n"
-			"    Phone: %d  \n", i, getName(allList[i]), getAge(allList[i]), getPhone(allList[i]));
-		printf("\n");
-	}
-}
-
-//setter
-
+//----------------------------------------------setters------------------------------------------------------
 void setName(phoneBook* phonebook, const string name) {
-	phonebook->personName.name = _strdup(name);
+	phonebook->name = _strdup(name);
 }
-
 void setPhone(phoneBook* phonebook, int phone) {
-	phonebook->personNum.phone = phone;
+	phonebook->phone = phone;
 }
-
 void setAge(phoneBook* phonebook, int age) {
-	phonebook->personNum.age = age;
+	phonebook->age = age;
 }
 
-//getter
-
+//----------------------------------------------getters------------------------------------------------------
 string getName(phoneBook const phonebook) {
-	return phonebook.personName.name;
+	return phonebook.name;
 }
-
 int getPhone(phoneBook const phonebook) {
-	return phonebook.personNum.phone;
+	return phonebook.phone;
 }
-
 int getAge(phoneBook const phonebook) {
-	return phonebook.personNum.age;
+	return phonebook.age;
 }
 
+//----------------------------------------------set person---------------------------------------------------
 
-
-void SetPhoneBook(phoneBook* const phonebook, const string name, int const phone, int const age) {
+void addPerson(phoneBook* const phonebook, const string name, int const phone, int const age) {
 	setName(phonebook, name);
 	setPhone(phonebook, phone);
 	setAge(phonebook, age);
 }
 
 
-int sortNameToAsc(const void* a, const void* b) {
-	phoneBook* ptra = a;
-	phoneBook* ptrb = b;
-	return strcmp(ptra->personName.name, ptrb->personName.name);
+//----------------------------------------------sort asc-----------------------------------------------------
+
+int sortNameAsc(const void* firstValue, const void* secondValue) {
+	phoneBook* ptrFirstValue = firstValue;
+	phoneBook* ptrSecondValue = secondValue;
+	return strcmp(ptrFirstValue->name, ptrSecondValue->name);
 }
 
-int sortPhoneToAsc(const void* a, const void* b) {
-	phoneBook* ptra = a;
-	phoneBook* ptrb = b;
-	return ptra->personNum.phone - ptrb->personNum.phone;
+int sortPhoneAsc(const void* firstValue, const void* secondValue) {
+	phoneBook* ptrFirstValue = firstValue;
+	phoneBook* ptrSecondValue = secondValue;
+	return ptrFirstValue->phone - ptrSecondValue->phone;
 }
 
-int sortAgeToAsc(const void* a, const void* b) {
-	phoneBook* ptra = a;
-	phoneBook* ptrb = b;
-	return ptra->personNum.age - ptrb->personNum.age;
+int sortAgeAsc(const void* firstValue, const void* secondValue) {
+	phoneBook* ptrFirstValue = firstValue;
+	phoneBook* ptrSecondValue = secondValue;
+	return ptrFirstValue->age - ptrSecondValue->age;
 }
 
-
-int sortNameToDesc(const void* a, const void* b) {
-	phoneBook* ptra = a;
-	phoneBook* ptrb = b;
-	return strcmp(ptrb->personName.name, ptra->personName.name);
+//----------------------------------------------sort desc----------------------------------------------------
+int sortNameDesc(const void* firstValue, const void* secondValue) {
+	phoneBook* ptrFirstValue = firstValue;
+	phoneBook* ptrSecondValue = secondValue;
+	return strcmp(ptrSecondValue->name, ptrFirstValue->name);
 }
 
-int sortPhoneToDesc(const void* a, const void* b) {
-	phoneBook* ptra = a;
-	phoneBook* ptrb = b;
-	return ptrb->personNum.phone - ptra->personNum.phone;
+int sortPhoneDesc(const void* firstValue, const void* secondValue) {
+	phoneBook* ptrFirstValue = firstValue;
+	phoneBook* ptrSecondValue = secondValue;
+	return ptrSecondValue->phone - ptrFirstValue->phone;
 }
 
-int sortAgeToDesc(const void* a, const void* b) {
-	phoneBook* ptra = a;
-	phoneBook* ptrb = b;
-	return ptrb->personNum.age - ptra->personNum.age;
+int sortAgeDesc(const void* firstValue, const void* secondValue) {
+	phoneBook* ptrFirstValue = firstValue;
+	phoneBook* ptrSecondValue = secondValue;
+	return ptrSecondValue->age - ptrFirstValue->age;
+}
+
+//----------------------------------------------print all persons--------------------------------------------
+void PrintPhoneBook(const phoneBook* contact, int const p) {
+	for (int i = 0; i < p; i++) {
+		printf("%d.  Name: %s  \n"
+			    "     Age: %d  \n"
+                "   Phone: %d", i, getName(contact[i]), getAge(contact[i]), getPhone(contact[i]));
+		printf("\n");
+	}
 }
