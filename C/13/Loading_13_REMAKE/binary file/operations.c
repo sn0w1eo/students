@@ -80,6 +80,8 @@ void readFileToArray()
 	for (int i = 0; i < 7; i++ ) {
 		switch (i)
 		{
+		case 0: printf("Ordinary list\n----------------------\n");
+				break;
 		case 1:	printf("----------------------");
 				printf("\nASC\n");
 				printf("----------------------");

@@ -22,7 +22,6 @@ int main()
 	add(&person[3], "Nastya", "0500575859", "30");
 	add(&person[4], "Kostya", "0900536332", "28");
 
-	printf("Ordinary list\n----------------------\n");           // Console
 	fprintf(stream, "Ordinary list\n----------------------\n");  // TXT FAIL
 
 	// Write persons to text FILE
