@@ -69,12 +69,46 @@ void writeToBinary(FILE* streamBin ,contact* person)
 	fclose(streamBin);
 }
 
-// Write persons to Console
-void writeToConsole(contact* person)
+// Read from BIN FILE to array
+void readFileToArray()
 {
-	for (int i = 0; i < 5; i++) {
-		printf("%s  %s  %s\n", person[i].name, person[i].number, person[i].age);
+	contact person[5];                               // Array to write value 
+	FILE* stream = fopen("phoneBookBin.dat", "rb");  // Open file to read
+	if (stream == NULL) {
+		printf("ooops open file failed\n");
 	}
+	for (int i = 0; i < 7; i++ ) {
+		switch (i)
+		{
+		case 1:	printf("----------------------");
+				printf("\nASC\n");
+				printf("----------------------");
+				printf("\nbyNAME\n");
+				break;
+		case 2: printf("\nbyNumber\n");
+				break;
+		case 3: printf("\nbyAge\n");
+				break;
+		case 4: printf("----------------------");
+				printf("\nDESC\n");
+				printf("----------------------");
+				printf("\nbyNAME\n");
+				break;
+		case 5: printf("\nbyNumber\n");
+			    break;
+		case 6: printf("\nbyAge\n");
+				break;
+		}
+		fseek(stream, 0, SEEK_CUR);                 // Current position of the file pointer
+		fread(person, sizeof(contact), 5, stream);  // Read from File to array
+		changeSpaceToZero(person);                  // Change space ' ' to zero '\0'
+		for (int i = 0; i < 5; i++)
+		{
+			printf("%s %s %s", person[i].name, person[i].number, person[i].age);
+			printf("\n");
+		}
+	}
+	fclose(stream);
 }
 
 

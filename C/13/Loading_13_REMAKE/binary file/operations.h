@@ -23,7 +23,7 @@ void writeToBinary(FILE*, contact* );
 // Write persons to text FILE
 void writeToText(FILE* , contact* );
 
-// Write persons to Console
-void writeToConsole(contact* );
+// Read from FILE to array
+void readFileToArray();
 
 #endif // !OPERATIONS_H

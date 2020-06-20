@@ -6,7 +6,7 @@
 #include "operations.h"
 #include "compare.h"
 
-// ASC
+// Compare string  (ASC) 
 int compareNameASC(const void* a, const void* b)
 {
 	const contact* name1 = a;
@@ -28,7 +28,7 @@ int compareAgeASC(const void* a, const void* b)
 	return strcmp(integer1->age, integer2->age);
 }
 
-// DESC
+// Compare string (DESC) 
 int compareNameDESC(const void* a, const void* b)
 {
 	const contact* name1 = a;
@@ -58,23 +58,12 @@ void sortByNameASC(contact* person)
 	if (stream == NULL || streamBin == NULL) {
 		printf("ooops open file failed\n");
 	}
-	fprintf(stream, "----------------------------------------");
+	fprintf(stream, "----------------------");
 	fprintf(stream, "\nASC\n");
-	fprintf(stream, "----------------------------------------");
+	fprintf(stream, "----------------------");
 	fprintf(stream, "\nbyNAME\n");
 
-	fprintf(streamBin, "----------------------------------------");
-	fprintf(streamBin, "ASC");
-	fprintf(streamBin, "----------------------------------------");
-	fprintf(streamBin, "byNAME");
-
-	printf("----------------------------------------");
-	printf("\nASC\n");
-	printf("----------------------------------------");
-	printf("\nbyNAME\n");
-
 	qsort(person, 5, sizeof(contact), compareNameASC);
-	writeToConsole(person);                // Output to Console
 	writeToText(stream, person);           // Output to Text File
 	changeZeroToSpace(person);             // Change zero '\0' to ' ' for binary
 	writeToBinary(streamBin, person);      // Output to Binary File
@@ -91,12 +80,9 @@ void sortByNumberASC(contact* person)
 	if (stream == NULL || streamBin == NULL) {
 		printf("ooops open file failed\n");
 	}
-	printf("\nbyNumber\n");
 	fprintf(stream,"\nbyNumber\n");
-	fprintf(streamBin, "byNumber");
 
 	qsort(person, 5, sizeof(contact), compareNumberASC);
-	writeToConsole(person);             // Output to Console
 	writeToText(stream, person);        // Output to Text File
 	changeZeroToSpace(person);          // Change zero '\0' to ' ' for binary
 	writeToBinary(streamBin, person);   // Output to Binary File
@@ -113,12 +99,9 @@ void sortByAgeASC(contact* person)
 	if (stream == NULL || streamBin == NULL) {
 		printf("ooops open file failed\n");
 	}
-	printf("\nbyAge\n");
 	fprintf(stream, "\nbyAge\n");
-	fprintf(streamBin, "byAge");
 
 	qsort(person, 5, sizeof(contact), compareAgeASC);
-	writeToConsole(person);
 	writeToText(stream, person);
 	changeZeroToSpace(person);
 	writeToBinary(streamBin, person);
@@ -136,23 +119,12 @@ void sortByNameDESC(contact* person)
 	if (stream == NULL || streamBin == NULL) {
 		printf("ooops open file failed\n");
 	}
-	fprintf(stream, "----------------------------------------");
+	fprintf(stream, "----------------------");
 	fprintf(stream, "\nDESC\n");
-	fprintf(stream, "----------------------------------------");
+	fprintf(stream, "----------------------");
 	fprintf(stream, "\nbyNAME\n");
 
-	fprintf(streamBin, "----------------------------------------");
-	fprintf(streamBin, "DESC");
-	fprintf(streamBin, "----------------------------------------");
-	fprintf(streamBin, "byNAME");
-
-	printf("----------------------------------------");
-	printf("\nDESC\n");
-	printf("----------------------------------------");
-	printf("\nbyNAME\n");
-
 	qsort(person, 5, sizeof(contact), compareNameDESC);
-	writeToConsole(person);
 	writeToText(stream, person);
 	changeZeroToSpace(person);
 	writeToBinary(streamBin, person);
@@ -169,12 +141,9 @@ void sortByNumberDESC(contact* person)
 	if (stream == NULL || streamBin == NULL) {
 		printf("ooops open file failed\n");
 	}
-	printf("\nbyNumber\n");
 	fprintf(stream, "\nbyNumber\n");
-	fprintf(streamBin, "byNumber");
 
 	qsort(person, 5, sizeof(contact), compareNumberDESC);
-	writeToConsole(person);
 	writeToText(stream, person);
 	changeZeroToSpace(person);
 	writeToBinary(streamBin, person);
@@ -191,12 +160,9 @@ void sortByAgeDESC(contact* person)
 	if (stream == NULL || streamBin == NULL) {
 		printf("ooops open file failed\n");
 	}
-	printf("\nbyAge\n");
 	fprintf(stream, "\nbyAge\n");
-	fprintf(streamBin, "byAge");
 
 	qsort(person, 5, sizeof(contact), compareAgeDESC);
-	writeToConsole(person);
 	writeToText(stream, person);
 	changeZeroToSpace(person);
 	writeToBinary(streamBin, person);

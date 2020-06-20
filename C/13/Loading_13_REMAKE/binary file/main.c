@@ -24,10 +24,6 @@ int main()
 
 	printf("Ordinary list\n----------------------\n");           // Console
 	fprintf(stream, "Ordinary list\n----------------------\n");  // TXT FAIL
-	fprintf(streamBin, "Ordinary list----------------------");   // BIN FAIL
-
-	// Write to Console
-	writeToConsole(person);
 
 	// Write persons to text FILE
 	writeToText(stream, person);
@@ -58,6 +54,9 @@ int main()
 
 	// Sort by age (DESC)
 	sortByAgeDESC(person);
+
+	// Read from Binary FILE to array
+	readFileToArray();
 
 	fclose(stream);
 	fclose(streamBin);
