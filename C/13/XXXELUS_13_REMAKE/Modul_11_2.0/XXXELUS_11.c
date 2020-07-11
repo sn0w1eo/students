@@ -1,6 +1,6 @@
 #include "Func.h"
 
-/*Did not figure out where to put callback*/
+
 
 int main() {
 
@@ -30,8 +30,8 @@ int main() {
 	srhNumber(users, "+76658522154");
 
 	printf("READING OR WRITING\n");
-	save(st, users, Binary);   // Text or Binary
-	read(st, users, Text);      // Text  of Binary
+	save(st, users, Text);   // Text or Binary
+	read(st, users, Text);      // Text  or Binary
 	freeMemory(users);
 	return 0;
 

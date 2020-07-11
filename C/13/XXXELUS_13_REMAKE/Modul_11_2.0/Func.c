@@ -11,60 +11,60 @@ int busy;
 // Read
 void readBinary(contact* stream, FILE* strg) {
 	char i = 0;
-	int lines = 0;
+	int users = 0;
 	char ch;
-	strg = freeMemory(strg);
-	stream = fopen("Report.dat", "rd");
+
+	stream = fopen("Report.dat", "rd");// Открываем для чтения бинарника
 	if (stream == NULL) {
 		printf("ERROR");
 		return -1;
 	}
-	while ((ch = fgetc(stream)) != EOF) {
-		if (ch == '>') {
-			lines++;
+	while ((ch = fgetc(stream)) != EOF) {  // Пока символ не конец файла
+		if (ch == '>') {  //Ежели символ ">" ,то это новый контакт
+			users++;
 		}
 		else { continue; }
 	}
-	if (strg == NULL) {
-		strg = initStorage(lines);
-		setSize(strg, lines);
+	if (strg == NULL) { // Ежели не выделено памяти в хранилище
+		strg = initStorage(users); //То выделяем под столько юзеров , сколько насчитали выше
+		setSize(strg, users); // Устанавлваем размер
 	}
-	fclose(stream);
-	overwriteFromFile(stream, strg);
+	fclose(stream); // Закрыли поток
+	overwriteFromFile(stream, strg); // Эта функция просто переписывает из файла в структуру
 }
 
 int readTextFile(FILE* stream, contact* strg) {
 
-	int lines = 0;
+	int users = 0;
 	char ch;
-	stream = fopen("Report.txt", "r");
+	stream = fopen("Report.txt", "r");// Открываем для чтения
 	if (stream == NULL) {
-		printf("ERROR");
+		printf("ERROR"); // профессиональный чекаут
 		return -1;
 	}
-	while ((ch = fgetc(stream)) != EOF) {
+	while ((ch = fgetc(stream)) != EOF) { //все тоже самое
 		if (ch == '>') {
-			lines++;
+			users++;
 		}
 		else { continue; }
 	}
 	if (strg == NULL) {
-		strg = initStorage(lines);
-		setSize(strg, lines);
+		strg = initStorage(users); // и тут тоже
+		setSize(strg, users);
 	}
 	fclose(stream);
-	overwriteFromFile(stream, strg);
+	overwriteFromFile(stream, strg);// все та же функция
 }
 
 void read(FILE* stream, contact* strg, int param) {
-	switch (param)
+	switch (param)// чекаем параметр 
 	{
-	case Text: readTextFile(stream, strg);
+	case Text: readTextFile(stream, strg); // если текст, то текст
 		break;
-	case Binary: readBinary(stream, strg);
+	case Binary: readBinary(stream, strg); // а если бинарник, то бинарник
 		break;
 	default:
-		printf("Invalid param");
+		printf("Invalid param"); // если еще какую нибудь хуйню ввели
 		break;
 	}
 }
@@ -72,99 +72,99 @@ void read(FILE* stream, contact* strg, int param) {
 
 //Write
 void saveToBin(contact* strg, FILE* stream) {
-	int size = getSize(*strg);
-	stream = fopen("Report.dat", "wb");
+	int size = getSize(*strg); // узнаем размер
+	stream = fopen("Report.dat", "wb");// открываем
 	if (stream == NULL) {
-		printf("ERROR");
+		printf("ERROR");// чекаут
 		return -1;
 	}
-	for (int i = 0; i < size; i++) {
+	for (int i = 0; i < size; i++) {    //записуем
 		if (getName(strg[i]) != NULL) {
 			fprintf(stream, "> %s  %s  %s  %s\n", strg[i].name, strg[i].number, strg[i].email, strg[i].zipCode);
 		}
 	}
-	fclose(stream);
-	
+	fclose(stream);// закрываем
 }
 
 void saveToText(contact* strg, FILE* stream) {
-	int size = getSize(*strg);
-	stream = fopen("Report.txt", "w");
+	int size = getSize(*strg); // узнаем размер
+	stream = fopen("Report.txt", "w"); // открываем
 	if (stream == NULL) {
-		printf("ERROR");
+		printf("ERROR"); //чекаем
 		return -1;
 	}
 	for (int i = 0; i < size; i++) {
-		if (getName(strg[i]) != NULL) {
+		if (getName(strg[i]) != NULL) { //записуем
 			fprintf(stream,"> %s  %s  %s  %s\n",  strg[i].name, strg[i].number, strg[i].email, strg[i].zipCode);
 		}
 	}
-
+	fclose(stream);// закрываем
 }
 
+
+//Всеми любимая функция(Верх мастерства)
 void overwriteFromFile(FILE* st,contact* strg) {
 	
-	char name[20], number[80], email[30], zip[20],tmp[2];
+	char name[20], number[80], email[30], zip[20],tmp[2];// создаем буферы 
 	int i = 0;
-	st = fopen("Report.txt", "r");
-	while (fscanf(st,"%s%s%s%s%s", tmp,name, number, email, zip) != EOF)
+	st = fopen("Report.txt", "r");// открываем
+	while (fscanf(st,"%s%s%s%s%s", tmp,name, number, email, zip) != EOF)//пока не конец файла, хуярим
 	{
-		strg = add(strg, name, number, email, zip);
+		strg = add(strg, name, number, email, zip); // добавляем контакт который считали, и хуярим дальше
 		i++;
 	}
-	sortShow(strg);
+	sortShow(strg); // печатаем на экран
 	for (int j = 0; j < sizeof(tmp); j++) {
-		tmp[j] =  NULL ;
+		tmp[j] =  NULL ; // Эта хуйня очищает переменную TMP, я хуй знает зачем она тут нужна была , но все же... Коротко о переменной, в нее записывается знак ">"!
 	}
-	fclose(st);
+	fclose(st);// закрываем
 }
 
 void save(FILE* stream, contact* strg,int param) {
-	switch (param)
+	switch (param)//чекаем параметр
 	{
-	case Text:saveToText(strg, stream);
+	case Text:saveToText(strg, stream);// ежели текст,то текст
 		break;
-	case Binary:saveToBin(strg, stream);
+	case Binary:saveToBin(strg, stream);//Ежели бинарник, то бинарник
 		break;
 
 	default:
-		printf("Invalid param");
+		printf("Invalid param");// Любая другая хуйня
 		break;
 	}
-		
-	
-
 }
 
 
 
 /*Set*/
 
-void setSize(contact* storage,size_t size) {
+void setSize(contact* storage,size_t size) {  //установить размер 
 	storage->size = size;
 }
 
-void setName(contact* strg,  str name) {
+void setName(contact* strg,  string name) {  //установить имя
 	strg->name = _strdup(name);
 	
 }
 
-void setNumber(contact* strg, const str number){
+void setNumber(contact* strg, const string number){  //установить номер
 	strg->number = _strdup(number);
 }
 
-void setMail(contact* strg, const str email) {
+void setMail(contact* strg, const string email) {  //установить почту
 	strg->email = _strdup(email);
 }
 
-void setZip(contact* strg, const str zip) {
+void setZip(contact* strg, const string zip) {  //установить зипКод
 	strg->zipCode = _strdup(zip);
 }
 
-void setUser(contact* strg, const str name, const str number, const str email, const str zip) {
+
+//Полностью установить нового пользователя 
+void setUser(contact* strg, const string name, const string number, const string email, const string zip) {
 	setName(strg, name);
 	setNumber(strg, number);
-	setMail(strg, email);
+	setMail(strg, email);    
 	setZip(strg, zip);
 }
 
@@ -172,27 +172,27 @@ void setUser(contact* strg, const str name, const str number, const str email, c
 /*Get*/
 
 
-int getSize(contact strg) {
+int getSize(contact strg) { //взять размер
 	return strg.size;
 }
 
-str getName(contact strg) {
+string getName(contact strg) {  //Взять имя
 	return strg.name;
 }
 
-str getNumber(contact strg) {
+string getNumber(contact strg) {  //Взять номер
 	return strg.number;
 }
 
-str getMail(contact strg) {
+string getMail(contact strg) {  //Взять почту
 	return strg.email;
 }
 
-str getZip(contact strg) {
+string getZip(contact strg) {  //Взять Зип
 	return strg.zipCode;
 }
 
-contact* getAdress(contact* strg) {
+contact* getAdress(contact* strg) {  //Взять адрес свободного места
 	int size = getSize(*strg);
 	int i = 0;
 	for (; i < size; i++) {
@@ -206,7 +206,7 @@ contact* getAdress(contact* strg) {
 
 /*Memory*/
 
-contact* initStorage(size_t size){
+contact* initStorage(size_t size){  //инициализация памяти
 	contact* storage = NULL;
 	if (size <= 0) {
 		size = 2;
@@ -220,7 +220,7 @@ contact* initStorage(size_t size){
 	}
 	return storage;
 }
-contact* reallocStorage(contact* strg) {
+contact* reallocStorage(contact* strg) {  //Увеличить кол-во юзеров
 	int size = getSize(*strg) * 2;
 	setSize(strg, size);
 	strg = realloc(strg, size * sizeof(contact));;
@@ -229,7 +229,7 @@ contact* reallocStorage(contact* strg) {
 	}
 	return strg;
 }
-contact* freeMemory(contact* strg) {
+contact* freeMemory(contact* strg) {  //Освободить память
 	size_t size = getSize(*strg);
 	for (int i = 0; i < size; i++) {
 		if (strg[i].name != NULL && strg[i].number!=NULL && strg[i].email!=NULL && strg[i].zipCode!=NULL) {
@@ -252,7 +252,9 @@ contact* freeMemory(contact* strg) {
 
 /*Editing*/
 
-contact* add(contact *strg, const str name, const str number, const str email, const str zip) {
+
+//Добавление нового контакта
+contact* add(contact *strg, const string name, const string number, const string email, const string zip) {
 	contact* newUser = NULL;
 	switch (freePlace(strg))
 	{
@@ -269,26 +271,27 @@ contact* add(contact *strg, const str name, const str number, const str email, c
 	return strg;
 }
 
-contact* update(contact* strg, const str name, const str number, const str email, const str zip, int index) {
+//обновить контакт полностью
+contact* update(contact* strg, const string name, const string number, const string email, const string zip, int index) {
 	setUser(&strg[index], name, number, email, zip);
 }
-
-contact* updateName(contact* strg, const str name, int index) {
+//Обновить имя контакта
+contact* updateName(contact* strg, const string name, int index) {
 	setName(&strg[index], name);
 }
-
-contact* updateNumber(contact* strg, const str number, int index) {
+//Обновмть номер контакта
+contact* updateNumber(contact* strg, const string number, int index) {
 	setNumber(&strg[index], number);
 }
-
-contact* updateMail(contact* strg, const str mail, int index) {
+//Обновить почту контакта
+contact* updateMail(contact* strg, const string mail, int index) {
 	setMail(&strg[index], mail);
 }
-
-contact* updateZip(contact* strg, const str zip,int index) {
+//Обновить Зип контакта
+contact* updateZip(contact* strg, const string zip,int index) {
 	setZip(&strg[index],zip);
 }
-
+//УДАЛИТЬ НАХУЙ
 contact* delete(contact* strg, int index){
 	free(strg[index].name);
 	free(strg[index].number);
@@ -300,8 +303,8 @@ contact* delete(contact* strg, int index){
 
 /*Searching*/
 
-
-void srhName(contact* strg, str name) {
+//Найти по имени
+void srhName(contact* strg, string name) {
 	int size = getSize(*strg);
 	int check = false;
 	printf("\n all contacts with name %s : ", name);
@@ -319,8 +322,8 @@ void srhName(contact* strg, str name) {
 		printf("\nNot found!\n");
 	}
 }
-
-void srhNumber(contact* strg, str number) {
+//Найти по номеру
+void srhNumber(contact* strg, string number) {
 	int size = getSize(*strg);
 	int check = false;
 	printf("\n all contacts with number %s : ", number);
@@ -341,8 +344,8 @@ void srhNumber(contact* strg, str number) {
 		printf("\nNot found!\n");
 	}
 }
-
-void srhMail(contact* strg, str mail) {
+//Найти по почте
+void srhMail(contact* strg, string mail) {
 	int size = getSize(*strg);
 	int check = false;
 	printf("\n all contacts with eMail %s : ", mail);
@@ -363,8 +366,8 @@ void srhMail(contact* strg, str mail) {
 		printf("\nNot found!\n");
 	}
 }
-
-void srhZip(contact* strg, str zip) {
+//Найти по зипу
+void srhZip(contact* strg, string zip) {
 	int size = getSize(*strg);
 	int check = false;
 	printf("\n all contacts with eMail %s : ", zip);
@@ -387,7 +390,7 @@ void srhZip(contact* strg, str zip) {
 }
 
 /*Other*/
-
+//Вывод отсортированного списка контактов
 void sortShow(contact* strg) {
 	int size = getSize(*strg);
 	sortByName(strg, asc);
@@ -399,7 +402,7 @@ void sortShow(contact* strg) {
 		}
 	}
 }
-
+//Вывод списка контактов
 void show(contact* strg) {
 	int size = getSize(*strg);
 	for (int i = 0; i < size; i++) {
@@ -408,7 +411,7 @@ void show(contact* strg) {
 		}
 	}
 }
-
+//Поиск свободного места в списке
 int freePlace(contact* phoneBook)
 {
 	int size = getSize(*phoneBook);
@@ -423,7 +426,7 @@ int freePlace(contact* phoneBook)
 	return false;
 }
 
-
+//Ожидание
 void wait() {
 	printf("\nPress any key...\n");
 	getch();
