@@ -12,22 +12,22 @@ void DisplayCPUinfo(HDC);                                          //Отобр�
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreviosInstance, PSTR szCmdLine, int iCmdShow)
 {
-	static TCHAR szAppName[] = TEXT("AIDA 128");
+	static TCHAR szAppName[] = TEXT("suchara");
 	HWND hWindow;
 	MSG message;
 	WNDCLASS windowClass;
 
 	//Запись характеристик класса окна в структуру.
 	windowClass.style = CS_HREDRAW | CS_VREDRAW;                        //Стиль окна.
-	windowClass.lpfnWndProc = WindowProcedure;                          //Указатель на оконную функцию.
+	windowClass.lpfnWndProc = WindowProcedure;                          //Адресс оконной функции.
 	windowClass.cbClsExtra = 0;                                         //?
 	windowClass.cbWndExtra = 0;                                         //?
 	windowClass.hInstance = hInstance;                                  //Хэндл программы.
-	windowClass.hIcon = LoadIcon(NULL, IDI_ASTERISK);                   //Иконку.
+	windowClass.hIcon = LoadIcon(NULL, IDI_ASTERISK);                   //Иконка.
 	windowClass.hCursor = LoadCursor(NULL, IDC_ARROW);                  //Курсор.
 	windowClass.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);     //Кисть которой будет закрашен бэкграунд.
 	windowClass.lpszMenuName = NULL;                                    //?
-	windowClass.lpszClassName = szAppName;                              //Имя класса.
+	windowClass.lpszClassName = szAppName;                              //Имя класса окна.
 
 	//Регистрация класса окна.
 	if (!RegisterClass(&windowClass))
@@ -38,7 +38,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreviosInstance, PSTR szCmdLi
 
 	//Создание окна.
 	hWindow = CreateWindow(
-		szAppName,               //Указатель на строку с именем класса окна.
+		TEXT("suchara"),               //Указатель на строку с именем класса окна.
 		szAppName,               //Текст для заголовка окна
 		WS_OVERLAPPEDWINDOW,     //Стиль окна.
 		CW_USEDEFAULT,           //Оступы от края экрана.
@@ -78,7 +78,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 	{
 	case WM_PAINT:                       //Сообщение о перерисовке окна.
 
-		hDC = BeginPaint(hwnd, &ps);     //Перерисовывать окно.
+		hDC = BeginPaint(hwnd, &ps);     //Перерисовать окно.
 
 		DisplayMonitorInfo(hDC);
 		DisplayCPUinfo(hDC);
@@ -100,7 +100,7 @@ void DisplayMonitorInfo(HDC hDC)
 	TCHAR text[256];
 	int cxScreen, cyScreen;
 
-	//Получить размеры окна.
+	//Получить размеры экрана.
 	cxScreen = GetSystemMetrics(SM_CXSCREEN);
 	cyScreen = GetSystemMetrics(SM_CYSCREEN);
 
