@@ -15,6 +15,15 @@ typedef struct {
 	string zipCode;
 }contact;
 
+typedef struct
+{
+	unsigned char name[31];
+	unsigned char phone[31];
+	unsigned char email[31];
+	unsigned char zip[10];
+
+}binContact;
+
 enum SaveTo {
 	Binary = 0,
 	Text
@@ -42,6 +51,7 @@ string getNumber(contact strg);
 string getMail(contact strg);
 
 
+
 void setUser(contact* strg, const string name, const string number, const string email, const string zip);
 void setZip(contact* strg, const string zip);
 void setMail(contact* strg, const string email);
@@ -51,7 +61,7 @@ void setSize(contact* storage, size_t);
 
 
 
-contact* add(contact* strg, const string name, const string number, const string email, const string zip);
+contact* addNewContact(contact* strg, const string name, const string number, const string email, const string zip);
 contact* update(contact* strg, const string name, const string number, const string email, const string zip, int index);
 contact* updateZip(contact* strg, const string zip, int index);
 contact* updateMail(contact* strg, const string mail, int index);
@@ -65,10 +75,10 @@ void show(contact* strg);
 contact* getAdress(contact* strg);
 contact* delete(contact* strg, int index);
 
-void saveToText(contact* strg, FILE* stream);
-void saveToBin(contact* strg, FILE* stream);
-int readTextFile(FILE* stream, contact* strg);
-void readBinary(contact* stream, FILE* strg);
+void saveToText(contact* strg);
+void saveToBin(contact* strg);
+int readTextFile( contact* strg);
+void readDAT( binContact* contacts);
 void overwriteFromFile(FILE* st, contact* strg);
 void save(FILE* stream, contact* strg, int param);
 void read(FILE* stream, contact* strg, int param);

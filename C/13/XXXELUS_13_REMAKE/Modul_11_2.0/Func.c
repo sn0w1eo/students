@@ -9,35 +9,38 @@ int busy;
 
 
 // Read
-void readBinary(contact* stream, FILE* strg) {
-	char i = 0;
-	int users = 0;
+void readDAT(binContact* contacts) {
 	char ch;
-
-	stream = fopen("Report.dat", "rd");// Открываем для чтения бинарника
+	
+	FILE *stream = fopen("Report.dat", "rb");// Открываем для чтения бинарника
 	if (stream == NULL) {
 		printf("ERROR");
 		return -1;
 	}
-	while ((ch = fgetc(stream)) != EOF) {  // Пока символ не конец файла
-		if (ch == '>') {  //Ежели символ ">" ,то это новый контакт
-			users++;
-		}
-		else { continue; }
+
+	for (int i = 0; i < busy; i++)
+	{
+		fread(&contacts[i], sizeof(binContact), 1, stream);
+		contacts[i].name[30] = '\0';
+		contacts[i].phone[30] = '\0';
+		contacts[i].email[30] = '\0';
+		contacts[i].zip[9] = '\0';
 	}
-	if (strg == NULL) { // Ежели не выделено памяти в хранилище
-		strg = initStorage(users); //То выделяем под столько юзеров , сколько насчитали выше
-		setSize(strg, users); // Устанавлваем размер
+	for (int i = 0; i < busy; i++)
+	{
+		printf("%s %s %s %s\n", contacts[i].name, contacts[i].phone, contacts[i].email, contacts[i].zip);
 	}
-	fclose(stream); // Закрыли поток
-	overwriteFromFile(stream, strg); // Эта функция просто переписывает из файла в структуру
+	fclose(stream);
+	stream = NULL;
+	
 }
 
-int readTextFile(FILE* stream, contact* strg) {
-
+int readTextFile( contact* strg) {
+	char name[32], number[32], email[32], zip[20], tmp[5];// создаем буферы 
+	int i = 0;
 	int users = 0;
 	char ch;
-	stream = fopen("Report.txt", "r");// Открываем для чтения
+	FILE *stream = fopen("Report.txt", "r");// Открываем для чтения
 	if (stream == NULL) {
 		printf("ERROR"); // профессиональный чекаут
 		return -1;
@@ -52,49 +55,53 @@ int readTextFile(FILE* stream, contact* strg) {
 		strg = initStorage(users); // и тут тоже
 		setSize(strg, users);
 	}
-	fclose(stream);
-	overwriteFromFile(stream, strg);// все та же функция
+
+	while (fscanf(stream, "%s%s%s%s%s", tmp, name, number, email, zip) != EOF)//пока не конец файла, хуярим
+	{
+		strg = addNewContact(strg, name, number, email, zip); // добавляем контакт который считали, и хуярим дальше
+		i++;
+	}
+	show(strg); // печатаем на экран
+	for (int j = 0; j < sizeof(tmp); j++) {
+		tmp[j] = NULL; // Эта хуйня очищает переменную TMP, я хуй знает зачем она тут нужна была , но все же... Коротко о переменной, в нее записывается знак ">"!
+	}
+	fclose(stream);// закрываем
+	stream = NULL;
+	
 }
 
-void read(FILE* stream, contact* strg, int param) {
-	switch (param)// чекаем параметр 
-	{
-	case Text: readTextFile(stream, strg); // если текст, то текст
-		break;
-	case Binary: readBinary(stream, strg); // а если бинарник, то бинарник
-		break;
-	default:
-		printf("Invalid param"); // если еще какую нибудь хуйню ввели
-		break;
-	}
-}
+
 
 
 //Write
-void saveToBin(contact* strg, FILE* stream) {
+void saveToBin(contact* strg) {
 	int size = getSize(*strg); // узнаем размер
-	stream = fopen("Report.dat", "wb");// открываем
-	if (stream == NULL) {
-		printf("ERROR");// чекаут
-		return -1;
-	}
-	for (int i = 0; i < size; i++) {    //записуем
-		if (getName(strg[i]) != NULL) {
-			fprintf(stream, "> %s  %s  %s  %s\n", strg[i].name, strg[i].number, strg[i].email, strg[i].zipCode);
+	FILE* stream = fopen("Report.dat", "wb");
+
+
+	for (int i = 0; i < busy; i++)
+	{
+		
+		if (strg->name != NULL)
+		{
+			fprintf(stream, "%-30s %-30s %-30s %-10s", strg[i].name, strg[i].number, strg[i].email, strg[i].zipCode);
+			
 		}
 	}
-	fclose(stream);// закрываем
+
+	fclose(stream);
+	stream = NULL;
 }
 
-void saveToText(contact* strg, FILE* stream) {
-	int size = getSize(*strg); // узнаем размер
-	stream = fopen("Report.txt", "w"); // открываем
+void saveToText(contact* strg) {
+	
+	FILE *stream = fopen("Report.txt", "w"); // открываем
 	if (stream == NULL) {
 		printf("ERROR"); //чекаем
 		return -1;
 	}
-	for (int i = 0; i < size; i++) {
-		if (getName(strg[i]) != NULL) { //записуем
+	for (int i = 0; i < busy; i++) {
+		if (getName(strg[i]) != NULL && getZip(strg[i])!=NULL) { //записуем
 			fprintf(stream,"> %s  %s  %s  %s\n",  strg[i].name, strg[i].number, strg[i].email, strg[i].zipCode);
 		}
 	}
@@ -105,19 +112,7 @@ void saveToText(contact* strg, FILE* stream) {
 //Всеми любимая функция(Верх мастерства)
 void overwriteFromFile(FILE* st,contact* strg) {
 	
-	char name[20], number[80], email[30], zip[20],tmp[2];// создаем буферы 
-	int i = 0;
-	st = fopen("Report.txt", "r");// открываем
-	while (fscanf(st,"%s%s%s%s%s", tmp,name, number, email, zip) != EOF)//пока не конец файла, хуярим
-	{
-		strg = add(strg, name, number, email, zip); // добавляем контакт который считали, и хуярим дальше
-		i++;
-	}
-	sortShow(strg); // печатаем на экран
-	for (int j = 0; j < sizeof(tmp); j++) {
-		tmp[j] =  NULL ; // Эта хуйня очищает переменную TMP, я хуй знает зачем она тут нужна была , но все же... Коротко о переменной, в нее записывается знак ">"!
-	}
-	fclose(st);// закрываем
+	
 }
 
 void save(FILE* stream, contact* strg,int param) {
@@ -254,7 +249,7 @@ contact* freeMemory(contact* strg) {  //Освободить память
 
 
 //Добавление нового контакта
-contact* add(contact *strg, const string name, const string number, const string email, const string zip) {
+contact* addNewContact(contact *strg, const string name, const string number, const string email, const string zip) {
 	contact* newUser = NULL;
 	switch (freePlace(strg))
 	{
@@ -268,6 +263,7 @@ contact* add(contact *strg, const string name, const string number, const string
 	}
 	
 	setUser(newUser, name, number, email, zip);	
+	busy++;
 	return strg;
 }
 
@@ -425,6 +421,10 @@ int freePlace(contact* phoneBook)
 	}
 	return false;
 }
+
+
+
+
 
 //Ожидание
 void wait() {
