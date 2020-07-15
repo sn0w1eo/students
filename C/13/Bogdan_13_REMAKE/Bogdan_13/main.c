@@ -8,35 +8,40 @@
 int main() {
 	
 
-	data db = initStorage(20);
-	addPerson(&db, "Bogdan", 29, 123.123);
-	addPerson(&db, "Dima", 13, 136.123);
-	addPerson(&db, "Artur", 234, 1.123);
-	addPerson(&db, "Ira", 45, 123.233);
-	addPerson(&db, "Kirill", 5, 14.123);
+	data db = initStorage(10);			//выделяем память
 
+	//добавляем персонажей
+	addPerson(&db, "Bogdan", 29, 1123);	
+	addPerson(&db, "Dima", 13, 13123);
+	addPerson(&db, "Artur", 234, 5123);
+	addPerson(&db, "Ira", 45, 1233);
+	addPerson(&db, "Kirill", 5, 14123);
 
-	sortStorage(&db, byName, descending);         // byName, byAge, byEarnings //ascending ,descending 
+	//сортируем
+	//sortStorage(&db, byName, descending);         // byName, byAge, byEarnings //ascending ,descending 
 
+	//БЛОК КОДА для файлов Txt
+	//{
+	//	writeToFileTxt(&db);								//создаем и записываем в файл
+	//	freeStorage(&db);									//очистить память
+	//	size_t numberOfPerson = readNumberFromFileTxt();	//получить количество персонажей в файле
+	//	data database = initStorage(numberOfPerson);		//выделяем память 
+	//	readPersonsFromFileTxt(&database);					//читаем и заносим в память персонажей с файла
+	//	printStorage(&database);							//вывести то что лежит в памяти
+	//	freeStorage(&database);								//очистить память
+	//}
+	//КОНЕЦ БЛОКА
 	
 
-
-	//writeToFileBin(&db);
-	writeToFileTxt(&db);
-
-	//size_t numberOfPerson = readNumberFromFileDat(&db);
-	size_t numberOfPerson = readNumberFromFileTxt(&db);
-
-	dataFile databaseFile = initStorageForFile(numberOfPerson);
-	if (databaseFile.person == NULL) {
-		return -1;
+	//БЛОК КОДА для файлов bin
+	{
+		writeToFileBin(&db);				// создаем файл и записываем туда данные с динамической памяти 
+		freeStorage(&db);					// очищаем динамическую память 
+		data database = initStorage(10);	// выделяем динамическую память 
+		readPersonFromFileBin(&database);	// читаем даанные с файла и записываем в динамическую память
+		printStorage(&database);			//выводим в консоль что лежит в динамической памяти
+		freeStorage(&database);				// очищаем память
 	}
-	
-	//addPersonsFromFileBin(&databaseFile);
-	addPersonsFromFileTxt(&databaseFile);
-
-	printStorageFromFile(&databaseFile);
-	freeStorageFile(&databaseFile);
-
+	getch();
 	return 0;
 }

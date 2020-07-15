@@ -8,7 +8,7 @@
 int count = 0;
 
 
-
+//инициализируем память 
 data initStorage(size_t size) {
 	data db;
 	db.size = size;
@@ -20,10 +20,10 @@ data initStorage(size_t size) {
 	return db;
 }
 
-
-void addPerson(data* db, char* name, int age, double earnings) {
+//добавить персонажа
+void addPerson(data* db, char* name, int age, int earnings) {
 	for (size_t i = 0; i < db->size - 1; i++) {
-		if (db->persons[i].name != NULL) continue;
+		if (db->persons[i].name[0] != '\0') continue;
 		setName(&db->persons[i], name);
 		setAge(&db->persons[i], age);
 		setEarnings(&db->persons[i], earnings);
@@ -32,57 +32,66 @@ void addPerson(data* db, char* name, int age, double earnings) {
 	}
 }
 
-void setEarnings(person* per, double earnings) {
+//добавить в память (зарплату)
+void setEarnings(person* per, int earnings) {
 	per->earnings = earnings;
 }
 
+//добавить в память (возраст)
 void setAge(person* per, int age) {
 	per->age = age;
 }
 
+//добавить в память (имя)
 void setName(person* per, char* name) {
-	per->name = _strdup(name);
+	memcpy(per->name, name, 50);
 }
 
+//получить  (имя)
 int getName(person* per) {
 	return per->name;
 }
 
+//получить (возраст)
 int getAge(person* per) {
 	return per->age;
 }
 
-double getEarnings(person* per) {
+//получить (зарплату)
+int getEarnings(person* per) {
 	return per->earnings;
 }
 
+//вывод на консоль всего списка
 void printStorage(data* db) {
-	for (size_t i = 0; i < db->size - 1; i++) {
-		if (db->persons[i].name != NULL) {
+	for (size_t i = 0; i < db->size; i++) {
+		if (db->persons[i].name[0] != NULL) {
 			printf("name: %s\n", getName(&db->persons[i]));
 			printf("age: %d\n", getAge(&db->persons[i]));
-			printf("earnings: %.3f\n\n", getEarnings(&db->persons[i]));
+			printf("earnings: %d\n\n", getEarnings(&db->persons[i]));
 		}
 	}
 }
 
+//освобождение памяти
 void freeStorage(data* db) {
 	for (size_t i = 0; i < db->size - 1; i++) {
-		free(db->persons[i].name);
 		db->persons[i].age = 0;
 		db->persons[i].earnings = 0;
 	}
 	free(db->persons);
 	db->persons = NULL;
 	db->size = 0;
-
 }
 
+//сортировка по возрастанию или убыванию
 int compByNameDescending(const void* a, const void* b) {
 	const person* per = a;
 	const person* vtor = b;
 	return -strcmp(per->name, vtor->name);
 }
+
+
 int compByNameAscending(const void* a, const void* b) {
 	const person* per = a;
 	const person* vtor = b;
@@ -113,6 +122,7 @@ int compByEarningsAscending(const void* a, const void* b) {
 	return (per->earnings) - (vtor->earnings);
 }
 
+
 void sortStorage(data* db, int parametr, int sequence) {
 	switch (parametr)
 	{
@@ -141,56 +151,99 @@ void sortStorage(data* db, int parametr, int sequence) {
 		}
 		break;
 	}
-
 }
 
+
+//записать в бинарный файл
 int writeToFileBin(data* db){
+
+	//открываем или создаем файл
 	FILE* stream = NULL;
 	errno_t error = fopen_s(&stream, "phoneDAT.dat", "wb");
 
+	//проверка открыт ли файл
 	if (stream == NULL || error) {
 		printf("fuck you\n");
 		getch();
 		return -1;
 	}
 
-	for (size_t i = 0; i < count; i++) {
-		fprintf(stream, "%s %d %.3f\n", getName(&db->persons[i]), getAge(&db->persons[i]), getEarnings(&db->persons[i]));
+	//записываем данные в файл
+	for (int i = 0; i < db->size; i++)
+	{		
+		fprintf(stream, "%-49s %-d  %-d  ", db->persons[i].name, db->persons[i].age, db->persons[i].earnings);
 	}
 	fclose(stream);
 	return 0;
 }
 
+// записывает данные с файла в динамическую память
+int readPersonFromFileBin(data* db) {
+	
+	// создаем буферы
+	int age = 0;
+	int earnings = 0;
+	char name[50] = { 0x00 };
 
+	//открываем или создаем файл
+	FILE* stream = NULL;
+	errno_t error = fopen_s(&stream, "phoneDAT.dat", "rb");
+
+	//проверка открыт ли файл
+	if (stream == NULL || error) {
+		printf("fuck you\n");
+		getch();
+		return -1;
+	}
+
+	int i = 0;					//для передвижения между persons
+	while (!feof(stream)) {		//пока не конец файла
+		
+		// читаем с файла в буферы
+		fscanf(stream, "%s %d %d", name, &age, &earnings);
+
+		// записываем в динамическую память
+		setName(&db->persons[i], name);
+		setAge(&db->persons[i], age);
+		setEarnings(&db->persons[i], earnings);
+		i++;					//переходим к следующему person
+	}
+	return 0;
+}
+
+
+//записать в файл типа txt
 int writeToFileTxt(data* db) {
+
+	//открываем или создаем файл 
 	FILE* stream = NULL;
 	errno_t error = fopen_s(&stream, "phoneTXT.txt", "w");
 
+	//проверка открылся ли файл
 	if (stream == NULL || error) {
 		printf("fuck you\n");
 		getch();
 		return -1;
 	}
 
+	//записать в файл данные
 	for (size_t i = 0; i < count; i++) {
-		fprintf(stream, "%s %d %.3f\n", getName(&db->persons[i]), getAge(&db->persons[i]), getEarnings(&db->persons[i]));
+		fprintf(stream, "%s %d %d\n", getName(&db->persons[i]), getAge(&db->persons[i]), getEarnings(&db->persons[i]));
 	}
-	fclose(stream);
+	fclose(stream);		//закрыть файл
 	return 0;
 }
 
-
-size_t readNumberFromFileDat(data* db) {
+//функция возвращает количество персонажей записанных в файле
+size_t readNumberFromFileTxt() {
 	FILE* stream = NULL;
-	errno_t error = fopen_s(&stream, "phoneDAT.dat", "rb");
+	errno_t error = fopen_s(&stream, "phoneTXT.txt", "r");
 
 	if (stream == NULL || error) {
 		printf("fuck you\n");
 		getch();
 		return -1;
 	}
-
-	freeStorage(db);
 
 	int ch;
 	size_t numberOfPerson = 0;
@@ -201,116 +254,33 @@ size_t readNumberFromFileDat(data* db) {
 		}
 	}
 	fclose(stream);
-	return numberOfPerson;
+	return numberOfPerson + 1;
 }
 
-size_t readNumberFromFileTxt(data* db) {
+//считывает информацию с файла в динамическую память
+int readPersonsFromFileTxt(data* db) {
 	FILE* stream = NULL;
 	errno_t error = fopen_s(&stream, "phoneTXT.txt", "r");
-
+	
 	if (stream == NULL || error) {
 		printf("fuck you\n");
 		getch();
 		return -1;
 	}
+	//буферы 
+	unsigned char name[50];
+	int earnings = 0;
+	int age = 0;
+	
+	int i = 0;   //для смещения между персонажами
 
-	freeStorage(db);
-
-	int ch;
-	size_t numberOfPerson = 0;
-
-	while ((ch = fgetc(stream)) != EOF) {
-		if (ch == '\n') {
-			numberOfPerson++;
-		}
-	}
-	fclose(stream);
-	return numberOfPerson;
-}
-
-dataFile initStorageForFile(size_t numberOfPerson){
-	dataFile databaseFile;
-	databaseFile.size = numberOfPerson;
-	databaseFile.person = calloc(numberOfPerson, sizeof(personFromFile));
-	if (databaseFile.person == NULL) {
-		printf("memore not alloc");
-		return databaseFile;
-	}
-	return databaseFile;
-}
-
-int addPersonsFromFileTxt(dataFile* databaseFile) {
-	FILE* stream = NULL;
-	errno_t error = fopen_s(&stream, "phoneTXT.txt", "r");
-
-	char name[30];
-	char earnings[20];
-	char age[4];
-	int i = 0;
-
-	while (fscanf(stream, "%s%s%s", name, age, earnings) != EOF) {
-		setNameForFile(&databaseFile->person[i], name);
-		setAgeForFile(&databaseFile->person[i], age);
-		setEarningsForFile(&databaseFile->person[i], earnings);
+	//получаем данные с файла и заносим в динамическую память
+	while ((fscanf(stream, "%s%d%d", name, &age, &earnings)) != EOF) {
+		setName(&db->persons[i], name);
+		setAge(&db->persons[i], age);
+		setEarnings(&db->persons[i], earnings);
 		i++;
 	}
 	fclose(stream);
 	return 0;
-}
-
-int addPersonsFromFileBin(dataFile* databaseFile) {
-	FILE* stream = NULL;
-	errno_t error = fopen_s(&stream, "phoneDAT.dat", "rb");
-
-	char name[30];
-	char earnings[20];
-	char age[4];
-	int i = 0;
-
-	while (fscanf(stream, "%s%s%s", name, age, earnings) != EOF) {
-		setNameForFile(&databaseFile->person[i], name);
-		setAgeForFile(&databaseFile->person[i], age);
-		setEarningsForFile(&databaseFile->person[i], earnings);
-		i++;
-	}
-	fclose(stream);
-	return 0;
-}
-
-int setNameForFile(personFromFile* person, char* name) {
-	memcpy(person->name, name,30);
-}
-
-int setAgeForFile(personFromFile* person, char* age) {
-	memcpy(person->age, age, 4);
-}
-
-int setEarningsForFile(personFromFile* person, char* earnings) {
-	memcpy(person->earnings, earnings, 20);
-}
-
-
-void printStorageFromFile(dataFile* db){
-	for (size_t i = 0; i < db->size ; i++) {
-		printf("name: %s\n", getNameFile(&db->person[i]));
-		printf("age: %s\n", getAgeFile(&db->person[i]));
-		printf("earnings: %s\n\n", getEarningsFile(&db->person[i]));
-	}
-}
-
-int getNameFile(personFromFile* person) {
-	return person->name;
-}
-
-int getAgeFile(personFromFile* person) {
-	return person->age;
-}
-
-int getEarningsFile(personFromFile* person) {
-	return person->earnings;
-}
-
-void freeStorageFile(dataFile* db) {
-	free(db->person);
-	db->person = NULL;
 }

@@ -145,6 +145,12 @@
   <ItemGroup>
     <ClInclude Include="algorithm.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="phoneTXT.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="phoneDAT.dat" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

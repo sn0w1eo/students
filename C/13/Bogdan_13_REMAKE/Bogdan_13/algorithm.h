@@ -1,35 +1,18 @@
 #ifndef ALGORITM_H
 #define ALGORITM_H
 
-//file
-//отдельные структуры для Файлов
-
-typedef struct {
-	char name[30];
-	char earnings[20];
-	char age[4];
-}personFromFile;
-
-typedef struct {
-	size_t size;
-	personFromFile* person;
-}dataFile;
-/// 
-/// 
-/// 
+//структура каждого персонажа
 typedef struct Person {
-	double earnings;
-	char* name;
+	unsigned char name[50];
+	int earnings;
 	int age;
 } person;
-
 
 
 typedef struct Data {
 	size_t size;
 	person* persons;
 }data;
-
 
 enum parametr {
 	byName = 0,
@@ -42,24 +25,27 @@ enum sequence {
 	descending
 };
 
-data initStorage(size_t size);
-void addPerson(data* database, char* name, int age, double earnings);
 
-void setEarnings(person* person, double earnings);
+data initStorage(size_t size);										//выделение памяти
+void addPerson(data* database, char* name, int age, int earnings);	//добавить персонажа в память
+
+//добавлят в память (зарплату, возрвст, имя)
+void setEarnings(person* person, int earnings);
 void setAge(person* person, int age);
 void setName(person* person, char* name);
 
-
+//возвращает (имя, возраст, зарплату)
 int getName(person* person);
 int getAge(person* person);
-double getEarnings(person* person);
+int getEarnings(person* person);
 
-void printStorage(data* database);
-void freeStorage(data* database);
-void sortStorage(data* database, int parametr, int sequence);
+void printStorage(data* database);	//вывести на консоль данные в динамической памяти
+void freeStorage(data* database);	//очистить динамическую память
 
+void sortStorage(data* database, int parametr, int sequence);	// сортировать данные динамической памяти
 
-int compByNameAscending(const void* person1, const void* person2);
+//сортировка по (возрастанию и убыванию (имя, возраст, зарплата))
+int compByNameAscending(const void* person1, const void* person2);	
 int compByNameDescending(const void* person1, const void* person2);
 
 int compByAgeDescending(const void* person1, const void* person2);
@@ -69,23 +55,13 @@ int compByEarningsDescending(const void* person1, const void* person2);
 int compByEarningsAscending(const void* person1, const void* person2);
 
 //записывает в файл данные с выделенной памяти
-int writeToFileBin(data* database); 
+int writeToFileBin(data* db);
 int writeToFileTxt(data* database);
 
-//вычисляет количество людей записанных в файл
-size_t readNumberFromFileDat(data* database);
-size_t readNumberFromFileTxt(data* database);
+//функция возвращает количесто персон в текстовом файле
+size_t readNumberFromFileTxt();
 
-// выделяет память для чтения с файла 
-dataFile initStorageForFile(size_t numberOfPerson);
-
-//добавляет в выделенную память данные с файла
-int addPersonsFromFileBin(dataFile* databaseFile);
-int addPersonsFromFileTxt(dataFile* databaseFile);
-
-//выводит на экран записанные данные 
-void printStorageFromFile(dataFile* db);
-
-//освобождает память
-void freeStorageFile(dataFile* db);
+//записать в динамическую память данные с файла
+int readPersonsFromFileTxt(data* db);
+int readPersonFromFileBin(data* db);
 #endif
