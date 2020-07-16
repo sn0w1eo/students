@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{918F6EE3-7D05-4146-9DAD-644569C847E7}</ProjectGuid>
-    <RootNamespace>binaryfile</RootNamespace>
+    <ProjectGuid>{95730750-6198-4624-936C-C04A1052ACDA}</ProjectGuid>
+    <RootNamespace>File</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -138,13 +138,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="compare.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="operations.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="compare.h" />
     <ClInclude Include="operations.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="phoneBook.dat" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="phoneBook.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
