@@ -3,9 +3,9 @@
 
 typedef struct
 {
-	char name[30];    // Имя     30 
-	char number[30];  // Номер   30
-	char age[5];      // Возраст 5
+	char* name;    // Имя     30 
+	char* number;  // Номер   30
+	char* age;      // Возраст 5
 }contact;
 
 // Add person to array 
@@ -25,5 +25,7 @@ void writeToText(FILE* , contact* );
 
 // Read from FILE to array
 void readFileToArray();
+
+void strcopy(char*, const char*);
 
 #endif // !OPERATIONS_H

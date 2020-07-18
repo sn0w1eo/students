@@ -5,13 +5,23 @@
 #include "string.h"
 #include "operations.h"
 
+void strcopy(char* dest, const char* source)
+{
+	while (*dest++ = *source++);
+}
 
 // Add person to array
 void add(contact* person, char name[30], char number[30], char age[5])
 {
-	strcpy(person->name, name);
-	strcpy(person->number, number);
-	strcpy(person->age, age);
+	size_t len = strlen(name);
+	person->name = malloc(len+1);
+	strcopy(person->name, name);
+	len = strlen(number);
+	person->number = malloc(len + 1);
+	strcopy(person->number, number);
+	len = strlen(age);
+	person->age = malloc(len + 1);
+	strcopy(person->age, age);
 }
 
 // Write persons to text FILE
@@ -30,7 +40,8 @@ void changeZeroToSpace(contact* person)
 		for (int i = 0; i < 30; i++)
 		{
 			if (person[k].name[i] == 0x00)    // If the line ends with zero 
-				person[k].name[i] = ' ';      //  then we change to a space
+				person[k].name[i] = ' ';
+			//  then we change to a space
 			if (person[k].number[i] == 0x00)  //
 				person[k].number[i] = ' ';    //
 		}
