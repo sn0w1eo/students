@@ -30,11 +30,11 @@ int main() {
 
 	printf("\nREAD BINARY FILE:\n");
 	binContact* readDat = calloc(10, sizeof(contact));
-	//saveToBin(users);
-	readDAT(users, readDat);
+	saveToBin(users);
+	//readDAT(users, readDat);
 	printf("\nREAD TEXT FILE: \n");
 	//saveToText(users);
-      readTextFile(users);
+    //readTextFile(users);
 
 	//freeMemory(users);
 	return 0;

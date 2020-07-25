@@ -77,16 +77,13 @@ int readTextFile( contact* strg) {
 void saveToBin(contact* strg) {
 	int size = getSize(*strg); // узнаем размер
 	FILE* stream = fopen("Report.dat", "wb");
-
-
-	for (int i = 0; i < busy; i++)
-	{
+	binContact* tempSaver = calloc(10, sizeof(binContact));
+	
+	for(int i=0;i<busy;i++){
+		setName(tempSaver, strg[i].name);
+		setNumber(tempSaver, strg[i].number);
 		
-		if (strg->name != NULL)
-		{
-			fprintf(stream, "%-30s %-30s %-30s %-10s", strg[i].name, strg[i].number, strg[i].email, strg[i].zipCode);
-			
-		}
+		fwrite(tempSaver, sizeof(tempSaver), 1, stream);
 	}
 
 	fclose(stream);
