@@ -1,72 +1,46 @@
-#include "sqlite3.h"
-#include "stdio.h"
+#include "functions.h"
 //http://zetcode.com/db/sqlitec/ инфу брал здесь
-//функция обратного вызова используемая в функции sqlite3_exec()
-int callback(void* NotUsed,		//обычно не используется (передается 4й аргумент функции sqlite3_exec)
-	int numberOfElements,		//количество элементов в строке
-	char** arrayOfText,			//массив в который записывается данные строки
-	char** azColName)			//массив в который записывается имена полей
-{
-	NotUsed = 0;
-	for (int i = 0; i < numberOfElements; i++) {
-		printf("%-10s   ", arrayOfText[i]);
-	}
-	printf("\n");
-	return 0;
-}
+
 
 int main() {
-	sqlite3* db;			//дескриптор на базу данных
-	char* err_msg = NULL;	//указатель на ошибку
 
-	int exit = sqlite3_open("database.db", &db);	//открываем или создаем файл 
+	database phoneDB;		//создаем структуру в которой всё для SQL кода
+	phoneDB.err_msg = NULL;
+	phoneDB.sql = NULL;
+
 	
-	if (exit != SQLITE_OK) {	//проверка на открытие файла
-		printf("Error, can't open: %d %s\n", exit, sqlite3_errmsg(db));
-		sqlite3_close(db);	//закрываем дискриптор 
+	//всегда выполняем проверку на правильность исполнения программы
+	if (openDatabase(&phoneDB, "database.db") != 0) {//открываем (создаём) файл где будет наша БД
 		return -1;
 	}
-	else {
-		printf("database created\n\n");
+	if (createTable(&phoneDB) != 0){			//создаем таблицу
+		return -1;
 	}
 
-	//код SQL который после передаем в функццию
-	char* sql = "CREATE TABLE IF NOT EXISTS phoneBook(Id INTEGER PRIMARY KEY, Name TEXT, Phone INT);"	//создаем таблицу с полями
-		"INSERT INTO phoneBook VALUES(1, 'Dima', 123);"					//добавляем информацию в таблицу
-		"INSERT INTO phoneBook (Name, Phone) VALUES('Kirill', 3456);"	//PRIMARY KEY заполняется автоматически
-		"INSERT INTO phoneBook VALUES(3, 'Bogdan', 4423);"
-		"INSERT INTO phoneBook VALUES(4, 'Nastya', 6223);"
-		"INSERT INTO phoneBook VALUES(5, 'Lera', 2334);"
-		"INSERT INTO phoneBook VALUES(6, 'Bob', 357);"
-		"INSERT INTO phoneBook VALUES(7, 'Boris', 3736);"
-		"INSERT INTO phoneBook VALUES(8, 'Lola', 2562);";
-	//Исполняем код SQL
-	exit = sqlite3_exec(db, sql, 0, 0, &err_msg);
-	// проверка на добавление в таблицу
-	if (exit != SQLITE_OK) {
-		printf("table not created: %d %s\n", exit, sqlite3_errmsg(db));
-		sqlite3_free(err_msg);	//очищаем сообщение об ошибке
-		sqlite3_close(db);	//закрываем дискриптор 
-		return -1;
-	}
-	sql = "SELECT * FROM phoneBook";
-	//Исполняем код SQL
-	exit = sqlite3_exec(db, sql, callback, 0, &err_msg);
-	// проверка 
-	if (exit != SQLITE_OK) {
-		printf("failed to withdraw: %d %s\n", exit, sqlite3_errmsg(db));
-		sqlite3_free(err_msg);	//очищаем сообщение об ошибке
-		sqlite3_close(db);	//закрываем дискриптор 
-		return -1;
-	}
-	exit = sqlite3_exec(db, "DROP TABLE IF EXISTS phoneBook;", NULL, NULL, err_msg);
-	if (exit != SQLITE_OK) {
-		printf("failed to DROP DB: %d %s\n", exit, sqlite3_errmsg(db));
-		sqlite3_free(err_msg);	//очищаем сообщение об ошибке
-		sqlite3_close(db);	//закрываем дискриптор 
-		return -1;
-	}
-	sqlite3_free(err_msg);
-	sqlite3_close(db);
+	//в таблицу вносим данные(имя и телефон)
+	if (addPerson(&phoneDB, "Dima", 123) != 0) return -1;
+	if (addPerson(&phoneDB, "Kril", 156) != 0) return -1;
+	if (addPerson(&phoneDB, "Nastya", 8674) != 0) return -1;
+	if (addPerson(&phoneDB, "Konstantin", 58557) != 0) return -1;
+	if (addPerson(&phoneDB, "Bogdan", 165848) != 0) return -1;
+	if (addPerson(&phoneDB, "Nurdoolot", 44574) != 0) return -1;
+	if (addPerson(&phoneDB, "Safi", 598) != 0) return -1;
+
+	//удаляем людей из БД
+	//можно удалить по (Id, Name, Phone)
+	if (deletePerson(&phoneDB, ID, 5, NULL, NULL) !=0) return -1;		
+	if (deletePerson(&phoneDB, NAME, NULL, "Bogdan", NULL) != 0) return -1;
+	if (deletePerson(&phoneDB, PHONE, NULL, NULL, 123) != 0) return -1;
+
+	//обновляем инфу в БД
+	//updatePerson(1. указатель на структуру, 2. имя которое хотим изменить. 3. номер который хотим изменить. 4 и 5 на что хотим изменить)
+	if (updatePerson(&phoneDB, "Nastya", 8674, "Anastasiya", 123) != 0) return -1;
+	if (updatePerson(&phoneDB, "Kril", 156, "Kirill", NULL) != 0) return -1;
+
+	//выводим на консоль БД
+	if (printPersons(&phoneDB) != 0) return -1;
+	
+	//удаляем таблицу в БД и очищаем память
+	if (dropTable(&phoneDB) != 0) return -1;
 	return 0;
 }
