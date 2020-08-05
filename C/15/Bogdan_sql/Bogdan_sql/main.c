@@ -23,6 +23,9 @@ int main() {
 	if (addPerson(&phoneDB, "Nastya", 8674) != 0) return -1;
 	if (addPerson(&phoneDB, "Konstantin", 58557) != 0) return -1;
 	if (addPerson(&phoneDB, "Bogdan", 165848) != 0) return -1;
+	//если имя повторяется то не заносит в бд
+	if (addPerson(&phoneDB, "Nurdoolot", 44574) != 0) return -1;
+	if (addPerson(&phoneDB, "Nurdolot", 44574) != 0) return -1;
 	if (addPerson(&phoneDB, "Nurdoolot", 44574) != 0) return -1;
 	if (addPerson(&phoneDB, "Safi", 598) != 0) return -1;
 

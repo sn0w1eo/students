@@ -33,7 +33,7 @@ int openDatabase(database* phoneDB, char* nameDatabase) {
 
 int createTable(database* phoneDB) {
 	//в буфер вписываем SQL команду
-	phoneDB->sql = "CREATE TABLE IF NOT EXISTS phoneBook(Id INTEGER PRIMARY KEY, Name TEXT, Phone INT);";	//создаем таблицу с полями
+	phoneDB->sql = "CREATE TABLE IF NOT EXISTS phoneBook(Id INTEGER PRIMARY KEY, Name TEXT NOT NULL UNIQUE, Phone INT);";	//создаем таблицу с полями(имя уникальное)
 	phoneDB->exit = sqlite3_exec(phoneDB->db, phoneDB->sql, 0, 0, phoneDB->err_msg);			//компилирует SQL команду
 	// проверка на добавление в таблицу
 	if (errorCheck(phoneDB) != 0) {
@@ -47,9 +47,10 @@ int addPerson(database* phoneDB, const char* name, const unsigned int phone) {
 
 	//создаем буфер
 	phoneDB->sql = NULL;
-	phoneDB->sql = calloc(100, sizeof(char));
+	phoneDB->sql = calloc(200, sizeof(char));
 
-	sprintf(phoneDB->sql, "INSERT INTO phoneBook (Name, Phone) VALUES('%s', %d);", name,phone);  //заносим в буфер команду SQL
+	//заносим в буфер команду SQL
+	sprintf(phoneDB->sql, "INSERT OR IGNORE INTO phoneBook (Name, Phone) VALUES('%s', %d);", name,phone);  //если имя повторяется то не заносит в БД
 
 	phoneDB->exit = sqlite3_exec(phoneDB->db, phoneDB->sql, 0, 0, phoneDB->err_msg);	//компилируем 
 	if (errorCheck(phoneDB) != 0) {
