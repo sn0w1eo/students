@@ -31,14 +31,14 @@ int main() {
 
 	//удаляем людей из БД
 	//можно удалить по (Id, Name, Phone)
-	if (deletePerson(&phoneDB, ID, 5, NULL, NULL) !=0) return -1;		
-	if (deletePerson(&phoneDB, NAME, NULL, "Bogdan", NULL) != 0) return -1;
-	if (deletePerson(&phoneDB, PHONE, NULL, NULL, 123) != 0) return -1;
+	if (deletePerson(&phoneDB, ID, 5, (const char)NULL, (const int)NULL) !=0) return -1;
+	if (deletePerson(&phoneDB, NAME, (const int)NULL, "Bogdan", (const int)NULL) != 0) return -1;
+	if (deletePerson(&phoneDB, PHONE, (const int)NULL, (const char)NULL, 123) != 0) return -1;
 
 	//обновляем инфу в БД
 	//updatePerson(1. указатель на структуру, 2. имя которое хотим изменить. 3. номер который хотим изменить. 4 и 5 на что хотим изменить)
 	if (updatePerson(&phoneDB, "Nastya", 8674, "Anastasiya", 123) != 0) return -1;
-	if (updatePerson(&phoneDB, "Kril", 156, "Kirill", NULL) != 0) return -1;
+	if (updatePerson(&phoneDB, "Kril", 156, "Kirill", (const int)NULL) != 0) return -1;
 
 	//выводим на консоль БД
 	if (printPersons(&phoneDB) != 0) return -1;
