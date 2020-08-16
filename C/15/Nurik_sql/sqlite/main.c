@@ -6,17 +6,17 @@
 int main()
 { 
     initDB("MyPhoneBook.db");                                                           // open DB and check our DB Function Result
-    createTable("CREATE TABLE IF NOT EXISTS PhoneBook(Id INT, Name TEXT, Age INT);");   // create table named "PhoneBook" if not exists
+    createTable("PhoneBook");                                                           // create table named "PhoneBook" if not exists
 
-    insertPersonToDB("INSERT INTO PhoneBook VALUES(1, 'David', 23);");                  // add contact to .db
-    insertPersonToDB("INSERT INTO PhoneBook VALUES(2, 'Thomas', 24);");                 // add contact to .db
-    insertPersonToDB("INSERT INTO PhoneBook VALUES(3, 'Daniel', 26);");                 // add contact to .db
+    insertPersonToDB("David",  "12312323");                                             // add contact to .db
+    insertPersonToDB("Thomas", "12332124");                                             // add contact to .db
+    insertPersonToDB("Daniel", "99999999");                                             // add contact to .db
     
-    deletePersonFromDB("DELETE FROM PhoneBook WHERE Id = 2;");                          // delete contact where id = 2
-    updatePersonFromDB("UPDATE PhoneBook SET Name = 'Raman', Age = 20 WHERE id = 1;");  // update first value
-    selectPersonsFromDB("SELECT * FROM PhoneBook;");                                    // read from BD
+    deletePersonFromDB(NAME, "David");                                                  // delete contact where NAME = "David"
+    updatePersonFromDB("Daniel", PHONE, "88888888");                                    // update PHONE where NAME = "Daniel" 
+    selectPersonsFromDB();                                                              // read from BD
 
-    dropTable("DROP TABLE IF EXISTS PhoneBook;");                                       // delete if we have a table named "PhoneBook"
+   /* dropTable();    */                                                                // delete if we have a table named "PhoneBook"
 
     sqlite3_close(db);                                                                  //  function closes the database connection
 
