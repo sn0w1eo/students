@@ -1,0 +1,7 @@
+ID|Name             |Age |Phone number     |
+
+1 |artem            |23  |332              |
+
+2 |asd              |43  |adsdasd          |
+
+3 |asdasd           |23  |asdas2323        |
