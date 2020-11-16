@@ -1,0 +1,35 @@
+"WinApi_hp.exe" (Win32). Загружено "C:\Users\admin\source\repos\WinApi_hp\x64\Debug\WinApi_hp.exe". Символы загружены.
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\ntdll.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\kernel32.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\KernelBase.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\user32.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\win32u.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\gdi32.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\gdi32full.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\msvcp_win.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\ucrtbase.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\vcruntime140d.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\ucrtbased.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\imm32.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\uxtheme.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\msvcrt.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\combase.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\rpcrt4.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\bcryptprimitives.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\msctf.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\oleaut32.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\sechost.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\advapi32.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\kernel.appcore.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\TextInputFramework.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\CoreUIComponents.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\CoreMessaging.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\SHCore.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\ntmarta.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\WinTypes.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\iertutil.dll". 
+"WinApi_hp.exe" (Win32). Загружено "C:\Windows\System32\ole32.dll". 
+Поток 0x2c30 завершился с кодом 0 (0x0).
+Поток 0xf8 завершился с кодом 0 (0x0).
+Поток 0x3500 завершился с кодом 0 (0x0).
+Программа "[3500] WinApi_hp.exe" завершилась с кодом 0 (0x0).
