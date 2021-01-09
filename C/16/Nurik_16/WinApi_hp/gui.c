@@ -89,7 +89,7 @@ void deleteContactDB(struct phoneDB* pdb, int ID) {
 }
 
 // Find Rowid
-int	 parseID(wchar_t* buffer) {
+int parseID(wchar_t* buffer) {
     wchar_t value[10];
     int j = 0, k, i = 0, ID;
     for (j = i + 1; ; i++, j++) {
@@ -107,7 +107,7 @@ int	 parseID(wchar_t* buffer) {
 }
 
 // Add Rowid for new Contact
-void  addID(wchar_t* NameW, int idDB) {
+void addID(wchar_t* NameW, int idDB) {
     wchar_t buffer[ARR_SIZE] = { 0 };
     swprintf(buffer, ARR_SIZE, L"%s ID %d", NameW, idDB);
     swprintf(NameW, L"%s", buffer);

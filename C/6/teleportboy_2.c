@@ -2,11 +2,12 @@
 #include "windows.h"
 #include "time.h"
 #include "math.h"
-#define UP				0xE048
-#define LEFT			0xE04B
-#define RIGHT		0xE04D
-#define DOWN       0xE050
-#define ESC			   	 0x1B
+
+#define UP             0xE048
+#define LEFT           0xE04B
+#define RIGHT          0xE04D
+#define DOWN           0xE050
+#define ESC            0x1B
 
 void MakeGameField(unsigned char array[22][42], int blocks);
 int CheckBlock(unsigned char gameField[22][42], int row, int column, int key);
@@ -48,7 +49,7 @@ int main()
 
 	system("cls"); 	//отчистить экран перед игрой
 
-	//запуск игры . . .	
+	//запуск игры . . .
 	MakeGameField(gameField, blocks);
 	DisplayGameField(gameField);
 	DisplayPathway(gameField);
@@ -320,8 +321,9 @@ int CheckVictory(unsigned char gameField[22][42], int row, int column,int stepsC
 	}
 	else return 1;
 }
-//вывод  игрового поля
-void DisplayGameField(unsigned char  array[22][42])
+
+//вывод игрового поля
+void DisplayGameField(unsigned char array[22][42])
 {
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 	COORD cursorPosition;
