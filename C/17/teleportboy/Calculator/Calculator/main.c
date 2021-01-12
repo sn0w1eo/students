@@ -11,6 +11,7 @@
 #define OPERATION_COMPLETED     1
 #define OPERATION_INCOMPLETED   0
 
+#define NO_OPERATION           -1
 #define ADDITION                0
 #define SUBTRACTION             1
 #define MULTIPLICATION          2
@@ -25,22 +26,32 @@
 
 #define QUIT_COMMAND            "quit"
 
-typedef struct Arguments
-{ 
+typedef struct function_arguments
+{
 	double              first_number;
 	double              second_number;
-
 	unsigned int        pthreads_id[THREADS_COUNT];
+}function_arguments;
 
-	pthread_mutex_t     mutex;
-	sem_t               semaphore;
+typedef struct pthreads_objects
+{
+	pthread_mutex_t     main_thread_mutex;
 	pthread_cond_t      main_thread_cond_var;
-	pthread_cond_t      child_thread_cond_var;
-	pthread_barrier_t   barrier;
-}Arguments;
+	sem_t               semaphore;
+	pthread_barrier_t   all_threads_barrier;
+	pthread_barrier_t   child_threads_barrier;
+}pthreads_objects;
+
+typedef struct function_variables
+{
+	function_arguments arguments;
+	pthreads_objects   threads_objects;
+}function_variables;
 
 void* do_operation(void* arguments);
 int read_numbers(double* first_number, double* second_number);
+int generate_numbers(double* first_number, double* second_number, int lower_limit, int upper_limit, int count);
+
 void set_console_cursor(int x, int y);
 void set_console_color(int color);
 void set_thread_color(unsigned int* threads_id, unsigned int thread_id);
@@ -48,36 +59,42 @@ void display_threads_info();
 
 int main()
 {
-	Arguments arguments = { .first_number = 1, .second_number = 1, .pthreads_id = { 0 } };
+	srand(time(0));
+	
+	//Слагаемые для арифметических операций и элементы примитивов синхронизации.
+	function_variables func_variables;
+	function_arguments* func_arguments = &func_variables.arguments;
+	pthreads_objects* thread_objects = &func_variables.threads_objects;
+	
 	pthread_t pthreads[THREADS_COUNT];
 
 	display_threads_info();
-	
-	pthread_mutex_init(&arguments.mutex, NULL);
-	pthread_cond_init(&arguments.child_thread_cond_var, NULL);
-	pthread_cond_init(&arguments.main_thread_cond_var, NULL);
-	pthread_barrier_init(&arguments.barrier, NULL, THREADS_COUNT);
-	sem_init(&arguments.semaphore, 0, 1);
+
+	pthread_mutex_init(&thread_objects->main_thread_mutex, NULL);
+	pthread_cond_init(&thread_objects->main_thread_cond_var, NULL);
+	sem_init(&thread_objects->semaphore, 0, 1);
+	pthread_barrier_init(&thread_objects->all_threads_barrier, NULL, THREADS_COUNT + 1);
+	pthread_barrier_init(&thread_objects->child_threads_barrier, NULL, THREADS_COUNT);
+
 
 	for (int i = 0; i < THREADS_COUNT; i++) {
-		pthread_create(&pthreads[i], NULL, do_operation, (void*)&arguments);
-		arguments.pthreads_id[i] = pthreads[i].p;
+		pthread_create(&pthreads[i], NULL, do_operation, (void*)&func_variables);
+		func_arguments->pthreads_id[i] = pthreads[i].p;
+	}
+	
+	//generate_numbers(&func_arguments->first_number, &func_arguments->second_number, 1, 100, 10000)
+	//read_numbers(&arguments.first_number, &arguments.second_number)
+	while (read_numbers(&func_arguments->first_number, &func_arguments->second_number)) {
+
+		pthread_barrier_wait(&thread_objects->all_threads_barrier);
+
+		pthread_cond_wait(&thread_objects->main_thread_cond_var, &thread_objects->main_thread_mutex);
 	}
 
-	//Основной цикл
-	while (read_numbers(&arguments.first_number, &arguments.second_number)) {
-		//После ввода данных, отправить сигнал всем остальным тредам,
-		//а после ждать сигнала от них.
-		pthread_cond_broadcast(&arguments.child_thread_cond_var);
-		pthread_cond_wait(&arguments.main_thread_cond_var, &arguments.mutex);
-	}
-
-	pthread_mutex_destroy(&arguments.mutex);
-	pthread_cond_destroy(&arguments.child_thread_cond_var);
-	pthread_cond_destroy(&arguments.main_thread_cond_var);
-	pthread_barrier_destroy(&arguments.barrier);
-	sem_destroy(&arguments.semaphore);
-	pthread_barrier_destroy(&arguments.barrier);
+	pthread_cond_destroy(&thread_objects->main_thread_cond_var);
+	pthread_barrier_destroy(&thread_objects->all_threads_barrier);
+	sem_destroy(&thread_objects->semaphore);
+	pthread_barrier_destroy(&thread_objects->all_threads_barrier);
 
 	for (int i = 0; i < THREADS_COUNT; i++) {
 		pthread_cancel(pthreads[i]);
@@ -86,26 +103,30 @@ int main()
 	return 0;
 }
 
-void* do_operation(void* arg)
+void* do_operation(void* func_arguments)
 {
-	//Хранит результат арифмитической операции.
-	double operation_result = 0;
-
 	//Переменная логически принимает значения в диапазоне от -1 до 3,
 	//где каждой цифре от 0 до 3 соответствует своя арифмитическая операция.
-	static int current_operation_id = -1;
+	static int current_operation_id = NO_OPERATION;
 
 	//Счётчик выполненных операций.
 	static int operations_done = 0;
 
-	Arguments* arguments = (Arguments*)arg;
-	
+	//Слагаемые для арифметических операций и элементы примитивов синхронизации.
+	function_variables* func_variables = (function_variables*)func_arguments;
+	function_arguments* arguments = &func_variables->arguments;
+	pthreads_objects* thread_objects = &func_variables->threads_objects;
+
 	while (1) {
-		//Ожидание сигнала который поступит после ввода данных.
-		pthread_cond_wait(&arguments->child_thread_cond_var, &arguments->mutex);
+		//Хранит результат арифмитической операции.
+		double operation_result = 0;
+
+		//Пройти через барьер можно только после очередных изменений в переменных
+		//структуры function_arguments - first_number и second_number
+		pthread_barrier_wait(&thread_objects->all_threads_barrier);
 
 		//Критическая секция
-		sem_wait(&arguments->semaphore);
+		sem_wait(&thread_objects->semaphore);
 
 		//Взависимости от ID текущего треда в критической секции поменять цвет.
 		set_thread_color(arguments->pthreads_id, pthread_self().p);
@@ -146,52 +167,23 @@ void* do_operation(void* arg)
 			break;
 		}
 
-		// ;DDD
+		//Ко-во выполненных операций
 		if (++operations_done % OPERATIONS_COUNT == 0) {
 			set_console_color(WHITE);
 			set_console_cursor(0, 3);
 			printf("Total operations: %d", operations_done / OPERATIONS_COUNT);
 		}
 
-		sem_post(&arguments->semaphore);
-		pthread_mutex_unlock(&arguments->mutex);
+		sem_post(&thread_objects->semaphore);
 
-		//Ожидать выполнения всех 4-х дочерних тред,
-		//а затем отправить сигнал главной треде
-		pthread_barrier_wait(&arguments->barrier);
-		pthread_cond_signal(&arguments->main_thread_cond_var);
+		//Ожидать выполнения всех дочерних тред (функция do_operation),
+		//а затем отправить сигнал главной треде (функция main).
+		if (pthread_barrier_wait(&thread_objects->child_threads_barrier) == PTHREAD_BARRIER_SERIAL_THREAD) {
+			pthread_cond_signal(&thread_objects->main_thread_cond_var);
+		}
 	}
 
 	return NULL;
-}
-
-void set_thread_color(unsigned int* threads_id, unsigned int thread_id)
-{
-	if (threads_id[0] == thread_id) {
-		set_console_color(GREEN);
-	} else if (threads_id[1] == thread_id) {
-		set_console_color(BLUE);
-	} else if (threads_id[2] == thread_id) {
-		set_console_color(RED);
-	} else {
-		set_console_color(YELLOW);
-	}
-}
-
-void display_threads_info()
-{
-	set_console_color(GREEN);
-	set_console_cursor(90, 5);
-	printf("Thread #1 - GREEN");
-	set_console_color(BLUE);
-	set_console_cursor(90, 6);
-	printf("Thread #2 - BLUE");
-	set_console_color(RED);
-	set_console_cursor(90, 7);
-	printf("Thread #3 - RED");
-	set_console_color(YELLOW);
-	set_console_cursor(90, 8);
-	printf("Thread #4 - YELLOW");
 }
 
 int read_numbers(double* first_number, double* second_number)
@@ -218,7 +210,54 @@ int read_numbers(double* first_number, double* second_number)
 
 	*first_number = atof(first_num);
 	*second_number = atof(second_num);
+
 	return TRUE;
+}
+
+int generate_numbers(double* first_number, double* second_number, int lower_limit, int upper_limit, int count)
+{
+	static int counter = -1;
+
+	*first_number = rand() % upper_limit + lower_limit;
+	*second_number = rand() % upper_limit + lower_limit;
+
+	if (++counter == count) {
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+void set_thread_color(unsigned int* threads_id, unsigned int thread_id)
+{
+	if (threads_id[0] == thread_id) {
+		set_console_color(GREEN);
+	}
+	else if (threads_id[1] == thread_id) {
+		set_console_color(BLUE);
+	}
+	else if (threads_id[2] == thread_id) {
+		set_console_color(RED);
+	}
+	else {
+		set_console_color(YELLOW);
+	}
+}
+
+void display_threads_info()
+{
+	set_console_color(GREEN);
+	set_console_cursor(90, 5);
+	printf("Thread #1 - GREEN");
+	set_console_color(BLUE);
+	set_console_cursor(90, 6);
+	printf("Thread #2 - BLUE");
+	set_console_color(RED);
+	set_console_cursor(90, 7);
+	printf("Thread #3 - RED");
+	set_console_color(YELLOW);
+	set_console_cursor(90, 8);
+	printf("Thread #4 - YELLOW");
 }
 
 void set_console_cursor(int x, int y)
