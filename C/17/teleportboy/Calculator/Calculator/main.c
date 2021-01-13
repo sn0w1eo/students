@@ -8,8 +8,6 @@
 
 #define OPERATIONS_COUNT        4
 #define THREADS_COUNT           4
-#define OPERATION_COMPLETED     1
-#define OPERATION_INCOMPLETED   0
 
 #define NO_OPERATION           -1
 #define ADDITION                0
@@ -68,37 +66,41 @@ int main()
 	
 	pthread_t pthreads[THREADS_COUNT];
 
-	display_threads_info();
-
 	pthread_mutex_init(&thread_objects->main_thread_mutex, NULL);
 	pthread_cond_init(&thread_objects->main_thread_cond_var, NULL);
 	sem_init(&thread_objects->semaphore, 0, 1);
 	pthread_barrier_init(&thread_objects->all_threads_barrier, NULL, THREADS_COUNT + 1);
 	pthread_barrier_init(&thread_objects->child_threads_barrier, NULL, THREADS_COUNT);
 
-
 	for (int i = 0; i < THREADS_COUNT; i++) {
 		pthread_create(&pthreads[i], NULL, do_operation, (void*)&func_variables);
 		func_arguments->pthreads_id[i] = pthreads[i].p;
 	}
-	
-	//generate_numbers(&func_arguments->first_number, &func_arguments->second_number, 1, 100, 10000)
-	//read_numbers(&arguments.first_number, &arguments.second_number)
-	while (read_numbers(&func_arguments->first_number, &func_arguments->second_number)) {
 
+	display_threads_info();
+
+	//generate_numbers(&func_arguments->first_number, &func_arguments->second_number, 1, 100, 10000) - EMULATION
+	//read_numbers(&arguments.first_number, &arguments.second_number) - NO_EMULATION
+
+	while (generate_numbers(&func_arguments->first_number, &func_arguments->second_number, 1, 10, 10000)) {
+		//Как только сюда попадает тред, это сигнализирует дочерним тредам в функции do_operation
+		//что данные в слагаемых first_number и second_number обновлены и ими можно пользоваться.
 		pthread_barrier_wait(&thread_objects->all_threads_barrier);
-
+		
+		//Затем эта треда засыпает до тех пор пока остальные треды не выполняет все ариф. операции.
 		pthread_cond_wait(&thread_objects->main_thread_cond_var, &thread_objects->main_thread_mutex);
 	}
-
-	pthread_cond_destroy(&thread_objects->main_thread_cond_var);
-	pthread_barrier_destroy(&thread_objects->all_threads_barrier);
-	sem_destroy(&thread_objects->semaphore);
-	pthread_barrier_destroy(&thread_objects->all_threads_barrier);
 
 	for (int i = 0; i < THREADS_COUNT; i++) {
 		pthread_cancel(pthreads[i]);
 	}
+
+	//Освободить использованную память.
+	pthread_mutex_destroy(&thread_objects->main_thread_mutex);
+	pthread_cond_destroy(&thread_objects->main_thread_cond_var);
+	pthread_barrier_destroy(&thread_objects->all_threads_barrier);
+	pthread_barrier_destroy(&thread_objects->child_threads_barrier);
+	sem_destroy(&thread_objects->semaphore);
 
 	return 0;
 }
@@ -121,59 +123,60 @@ void* do_operation(void* func_arguments)
 		//Хранит результат арифмитической операции.
 		double operation_result = 0;
 
-		//Пройти через барьер можно только после очередных изменений в переменных
-		//структуры function_arguments - first_number и second_number
+		//Пройти через барьер можно только после очередных изменений значений
+		//в переменых структуры function_arguments - first_number и second_number.
 		pthread_barrier_wait(&thread_objects->all_threads_barrier);
 
-		//Критическая секция
+		//Критическая секция.
 		sem_wait(&thread_objects->semaphore);
 
 		//Взависимости от ID текущего треда в критической секции поменять цвет.
 		set_thread_color(arguments->pthreads_id, pthread_self().p);
 
-		//При попадании в критическую секцию инкрементируем
+		//При попадании в критическую секцию инкрементируем current_operation_id
 		//и взависимости от её значения выполняем ариф. операцию.
 		switch (++current_operation_id)
 		{
-		case ADDITION:
-			operation_result = arguments->first_number + arguments->second_number;
-			set_console_cursor(0, 1);
-			printf("%.2lf + %.2lf = %.2lf          ",
-				arguments->first_number, arguments->second_number, operation_result);
-			break;
+			case ADDITION:
+				operation_result = arguments->first_number + arguments->second_number;
+				set_console_cursor(0, 1);
+				printf("%.2lf + %.2lf = %.2lf          ",
+					arguments->first_number, arguments->second_number, operation_result);
+				break;
 
-		case SUBTRACTION:
-			operation_result = arguments->first_number - arguments->second_number;
-			set_console_cursor(30, 1);
-			printf("%.2lf - %.2lf = %.2lf          ",
-				arguments->first_number, arguments->second_number, operation_result);
-			break;
+			case SUBTRACTION:
+				operation_result = arguments->first_number - arguments->second_number;
+				set_console_cursor(30, 1);
+				printf("%.2lf - %.2lf = %.2lf          ",
+					arguments->first_number, arguments->second_number, operation_result);
+				break;
 
-		case MULTIPLICATION:
-			operation_result = arguments->first_number * arguments->second_number;
-			set_console_cursor(60, 1);
-			printf("%.2lf * %.2lf = %.2lf          ",
-				arguments->first_number, arguments->second_number, operation_result);
-			break;
+			case MULTIPLICATION:
+				operation_result = arguments->first_number * arguments->second_number;
+				set_console_cursor(60, 1);
+				printf("%.2lf * %.2lf = %.2lf          ",
+					arguments->first_number, arguments->second_number, operation_result);
+				break;
 
-		case DIVISION:
-			operation_result = arguments->first_number / arguments->second_number;
-			set_console_cursor(90, 1);
-			printf("%.2lf / %.2lf = %.2lf          ",
-				arguments->first_number, arguments->second_number, operation_result);
-			//Т.к. операция деления выполняется последней по порядку,
-			//то сброс значения этой переменной происходит именно здесь.
-			current_operation_id = -1;
-			break;
+			case DIVISION:
+				operation_result = arguments->first_number / arguments->second_number;
+				set_console_cursor(90, 1);
+				printf("%.2lf / %.2lf = %.2lf          ",
+					arguments->first_number, arguments->second_number, operation_result);
+				//Т.к. операция деления выполняется последней по порядку,
+				//то сброс значения этой переменной происходит именно здесь.
+				current_operation_id = -1;
+				break;
 		}
 
-		//Ко-во выполненных операций
+		//Ко-во выполненных операций.
 		if (++operations_done % OPERATIONS_COUNT == 0) {
 			set_console_color(WHITE);
 			set_console_cursor(0, 3);
 			printf("Total operations: %d", operations_done / OPERATIONS_COUNT);
 		}
 
+		//Конец критической секции.
 		sem_post(&thread_objects->semaphore);
 
 		//Ожидать выполнения всех дочерних тред (функция do_operation),
@@ -220,6 +223,11 @@ int generate_numbers(double* first_number, double* second_number, int lower_limi
 
 	*first_number = rand() % upper_limit + lower_limit;
 	*second_number = rand() % upper_limit + lower_limit;
+
+	set_console_color(GREY);
+	set_console_cursor(0, 5);
+	printf("Enter first  number: %.2lf        \n", *first_number);
+	printf("Enter second  number: %.2lf        \n", *second_number);
 
 	if (++counter == count) {
 		return FALSE;
