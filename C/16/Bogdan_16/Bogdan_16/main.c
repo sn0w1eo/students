@@ -1,5 +1,8 @@
 #include "winapi.h"
 
+//ВАЖНО!!! 
+//НЕ ВВОДИТЬ ОДИНАКОВЫЕ ИМЕНА
+//ИНАЧЕ РАЗРАБОТЧИК ЗА СОКРАННОСТЬ ВАШЕЙ НЕРВНОЙ СИСТЕМЫ ОТВЕТСТВЕННОСТИ НЕ НЕСЕТ
 
 
 
@@ -7,13 +10,6 @@
 database phoneDB;
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
-void createWindowElements(HWND hwnd);					//создание всех элементов окна
-void openAndCreateBD();									//создание и открытие БД
-void addButton(HWND hwnd);								//обработка кнопки add
-void printPhoneOfPerson(HWND hwnd);						//показывает данные лежащие в БД			
-void InitListBox(HWND hwndListBox);						//заполняет listBox именами
-void deleteButton(HWND hwnd);							//обработка кнопки delete
-void updateButton(HWND hwnd);							//обработка кнопки update
 
 
 
