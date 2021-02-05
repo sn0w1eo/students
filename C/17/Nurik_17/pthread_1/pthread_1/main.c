@@ -6,22 +6,22 @@
 #include "windows.h"
 
 // number of operations
-#define SUM				0
-#define	DIFFERENCE		1
-#define	MULTIPLICATION  2
-#define	DIVISION		3
+#define SUM				 0
+#define	DIFFERENCE		 1
+#define	MULTIPLICATION   2
+#define	DIVISION		 3
 // maximum of something 
-#define MAX_THREADS		4
-#define MAX_VALUES		11
-#define MAX_COLORS		15
-#define MAX_OF_RAND_NUM 10000
+#define MAX_THREADS		 4
+#define MAX_VALUES		 11
+#define MAX_COLORS		 15
+#define MAX_OF_RAND_NUM  100000
 // time to start other threads
-#define MAIN_SLEEP		100
+#define MAIN_SLEEP		 100
 // constant colors
-#define WHITE			15
-#define LIGHTMAGENTA	13
+#define WHITE			 15
+#define LIGHTMAGENTA	 13
 // exit
-#define QUIT			-2
+#define QUIT			 -2
 
 typedef struct {
 	// handler 
@@ -176,9 +176,10 @@ void writeNum(obj* Object) {
 	setCoordinate(0, 10);
 
 	// write first arg
-	printf("Enter first number: ");
+	printf("Enter first number:            ");
+	setCoordinate(21, 10);
 	scanf("%s", first_input);
-	printf("           ");
+
 
 	// check first value
 	if (strcmp(first_input, "quit") == 0) {
@@ -187,7 +188,8 @@ void writeNum(obj* Object) {
 		// set coordinate
 		setCoordinate(0, 11);
 		// write second arg
-		printf("Enter second number: ");
+		printf("Enter second number:            ");
+		setCoordinate(21, 11);
 		scanf("%s", second_input);
 		printf("           ");
 		// converts string to integer
