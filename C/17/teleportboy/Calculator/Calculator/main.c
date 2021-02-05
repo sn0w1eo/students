@@ -50,6 +50,7 @@ void* do_operation(void* arguments);
 int read_numbers(double* first_number, double* second_number);
 int generate_numbers(double* first_number, double* second_number, int lower_limit, int upper_limit, int count);
 
+void display_numbers(double first_number, double second_number, int x, int y);
 void set_console_cursor(int x, int y);
 void set_console_color(int color);
 void set_thread_color(unsigned int* threads_id, unsigned int thread_id);
@@ -80,9 +81,10 @@ int main()
 	display_threads_info();
 
 	//generate_numbers(&func_arguments->first_number, &func_arguments->second_number, 1, 100, 10000) - EMULATION
-	//read_numbers(&arguments.first_number, &arguments.second_number) - NO_EMULATION
+	//read_numbers(&func_arguments->first_number, &func_arguments->second_number) - NO_EMULATION
 
-	while (generate_numbers(&func_arguments->first_number, &func_arguments->second_number, 1, 10, 10000)) {
+	while (read_numbers(&func_arguments->first_number, &func_arguments->second_number)) {
+		display_numbers(func_arguments->first_number, func_arguments->second_number, 0, 5);
 		//Как только сюда попадает тред, это сигнализирует дочерним тредам в функции do_operation
 		//что данные в слагаемых first_number и second_number обновлены и ими можно пользоваться.
 		pthread_barrier_wait(&thread_objects->all_threads_barrier);
@@ -196,7 +198,7 @@ int read_numbers(double* first_number, double* second_number)
 
 	set_console_color(GREY);
 	set_console_cursor(0, 5);
-	printf("Enter first  number:          ");
+	//printf("Enter first  number:          ");
 	set_console_cursor(21, 5);
 	scanf("%s", first_num);
 	if (!strcmp(first_num, QUIT_COMMAND)) {
@@ -204,7 +206,7 @@ int read_numbers(double* first_number, double* second_number)
 	}
 
 	set_console_cursor(0, 6);
-	printf("Enter second number:          ");
+	//printf("Enter second number:          ");
 	set_console_cursor(21, 6);
 	scanf("%s", second_num);
 	if (!strcmp(second_num, QUIT_COMMAND)) {
@@ -219,37 +221,36 @@ int read_numbers(double* first_number, double* second_number)
 
 int generate_numbers(double* first_number, double* second_number, int lower_limit, int upper_limit, int count)
 {
-	static int counter = -1;
+	static int counter = 0;
+	if (counter++ < count) {
 
-	*first_number = rand() % upper_limit + lower_limit;
-	*second_number = rand() % upper_limit + lower_limit;
+		*first_number = rand() % upper_limit + lower_limit;
+		*second_number = rand() % upper_limit + lower_limit;
 
-	set_console_color(GREY);
-	set_console_cursor(0, 5);
-	printf("Enter first  number: %.2lf        \n", *first_number);
-	printf("Enter second  number: %.2lf        \n", *second_number);
-
-	if (++counter == count) {
-		return FALSE;
+		return TRUE;
 	}
 
-	return TRUE;
+	return FALSE;
+}
+
+void display_numbers(double first_number, double second_number, int x, int y)
+{
+	set_console_color(GREY);
+	set_console_cursor(x, y);
+	printf("Enter first  number: %.2lf        \n", first_number);
+	printf("Enter second number: %.2lf        \n", second_number);
 }
 
 void set_thread_color(unsigned int* threads_id, unsigned int thread_id)
 {
+	//прикол с else
 	if (threads_id[0] == thread_id) {
 		set_console_color(GREEN);
-	}
-	else if (threads_id[1] == thread_id) {
+	} else if (threads_id[1] == thread_id) {
 		set_console_color(BLUE);
-	}
-	else if (threads_id[2] == thread_id) {
+	} else if (threads_id[2] == thread_id) {
 		set_console_color(RED);
-	}
-	else {
-		set_console_color(YELLOW);
-	}
+	} else set_console_color(YELLOW);
 }
 
 void display_threads_info()
