@@ -88,6 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,7 +140,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="console_io.c" />
+    <ClCompile Include="hash_table.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="utility.c" />
+    <ClCompile Include="waitgroup.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="console_io.h" />
+    <ClInclude Include="general.h" />
+    <ClInclude Include="hash_table.h" />
+    <ClInclude Include="include_libs.h" />
+    <ClInclude Include="utility.h" />
+    <ClInclude Include="waitgroup.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
