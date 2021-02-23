@@ -6,19 +6,22 @@
 typedef struct {
 	pthread_mutex_t mu;
 	int counter;
-} WaitGroup;
+} wait_group;
 
 // возвращает инициализированную структуру
-WaitGroup CreateWG();
+wait_group сreate_wg();
 
 // добавляет к счётчику количество (amount)
-void WG_Add(WaitGroup* wg, int amount);
+void wg_add(wait_group* wg, int amount);
 
 // уменьшает счётчик на 1
-void WG_Done(WaitGroup* wg);
+void wg_done(wait_group* wg);
+
+// ждет всех тредов
+void wg_wait(wait_group* wg);
 
 // возвращает 1 если счётчик равен 0. 
 // в противном случае возвращает 0
-int WG_IsEmpty(WaitGroup* wg);
+int wg_is_empty(wait_group* wg);
 
 #endif // WAITGROUP_H

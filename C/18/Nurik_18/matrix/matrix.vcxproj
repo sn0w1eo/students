@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{34240b4e-2f2f-4b8a-a005-b874b20ff46c}</ProjectGuid>
-    <RootNamespace>Nurik18matrix</RootNamespace>
+    <ProjectGuid>{a62e7431-0c4d-4a42-9665-0d5a91aa63a7}</ProjectGuid>
+    <RootNamespace>matrix</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -140,21 +140,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="check.c" />
-    <ClCompile Include="destroy.c" />
+    <ClCompile Include="list.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="coord_color.c" />
-    <ClCompile Include="rand.c" />
     <ClCompile Include="waitgroup.c" />
-    <ClCompile Include="win_api.c" />
+    <ClCompile Include="winapi.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="check.h" />
-    <ClInclude Include="coord_color.h" />
-    <ClInclude Include="destroy.h" />
+    <ClInclude Include="list.h" />
     <ClInclude Include="object.h" />
-    <ClInclude Include="rand.h" />
     <ClInclude Include="waitgroup.h" />
-    <ClInclude Include="win_api.h" />
+    <ClInclude Include="winapi.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -21,19 +21,13 @@
     <ClCompile Include="waitgroup.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="winapi.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="list.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
     <ClCompile Include="check.c">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="rand.c">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="coord_color.c">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="win_api.c">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="destroy.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,22 +35,16 @@
     <ClInclude Include="waitgroup.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="check.h">
+    <ClInclude Include="winapi.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="rand.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="coord_color.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="win_api.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="destroy.h">
+    <ClInclude Include="list.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="object.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="check.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
