@@ -11,7 +11,6 @@
 #pragma comment(lib, "winmm")
 
 int main() {
-
 	//Full scrin
 	maximize_window();
 
@@ -19,7 +18,8 @@ int main() {
 	system("chcp 932 > nul");
 	diplay_info();
 
-	PlaySoundW(TEXT("1234.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+	//Music
+	PlaySoundW(TEXT("..\\MatrixSimulator\\1234.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 	waveOutSetVolume(0, OFF);
 
 	object obj;
