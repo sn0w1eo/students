@@ -11,7 +11,6 @@ void init_object(object* obj)
 	obj->pressed_key = 0;
 	obj->hash_table = init_hash_table(get_console_height() + 2);
 	sem_init(&obj->semaphore, 0, 1);
-	pthread_cond_init(&obj->input_cond, NULL);
 	pthread_barrier_init(&obj->barrier, NULL, 2);
 
 	obj->wg.threads_counter = 0;
@@ -56,6 +55,20 @@ int random_number(int min_value, int max_value)
 unsigned char random_char(int min_ascii, int max_ascii)
 {
 	return random_number(min_ascii, max_ascii);
+}
+
+void maximize_window()
+{
+	HANDLE hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleDisplayMode(hstdout, CONSOLE_FULLSCREEN_MODE, 0);
+	
+	COORD window_coords = { 0 };
+	window_coords.X = get_console_width();
+	window_coords.Y = get_console_height();
+	SetConsoleScreenBufferSize(hstdout, window_coords);
+
+	HWND console = GetConsoleWindow();
+	ShowScrollBar(console, SB_BOTH, FALSE);
 }
 
 int get_console_width()

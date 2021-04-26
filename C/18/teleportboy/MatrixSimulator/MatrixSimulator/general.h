@@ -9,7 +9,6 @@ typedef struct object
 	int                pressed_key;
 	int                flag;
 	int*               hash_table;
-	pthread_cond_t     input_cond;
 	sem_t              semaphore;
 	pthread_barrier_t  barrier;
 	wait_group         wg;

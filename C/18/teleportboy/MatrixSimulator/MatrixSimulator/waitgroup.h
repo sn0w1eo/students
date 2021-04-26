@@ -2,7 +2,6 @@
 
 #define WAITGROUP_H
 
-
 typedef struct wait_group {
 	pthread_mutex_t mutex;
 	int threads_counter;

@@ -30,6 +30,9 @@
     <ClCompile Include="utility.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="sound.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="waitgroup.h">
@@ -48,6 +51,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="include_libs.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="sound.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

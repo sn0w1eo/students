@@ -8,16 +8,16 @@
 void* keyboard_input(void* args)
 {
 	object* func_args = (object*)args;
-	wg_add(&func_args->wg, 1);
 
 	do {
-
+		//Read pressed key into memory
 		func_args->pressed_key = getch();
-		pthread_cond_signal(&func_args->input_cond);
+		//Wait until pressed key isn't handled
 		pthread_barrier_wait(&func_args->barrier);
 
 	} while (func_args->pressed_key != 'q');
 
+	//Thread is done
 	wg_done(&func_args->wg);
 
 	return NULL;
@@ -26,18 +26,23 @@ void* keyboard_input(void* args)
 void* input_handler(void* args)
 {
 	object* func_args = (object*)args;
-	wg_add(&func_args->wg, 1);
+
 	pthread_t thread;
-	pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-
+	int current_key = 0;
+	
 	do {
-		pthread_cond_wait(&func_args->input_cond, &mutex);
-
-		switch (func_args->pressed_key)
+		//Wait until key isn't pressed
+		pthread_barrier_wait(&func_args->barrier);
+		
+		//Input key handling
+		current_key = func_args->pressed_key;
+		switch (current_key)
 		{
 		case '+':
 			send_signal(func_args, ADD_THREAD);
+
 			pthread_create(&thread, NULL, string_to_console, (void*)func_args);
+			wg_add(&func_args->wg, 1);
 			break;
 
 		case '-':
@@ -47,15 +52,11 @@ void* input_handler(void* args)
 		case 'q':
 			send_signal(func_args, QUIT);
 			break;
-
-		default:
-			break;
 		}
-		pthread_barrier_wait(&func_args->barrier);
-	} while (func_args->pressed_key != 'q');
 
-	pthread_mutex_destroy(&mutex);
-
+	} while (func_args->pressed_key != 'q');	
+	
+	//Thread is done
 	wg_done(&func_args->wg);
 
 	return NULL;
@@ -64,7 +65,6 @@ void* input_handler(void* args)
 void* string_to_console(void* arg)
 {
 	object* arguments = (object*)arg;
-	wg_add(&arguments->wg, 1);
 
 	COORD coordinates = { .X = 0, .Y = 0 };
 	int console_height = get_console_height();
@@ -79,11 +79,9 @@ void* string_to_console(void* arg)
 		unsigned char alpha = 0;
 
 		for (int i = 0; i < string_length; i++) {
-
-			sem_wait(&arguments->semaphore);
-
 			alpha = random_char(166, 221);
-			coord_y = calculate_next_pos(coord_y, arguments->hash_table);
+			//Critical section
+			sem_wait(&arguments->semaphore);
 			int rc = print_char(alpha, coord_x, coord_y);
 			if (rc == 0) {
 				sem_post(&arguments->semaphore);
@@ -91,31 +89,29 @@ void* string_to_console(void* arg)
 			}
 			highlight_cursor(WHITE_BACKGROUND | FOREGROUND_GREEN, BLACK_BACKGROUND | FOREGROUND_GREEN,
 				coord_x, coord_y, arguments->hash_table);
-
-			coord_y = coord_y + 1;
-		
+			//End critical section
 			sem_post(&arguments->semaphore);
-			
+
+			coord_y = calculate_next_pos(coord_y + 1, arguments->hash_table);
 		}
 		sem_wait(&arguments->semaphore);
 		highlight_cursor(0, BLACK_BACKGROUND | FOREGROUND_GREEN,
 			coord_x, coord_y, arguments->hash_table);
 		sem_post(&arguments->semaphore);
 
+		//Print empty string
 		for (int i = 0; i < console_height; i++) {
 			sem_wait(&arguments->semaphore);
-			coord_y = calculate_next_pos(coord_y, arguments->hash_table);
 			int rc = print_char(' ', coord_x, coord_y);
 			if (rc == 0) {
 				sem_post(&arguments->semaphore);
 				break;
 			}
-
-			coord_y = coord_y + 1;
-			
 			sem_post(&arguments->semaphore);
 			
+			coord_y = calculate_next_pos(coord_y + 1, arguments->hash_table);
 		}
+
 	}
 
 	wg_done(&arguments->wg);
@@ -162,4 +158,23 @@ void set_console_color(int color, int x, int y)
 
 	FillConsoleOutputAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
 		color, 1, cursor_position, &a);
+}
+
+void diplay_info()
+{
+	set_console_cursor(100, 25);
+	printf("ADD THREAD:          key:  +");
+	set_console_cursor(100, 26);
+	printf("CLOSE RADNOM THREAD: key:  -");
+	set_console_cursor(100, 27);
+	printf("CLOSE PROGRAMM:      key:  q");
+	set_console_cursor(100, 28);
+
+	printf("SET MUSIC VOLUME:    keys: 1 - 5");
+	set_console_cursor(100, 29);
+	printf("OFF MUSIC:           key:  0");
+	set_console_cursor(100, 32);
+	printf("PRESS ANY KEY TO CONTINUE");
+	getch();
+	system("cls");
 }
