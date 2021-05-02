@@ -1,7 +1,7 @@
 #include "include_libs.h"
 #include "linked_list_adt.h"
 
-#define MUSIC_PATH_SIZE 150
+
 
 void dlist_init(dlist* list) 
 {

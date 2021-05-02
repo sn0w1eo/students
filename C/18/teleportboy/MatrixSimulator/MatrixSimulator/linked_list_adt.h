@@ -4,6 +4,8 @@
 
 #include "include_libs.h"
 
+#define MUSIC_PATH_SIZE 150
+
 typedef struct dlist_element {
 	char* data;
 	struct dlist_element* prev;
