@@ -1,8 +1,6 @@
 #include "include_libs.h"
 #include "linked_list_adt.h"
 
-
-
 void dlist_init(dlist* list) 
 {
 	list->size = 0;
@@ -12,6 +10,10 @@ void dlist_init(dlist* list)
 
 void append(dlist* list, char* new_data)
 {
+	if (!strcmp(new_data, "")) {
+		return;
+	}
+
 	dlist_element* node = (dlist_element*)malloc(sizeof(dlist_element));
 
 	node->data = _strdup(new_data);
