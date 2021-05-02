@@ -26,7 +26,9 @@ int main() {
 				   .rc = 0 };
 
 	// init semaphore
-	obj.rc = sem_init(&obj.sem, 0, 1);
+	obj.rc = sem_init(&obj.sem_threads, 0, 1);
+	exit_on_error(obj.rc, __LINE__);
+	obj.rc = sem_init(&obj.sem_flag, 0, 1);
 	exit_on_error(obj.rc, __LINE__);
 	
 	// main thread will manipulate with new threads 
@@ -38,7 +40,9 @@ int main() {
 	// destroy mutex && semaphore
 	obj.rc = pthread_mutex_destroy(&obj.wg.mu);
 	exit_on_error(obj.rc, __LINE__);
-	obj.rc = sem_destroy(&obj.sem);
+	obj.rc = sem_destroy(&obj.sem_threads);
+	exit_on_error(obj.rc, __LINE__);
+	obj.rc = sem_destroy(&obj.sem_flag);
 	exit_on_error(obj.rc, __LINE__);
 
 	return 0;
@@ -50,8 +54,6 @@ void manipulation_threads(Object* obj) {
 		// keyboard input 
 		obj->flag = _getch();
 		if (obj->flag == ADD) {
-			// add 1 thread to WG
-			wg_add(&obj->wg, 1);
 			pthread_t thread;
 			obj->rc = pthread_create(&thread, NULL, (void*)matrix, (void*)obj);
 			exit_on_error(obj->rc, __LINE__);
@@ -68,8 +70,10 @@ void* matrix(void* arg) {
 	node_t* list_for_space = NULL;
 	// take head of list
 	list = obj->list;
+	// add 1 thread to WG
+	wg_add(&obj->wg, 1);
 
-	while (!is_thread_close(&obj->flag)) {
+	while (!is_thread_close(obj)) {
 		// random coordinate and length
 		COORD coord_for_char = rand_coordinate(obj->width, obj->height - 1);
 		int length = random(0, MAX_LENGTH);
@@ -80,7 +84,8 @@ void* matrix(void* arg) {
 
 		for (int i = 0; i < length; i++) {
 			// binary semaphore
-			sem_wait(&obj->sem);
+			sem_wait(&obj->sem_threads);
+
 			// set coordinate
 			set_coord(coord_for_char.X, list->data);
 
@@ -91,8 +96,8 @@ void* matrix(void* arg) {
 			// and black background && green foreground for previos coordinate
 			set_colors(WHITE_BACKGROUND | GREEN_FOREGROUND, BLACK_BACKGROUND | GREEN_FOREGROUND, coord_for_char.X, list);
 
-			sleep_time(obj->wg.counter);
-			sem_post(&obj->sem);
+			// sleep_time(obj->wg.counter);
+			sem_post(&obj->sem_threads);
 
 			// next data
 			list = list->next;
@@ -102,13 +107,15 @@ void* matrix(void* arg) {
 		set_bkcolor(BLACK_BACKGROUND | GREEN_FOREGROUND, coord_for_char.X, list->data);
 
 		for (int i = 0; i < length; i++) {
-			sem_wait(&obj->sem);
+			sem_wait(&obj->sem_threads);
 
 			set_coord(coord_for_char.X, list_for_space->data);
 			printf(" ");
 
-			sleep_time(obj->wg.counter);
-			sem_post(&obj->sem);
+			// sleep_time(obj->wg.counter);
+			sem_post(&obj->sem_threads);
+			
+			// next data
 			list_for_space = list_for_space->next;
 		}
 	}

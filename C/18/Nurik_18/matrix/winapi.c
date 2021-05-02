@@ -82,7 +82,7 @@ void set_bkcolor(int color, int x, int y)
 }
 
 void set_colors(int next_color, int prev_color, int x, node_t* list) {
-	set_bkcolor(WHITE_BACKGROUND | GREEN_FOREGROUND, x, list->data);
+	// set_bkcolor(WHITE_BACKGROUND | GREEN_FOREGROUND, x, list->data);
 
 	list = list->prev;
 	set_bkcolor(BLACK_BACKGROUND | GREEN_FOREGROUND, x, list->data);

@@ -27,7 +27,7 @@ typedef struct {
 	// wait group
 	wait_group wg;
 	// semaphore
-	sem_t sem;
+	sem_t sem_threads, sem_flag;
 }Object;
 
 enum operations {

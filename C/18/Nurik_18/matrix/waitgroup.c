@@ -30,5 +30,5 @@ int wg_is_empty(wait_group* wg) {
 }
 
 void wg_wait(wait_group* wg) {
-	while (wg->counter != 0);
+	while (!wg_is_empty(wg));
 }
