@@ -12,4 +12,8 @@ int highlight_cursor(int foreground, int background, int coord_x, int coord_y, i
 void set_console_color(int color, int x, int y);
 void diplay_info();
 
+#define CLOSE_PROGRAM      1
+#define END_THREAD         2
+#define NEW_THREAD         3
+
 #endif // !CONSOLE_IO

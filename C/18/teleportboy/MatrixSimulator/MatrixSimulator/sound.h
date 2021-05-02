@@ -12,5 +12,5 @@
 #include "include_libs.h"
 
 void* change_sound_volume(void* args);
-
+Mix_Music* play_sound(char* sound_path, Mix_Music* music);
 #endif // !SOUND_H

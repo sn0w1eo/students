@@ -4,6 +4,7 @@
 #include "console_io.h"
 #include "hash_table.h"
 #include "utility.h"
+#include "sound.h"
 
 void* keyboard_input(void* args)
 {
@@ -15,7 +16,7 @@ void* keyboard_input(void* args)
 		//Wait until pressed key isn't handled
 		pthread_barrier_wait(&func_args->barrier);
 
-	} while (func_args->pressed_key != 'q');
+	} while (func_args->pressed_key != QUIT);
 
 	//Thread is done
 	wg_done(&func_args->wg);
@@ -28,6 +29,7 @@ void* input_handler(void* args)
 	object* func_args = (object*)args;
 
 	pthread_t thread;
+	dlist_element* current_node = func_args->music_list.head;
 	int current_key = 0;
 	
 	do {
@@ -38,23 +40,32 @@ void* input_handler(void* args)
 		current_key = func_args->pressed_key;
 		switch (current_key)
 		{
-		case '+':
-			send_signal(func_args, ADD_THREAD);
-
+		case ADD_THREAD:
+			send_signal(func_args, NEW_THREAD);
 			pthread_create(&thread, NULL, string_to_console, (void*)func_args);
 			wg_add(&func_args->wg, 1);
 			break;
 
-		case '-':
-			send_signal(func_args, CLOSE_THREAD);
+		case CLOSE_THREAD:
+			send_signal(func_args, END_THREAD);
 			break;
 
-		case 'q':
-			send_signal(func_args, QUIT);
+		case QUIT:
+			send_signal(func_args, CLOSE_PROGRAM);
+			break;
+
+		case PREV_MUSIC:
+			current_node = current_node->prev;
+			func_args->music = play_sound(get_node_data(current_node), func_args->music);
+			break;
+
+		case NEXT_MUSIC:
+			current_node = current_node->next;
+			func_args->music = play_sound(get_node_data(current_node), func_args->music);
 			break;
 		}
 
-	} while (func_args->pressed_key != 'q');	
+	} while (func_args->pressed_key != QUIT);
 	
 	//Thread is done
 	wg_done(&func_args->wg);
@@ -111,7 +122,6 @@ void* string_to_console(void* arg)
 			
 			coord_y = calculate_next_pos(coord_y + 1, arguments->hash_table);
 		}
-
 	}
 
 	wg_done(&arguments->wg);

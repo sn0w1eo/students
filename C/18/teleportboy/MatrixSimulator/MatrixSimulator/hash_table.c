@@ -25,3 +25,9 @@ int* init_hash_table(int size)
 
 	return hash_table;
 }
+
+void free_hashtable(int* hash_table)
+{
+	free(hash_table);
+	hash_table = NULL;
+}
